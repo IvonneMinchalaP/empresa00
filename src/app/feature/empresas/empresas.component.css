@@ -1,0 +1,35 @@
+.datagrid-wrapper {
+  margin: 0 auto; /* Centra el DataGrid */
+  padding: 0; /* Elimina espacios internos */
+  width: 100%; /* Asegura que el ancho no exceda el contenedor */
+  max-width: 1200px; /* Ajusta este valor según la pantalla o diseño */
+  overflow: hidden; /* Elimina desbordes innecesarios */
+  box-sizing: border-box; /* Incluye bordes y padding en el tamaño */
+}
+
+.datagrid-wrapper .dx-datagrid {
+  height: auto; /* Ajusta la altura según el contenido */
+  max-height: 400px; /* Limita la altura del DataGrid */
+  overflow: auto; /* Permite scroll si es necesario */
+}
+
+.datagrid-wrapper .dx-datagrid-content {
+  margin: 0; /* Elimina márgenes internos */
+  padding: 0; /* Elimina espacios adicionales */
+}
+
+.datagrid-wrapper .dx-datagrid-headers {
+  padding: 5px 0; /* Compacta la cabecera */
+}
+
+.datagrid-wrapper .dx-pager {
+  padding: 5px 0; /* Compacta el paginador */
+}
+
+.datagrid-wrapper .dx-row {
+  height: 30px; /* Reduce la altura de las filas */
+}
+
+.datagrid-wrapper .dx-header-row {
+  height: 40px; /* Reduce la altura de la cabecera */
+}

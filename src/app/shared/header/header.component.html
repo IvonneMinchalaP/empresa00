@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="header-title">Bienvenido al Sistema </div>
+  <div class="header-user">
+    <!-- Botón con icono que al hacer clic despliega el menú -->
+    <dx-button (click)="toggleMenu()">
+      <i class="fa fa-bars"></i> <!-- Ícono del menú -->
+    </dx-button>
+
+    <!-- Menú que se despliega debajo del botón -->
+    <div class="menu-container" [ngClass]="{'show': menuVisible}">
+      <div class="menu-item">Opción 1</div>
+    </div>
+  </div>
+</div>
+<!-- Opciones del menú 
+<div class="menu-item" (click)="logout()">Cerrar sesión</div>-->

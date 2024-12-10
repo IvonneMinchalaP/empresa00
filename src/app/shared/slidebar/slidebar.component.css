@@ -1,0 +1,79 @@
+/* Contenedor principal del sidebar y del contenido */
+.sidebar-container {
+  display: flex;
+  height: 100vh; /* Asegura que ocupe toda la altura */
+  position: relative;
+  overflow: hidden; /* Evita que el contenido se desborde */
+
+}
+
+
+/* Botón para mostrar/ocultar el sidebar */
+.menu-toggle {
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1002;
+}
+/* Estilo para el sidebar */
+/* .sidebar {
+  background-color: #7aa7d3;
+  width: 130px; 
+  height: 92%;
+  position: fixed; 
+  top: 0;
+  left: -250px; 
+  transform: translateX(0);
+  transition: transform 0.3s ease; 
+  z-index: 1000;
+
+} */
+/* Sidebar fijo en el lado izquierdo */
+.sidebar {
+  background-color: #7aa7d3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Ajusta el ancho del sidebar */
+  height: 100%;
+  z-index: 999;
+  padding: 10px;
+  transition: transform 0.3s ease; /* Transición suave al mostrar u ocultar el sidebar */
+}
+
+.sidebar-visible {
+  transform: translateX(0); /* Cuando está visible, el sidebar se mueve a la izquierda */
+}
+
+.sidebar-hidden {
+  transform: translateX(-250px); /* Cuando está oculto, se mueve fuera de la vista */
+}
+
+
+/* Clases que añaden visibilidad al sidebar */
+/* .sidebar-visible {
+  transform: translateX(250px); /
+} */
+
+/* Los items de la lista del menú */
+dx-menu {
+  width: 100%;
+  padding-top: 40px; 
+}
+
+/* Estilo para el contenido principal */
+.main-content {
+  margin-left: 0; /* No hay margen cuando el sidebar está oculto */
+  padding: 20px;
+  transition: margin-left 0.3s ease; 
+}
+
+.sidebar-visible ~ .main-content {
+  margin-left: 250px; 
+}

@@ -1,0 +1,93 @@
+/* Estilo del header */
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px; 
+  background-color: #2164a7;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 50px;
+  z-index: 999; 
+
+} */
+/* Header fijo en la parte superior */
+header {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2164a7;
+  color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que el header quede por encima del contenido */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 50px;
+}
+
+/* Título centrado en el header */
+.header-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+  margin: 0;
+}
+
+/* Estilo de los botones del header */
+.header-user {
+  display: flex;
+  align-items: center;
+  position: relative; /* Necesario para que el menú se posicione relativo a este contenedor */
+}
+
+/* Estilo del botón con ícono (Menú) */
+dx-button {
+  font-size: 20px;
+  padding: 6px 12px;
+  color: white;
+  background-color: #b6cee7;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover para los botones */
+dx-button:hover {
+  background-color: #b9e9e0;
+}
+
+/* Estilo para el menú */
+.menu-container {
+  display: none; 
+  position: absolute; 
+  top: 100%; 
+  left: 0;
+  background-color: #736fe5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  z-index: 800; 
+  width: 80px; 
+}
+
+.menu-container.show {
+  display: block; /* Muestra el menú cuando se le agrega la clase "show" */
+}
+
+/* Estilo para los items del menú */
+.menu-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  color: white; /* Color de texto blanco */
+  text-align: center;
+}
+
+.menu-item:hover {
+  background-color: #4b4f9b; /* Cambio de color al pasar el ratón */
+}
