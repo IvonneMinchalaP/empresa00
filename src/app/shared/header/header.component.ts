@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,19 +6,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  
-  menuVisible = false; // Inicialmente el menú está oculto
 
-  constructor(private router: Router) { }
+  isMenuOpen = false;
 
-  // Método para alternar la visibilidad del menú
   toggleMenu() {
-    this.menuVisible = !this.menuVisible;
+    this.isMenuOpen = !this.isMenuOpen;
   }
+
+  logout() {
+    console.log('Cerrando sesión...');
+    // Lógica para cerrar sesión (redireccionar o limpiar credenciales)
+  }
+  // // Alterna la visibilidad del submenú
+  // toggleUserMenu(): void {
+  //   this.userMenuVisible = !this.userMenuVisible;
+  // }
+
+  // // Navega al perfil del usuario
+  // navigateToProfile(): void {
+  //   console.log('Navegando al perfil del usuario...');
+    
+  // }
+
+  // // Lógica para cerrar sesión
+  // logout(): void {
+  //   console.log('Cerrando sesión...');
+  //    // Redirige a la página de login
+  //  // this.router.navigate(['/login']);
+  //   // Aquí iría la lógica para cerrar sesión
+  // }
+}
+
+
 
   // Método para redirigir al login
  // logout() {
     // Redirige a la página de login
    // this.router.navigate(['/login']);
   //}
-}
+

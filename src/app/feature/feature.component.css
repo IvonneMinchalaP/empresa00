@@ -1,0 +1,39 @@
+
+.card {
+  margin-bottom: 30px; }
+  .card .card-subtitle {
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #99abb4; }
+  .card .card-title {
+    position: relative; }
+
+    /* Botón de menú dentro del contenedor */
+
+/* Asegurar que el contenedor no ocupe demasiado espacio */
+#main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Asegura que el contenido ocupe todo el alto de la ventana */
+}
+
+.page-wrapper {
+  flex-grow: 1; /* Esto permite que el contenido crezca ocupando el espacio disponible */
+  overflow: hidden; /* Oculta cualquier contenido que desborde */
+}
+
+/* Asegura que el fondo no se "expanda" innecesariamente */
+.container-fluid {
+  padding: 15px; /* Se puede ajustar el espacio de los lados */
+  max-width: 100%; /* Evita que el contenedor ocupe más espacio de lo necesario */
+  overflow: hidden; /* Evita barras de desplazamiento no deseadas */
+}
+
+/* Optimización para dispositivos móviles */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    font-size: 20px; /* Más pequeño en dispositivos móviles */
+    top: 5px;
+    left: 5px;
+  }
+}

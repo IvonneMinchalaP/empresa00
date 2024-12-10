@@ -1,93 +1,103 @@
-/* Estilo del header */
-/* .header {
+.topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 5px 20px; 
-  background-color: #2164a7;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 50px;
-  z-index: 999; 
-
-} */
-/* Header fijo en la parte superior */
-header {
   justify-content: space-between;
-  align-items: center;
-  background-color: #2164a7;
+  background-color: #093f75;
   color: white;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* Asegura que el header quede por encima del contenido */
+  height: 50px; /* Altura compacta */
+  padding: 0 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 50px;
+  font-family: Arial, sans-serif;
+  position: relative;
 }
 
-/* Título centrado en el header */
-.header-title {
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  flex-grow: 1;
-  margin: 0;
-}
-
-/* Estilo de los botones del header */
-.header-user {
+/* Contenedor derecho: Logo y menú */
+.navbar-right {
   display: flex;
   align-items: center;
-  position: relative; /* Necesario para que el menú se posicione relativo a este contenedor */
+  gap: 10px; /* Espaciado entre logo y menú */
 }
 
-/* Estilo del botón con ícono (Menú) */
-dx-button {
-  font-size: 20px;
-  padding: 6px 12px;
+/* Logo */
+.logo {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Menú desplegable */
+.menu-wrapper {
+  position: relative;
+}
+
+/* Ícono del menú */
+.menu-icon {
+  background: none;
+  border: none;
   color: white;
-  background-color: #b6cee7;
-  border-radius: 4px;
-  margin-left: 10px;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-/* Hover para los botones */
-dx-button:hover {
-  background-color: #b9e9e0;
-}
-
-/* Estilo para el menú */
-.menu-container {
-  display: none; 
-  position: absolute; 
-  top: 100%; 
-  left: 0;
-  background-color: #736fe5;
+/* Menú oculto por defecto */
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0; /* Alineación del menú a la derecha */
+  background-color: white;
+  color: #343a40;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  z-index: 800; 
-  width: 80px; 
+  width: 150px;
+  display: none;
+  z-index: 1000;
 }
 
-.menu-container.show {
-  display: block; /* Muestra el menú cuando se le agrega la clase "show" */
+/* Mostrar menú al estar abierto */
+.menu-wrapper .dropdown-menu {
+  display: block;
 }
 
-/* Estilo para los items del menú */
-.menu-item {
+/* Opciones del menú */
+.dropdown-menu a {
+  display: block;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  color: white; /* Color de texto blanco */
+  font-size: 14px;
+  color: #d0dae3;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f8f9fa;
+}
+
+/* Título centrado */
+.navbar-title {
+  flex-grow: 1;
   text-align: center;
 }
 
-.menu-item:hover {
-  background-color: #4b4f9b; /* Cambio de color al pasar el ratón */
+.navbar-title h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar-title h1 {
+    font-size: 14px;
+  }
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+  .menu-icon {
+    font-size: 16px;
+  }
 }

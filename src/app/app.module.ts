@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeatureModule } from './feature/feature.module';
 import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
     AppRoutingModule,
     FeatureModule,
     DxMenuModule,
-    DxButtonModule
+    DxButtonModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

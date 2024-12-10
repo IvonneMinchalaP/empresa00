@@ -1,79 +1,84 @@
-/* Contenedor principal del sidebar y del contenido */
-.sidebar-container {
-  display: flex;
-  height: 100vh; /* Asegura que ocupe toda la altura */
-  position: relative;
-  overflow: hidden; /* Evita que el contenido se desborde */
-
-}
-
-
-/* Botón para mostrar/ocultar el sidebar */
-.menu-toggle {
-  font-size: 30px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1002;
-}
-/* Estilo para el sidebar */
-/* .sidebar {
-  background-color: #7aa7d3;
-  width: 130px; 
-  height: 92%;
-  position: fixed; 
-  top: 0;
-  left: -250px; 
-  transform: translateX(0);
-  transition: transform 0.3s ease; 
-  z-index: 1000;
-
-} */
-/* Sidebar fijo en el lado izquierdo */
-.sidebar {
-  background-color: #7aa7d3;
+/* Contenedor del sidebar */
+.left-sidebar {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 250px; /* Ajusta el ancho del sidebar */
+  left: -250px; /* Sidebar oculto por defecto fuera de la pantalla */
+  width: 250px; /* Ancho del sidebar cuando se despliega */
   height: 100%;
+  background-color: #34495e; /* Color de fondo */
+  transition: left 0.3s ease; /* Animación de desplazamiento para el sidebar */
   z-index: 999;
-  padding: 10px;
-  transition: transform 0.3s ease; /* Transición suave al mostrar u ocultar el sidebar */
+  overflow: hidden;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Centra los íconos del menú */
 }
 
-.sidebar-visible {
-  transform: translateX(0); /* Cuando está visible, el sidebar se mueve a la izquierda */
+/* Botón para desplegar/ocultar el sidebar */
+
+.sidebar-toggle {
+  position: absolute;
+  top: 10px; /* Ajusta la distancia desde la parte superior */
+  left: 10px; /* Ajusta la distancia desde la parte izquierda */
+  cursor: pointer;
+  color: white;
+  font-size: 24px; /* Reducido para hacerlo más discreto */
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.sidebar-hidden {
-  transform: translateX(-250px); /* Cuando está oculto, se mueve fuera de la vista */
+
+/* Sidebar visible */
+.left-sidebar.open {
+  left: 0; /* Mueve el sidebar a la posición 0 cuando está visible */
 }
 
+/* Estilo de los enlaces del menú */
+.sidebar-nav {
+  list-style-type: none;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 70px; /* Ajuste para que el menú no se superponga al botón */
+}
 
-/* Clases que añaden visibilidad al sidebar */
-/* .sidebar-visible {
-  transform: translateX(250px); /
-} */
-
-/* Los items de la lista del menú */
-dx-menu {
+.sidebar-nav li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px; /* Espaciado más reducido */
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+  border-radius: 6px;
+  transition: all 0.3s ease;
   width: 100%;
-  padding-top: 40px; 
+  justify-content: flex-start; /* Alinea los elementos a la izquierda */
 }
 
-/* Estilo para el contenido principal */
-.main-content {
-  margin-left: 0; /* No hay margen cuando el sidebar está oculto */
-  padding: 20px;
-  transition: margin-left 0.3s ease; 
+/* Efecto cuando se pasa el ratón */
+.sidebar-nav li a:hover {
+  background-color: #1abc9c;
+  color: white; /* Color blanco al pasar el ratón */
 }
 
-.sidebar-visible ~ .main-content {
-  margin-left: 250px; 
+/* Estilo para el ícono del menú */
+.mdi-menu {
+  font-size: 30px;
+}
+
+/* Cuando el sidebar está visible, los íconos cambian de tamaño y se alinean */
+.left-sidebar.open .sidebar-nav li a i {
+  margin-right: 10px;
+  font-size: 20px; /* Tamanño del ícono más pequeño cuando el sidebar está expandido */
+}
+
+/* Estilo de la etiqueta de conteo */
+.label-rouded {
+  background-color: #2980b9;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
 }

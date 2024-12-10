@@ -1,35 +1,196 @@
+.container {
+  max-width: 1000px;
+  overflow-x: auto;
+  margin: 2px;
+  padding: 1px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
 .datagrid-wrapper {
-  margin: 0 auto; /* Centra el DataGrid */
-  padding: 0; /* Elimina espacios internos */
-  width: 100%; /* Asegura que el ancho no exceda el contenedor */
-  max-width: 1200px; /* Ajusta este valor según la pantalla o diseño */
-  overflow: hidden; /* Elimina desbordes innecesarios */
-  box-sizing: border-box; /* Incluye bordes y padding en el tamaño */
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.datagrid-wrapper .dx-datagrid {
-  height: auto; /* Ajusta la altura según el contenido */
-  max-height: 400px; /* Limita la altura del DataGrid */
-  overflow: auto; /* Permite scroll si es necesario */
+.datagrid-container {
+  max-width: 900px;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.datagrid-wrapper .dx-datagrid-content {
-  margin: 0; /* Elimina márgenes internos */
-  padding: 0; /* Elimina espacios adicionales */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
 }
 
-.datagrid-wrapper .dx-datagrid-headers {
-  padding: 5px 0; /* Compacta la cabecera */
+thead th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
 }
 
-.datagrid-wrapper .dx-pager {
-  padding: 5px 0; /* Compacta el paginador */
+/* Título */
+.titulo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.datagrid-wrapper .dx-row {
-  height: 30px; /* Reduce la altura de las filas */
+/* Botón Agregar Empleado */
+.button-container {
+  text-align: right;
+  margin-bottom: 5px;
+  width: 76%;
+  
 }
 
-.datagrid-wrapper .dx-header-row {
-  height: 40px; /* Reduce la altura de la cabecera */
+
+tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+
+.btn-delete {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Estilo para cada grupo de campos */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Botones en el popup */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-actions dx-button {
+  width: 40%;
+  
+}
+::ng-deep #events #clear {
+  float: right;
+}
+
+::ng-deep #events {
+  background-color: rgba(191, 191, 191, 0.15);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+::ng-deep #events ul li {
+  padding: 7px 0;
+  border-bottom: 1px solid #c38b8b;
+}
+
+::ng-deep #events ul li:last-child {
+  border-bottom: none;
+}
+
+/* Estilo general del popup */
+.dx-popup-wrapper {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.dx-popup {
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(73, 23, 153, 0.2); 
+}
+
+::ng-deep .dx-popup-title {
+  font-weight: bold;
+  font-size: 10px;
+  color: #ffffff;
+  background-color: #0a5282;
+}
+
+::ng-deep .dx-popup-content {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #1b3854;
+}
+
+/* Botones */
+::ng-deep .dx-popup dx-button {
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+::ng-deep  dx-button-default {
+  background-color: #10476b;
+  color: #fff;
+  border: none;
+}
+
+::ng-deep dx-button-default:hover {
+  background-color: #151187;
+}
+
+::ng-deep .dx-popup .dx-button-danger {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+}
+
+::ng-deep .dx-popup .dx-button-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Input */
+::ng-deep .dx-texteditor-input {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+
+
+::ng-deep .dx-datebox-popup {
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#dataGrid {
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

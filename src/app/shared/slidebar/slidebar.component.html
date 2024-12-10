@@ -1,22 +1,26 @@
-<div class="sidebar-container">
-  <!-- Botón de menú  -->
-  <button class="menu-toggle" (click)="toggleSidebar()">☰</button>
 
-  <!-- Sidebar (desplegado o oculto) -->
-  <div [class.sidebar-visible]="sidebarVisible" class="sidebar">
-    <dx-menu
-      [items]="menuItems"
-      orientation="vertical"
-      (onSelectionChanged)="onSelectionChanged($event)"
-    >
-      <dxi-item text="Inicio" icon="home"></dxi-item>
-      <dxi-item text="Empresas" icon="business"></dxi-item>
-      <dxi-item text="Empleados" icon="group"></dxi-item>
-    </dx-menu>
-  </div>
+<aside [class.open]="isSidebarOpen" class="left-sidebar">
+  <!-- Menú de navegación -->
+  <nav class="sidebar-nav">
+    <ul id="sidebarnav">
+      <li *ngFor="let item of menuItems">
+        <a [routerLink]="item.url" routerLinkActive="active">
+          <i class="mdi mdi-gauge"></i>
+          <span>{{ item.titulo }}</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/empleados" routerLinkActive="active" class="nav-link">
+          <i class="mdi mdi-account"></i>
+          
+        </a>
+      </li>
+    
+    </ul>
+  </nav>
+</aside>
 
-  <!-- Contenido principal (se ajusta al lado del sidebar cuando se despliega) -->
-  <div class="main-content">
-    <ng-content></ng-content>
-  </div>
-</div>
+<!-- Botón para abrir el sidebar -->
+<button class="sidebar-toggle" (click)="toggleSidebar()">
+  <i class="mdi mdi-menu"></i> ☰
+</button>

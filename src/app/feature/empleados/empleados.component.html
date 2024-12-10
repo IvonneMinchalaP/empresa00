@@ -1,1 +1,153 @@
-<p>empleados works!</p>
+<div class="container">
+  <h2 class="titulo">Gestión de Empleados</h2>
+  <!-- Botón Agregar Empleado -->
+  <div class="button-container">
+    <dx-button
+      hint="Agregar"
+      icon="add"
+      type="default"
+      stylingMode="contained"
+      (onClick)="agregarEmpleado()"
+    ></dx-button>
+  </div>
+
+  
+  <!-- DataGrid con la información de los empleados -->
+
+<dx-data-grid 
+
+  [dataSource]="empleados" 
+  [showBorders]="true" 
+  [rowAlternationEnabled]="true" 
+  [columnAutoWidth]="true"
+ >
+  
+  <dxo-editing
+  mode="row"
+  [allowDeleting]="true">
+</dxo-editing>
+<dxo-editing
+  [allowUpdating]="true"
+  mode="popup">
+  <!-- <dxo-form labelLocation="top"></dxo-form>
+  <dxo-popup [showTitle]="true" title="Actualizar Datos"></dxo-popup> -->
+</dxo-editing>
+
+  <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+  <dxo-pager 
+    [showPageSizeSelector]="true" 
+    [allowedPageSizes]="[5, 10, 20]" 
+    [showInfo]="true">
+  </dxo-pager>
+  <dxi-column 
+    dataField="id" 
+    caption="ID"
+    [width]="70">
+  </dxi-column>
+
+  <dxi-column 
+    dataField="nombre" 
+    caption="Nombre">
+  </dxi-column>
+
+  <dxi-column 
+    dataField="email" 
+    caption="Correo">
+  </dxi-column>
+
+  <dxi-column 
+    dataField="puesto" 
+    caption="Puesto">
+  </dxi-column>
+
+  <dxi-column
+  dataField="telefono"
+  caption="Teléfono">
+  </dxi-column>
+
+  <dxi-column
+    dataField="fechaIngreso"
+    caption="Fecha de Ingreso"
+    dataType="date"
+    format="shortDate"
+  ></dxi-column>
+
+<dxi-column type="buttons">
+      <dxi-button
+        name="edit"
+        icon="edit"
+        hint="Editar"
+        type="default"
+      stylingMode="contained"
+        (onClick)="editarEmpleado($event)"
+      ></dxi-button>
+      
+      <dxi-button
+        name="delete"
+        icon="trash"
+        hint="Eliminar"
+        (onClick)="eliminarEmpleado($event)"
+      ></dxi-button>
+    </dxi-column>
+  </dx-data-grid>
+
+<!-- Popup para Agregar -->
+<dx-popup
+  [visible]="isPopupVisible"
+  [dragEnabled]="true"
+  [closeOnOutsideClick]="true"
+  [showTitle]="true"
+ 
+  title= "Agregar Empleado"
+  [width]="500"
+  [height]="500"
+  (onHiding)="isPopupVisible = false"
+>
+  <div *dxTemplate="let data of 'content'" class="popup-content">
+    <form>
+      <div class="form-group">
+        <label>Nombre:</label>
+        <dx-text-box [(value)]="currentEmpleado.nombre"></dx-text-box>
+      </div>
+      <div class="form-group">
+        <label>Correo:</label>
+        <dx-text-box [(value)]="currentEmpleado.email"></dx-text-box>
+      </div>
+      <div class="form-group">
+        <label>Puesto:</label>
+        <dx-text-box [(value)]="currentEmpleado.puesto"></dx-text-box>
+      </div>
+      <div class="form-group">
+        <label>Teléfono:</label>
+        <dx-text-box [(value)]="currentEmpleado.telefono"></dx-text-box>
+      </div>
+      <div>
+        <label>Fecha de Ingreso:</label>
+        <dx-date-box
+          [(value)]="currentEmpleado.fechaIngreso"
+          [type]="'date'"
+          displayFormat="dd/MM/yyyy"
+        ></dx-date-box>
+      </div>
+
+      <div class="form-actions">
+        <dx-button
+          text="Guardar"
+          icon="save"
+          type="success"
+          stylingMode="contained"
+          (onClick)="guardarEmpleado()">
+        </dx-button>
+        <dx-button
+          text="Cancelar"
+          icon="close"
+          type="danger"
+          stylingMode="outlined"
+          (onClick)="cancelarEdicion()">
+        </dx-button>
+      </div>
+
+    </form>
+  </div>
+</dx-popup>
+</div>

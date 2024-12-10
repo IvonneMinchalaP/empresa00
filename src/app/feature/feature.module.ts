@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FeaturesRoutingModule } from './feature-routing';
 import { EmpleadosService } from '../services/empleados.service';
 import { EmpresasService } from '../services/empresas.service';
+import { SidebarService } from '../services/sidebar.service';
 
 
 
@@ -21,7 +22,6 @@ import { EmpresasService } from '../services/empresas.service';
   ],
   imports: [
     CommonModule,
-    SharedModule,
     DxMenuModule,
     RouterModule,
     DxButtonModule,
@@ -32,14 +32,19 @@ import { EmpresasService } from '../services/empresas.service';
     FormsModule,
     ReactiveFormsModule,
     DxDateBoxModule,
-  ],
+    SharedModule,
+    
+],
   providers: [
     EmpleadosService,
-    EmpresasService
+    EmpresasService,
+    SidebarService
   ],
   exports:[
     EmpleadosComponent,
     EmpresasComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class FeatureModule { }

@@ -1,0 +1,130 @@
+/* Contenedor principal */
+.container {
+  margin: 7px;
+  padding: 7px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.titulo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Botón Agregar Empleado */
+.button-container {
+  text-align: right;
+  margin-bottom: 20px;
+  
+}
+
+
+/* Estilo para cada grupo de campos */
+.form-group {
+  margin-bottom: 7px;
+}
+
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Botones en el popup */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-actions dx-button {
+  width: 48%;
+  
+}
+::ng-deep #events #clear {
+  float: right;
+}
+
+::ng-deep #events {
+  background-color: rgba(191, 191, 191, 0.15);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+::ng-deep #events ul li {
+  padding: 7px 0;
+  border-bottom: 1px solid #c38b8b;
+}
+
+::ng-deep #events ul li:last-child {
+  border-bottom: none;
+}
+
+/* Estilo general del popup */
+.dx-popup-wrapper {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.dx-popup {
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(73, 23, 153, 0.2); 
+}
+
+::ng-deep .dx-popup-title {
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #0a5282;
+  padding: 10px;
+}
+
+::ng-deep .dx-popup-content {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #1b3854;
+}
+
+/* Botones */
+::ng-deep .dx-popup dx-button {
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+::ng-deep  dx-button-default {
+  background-color: #10476b;
+  color: #fff;
+  border: none;
+}
+
+::ng-deep dx-button-default:hover {
+  background-color: #29b959;
+}
+
+::ng-deep .dx-popup .dx-button-danger {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+}
+
+::ng-deep .dx-popup .dx-button-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Input */
+::ng-deep .dx-texteditor-input {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+
+
+::ng-deep .dx-datebox-popup {
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
