@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FeatureModule } from './feature/feature.module';
 import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     DxMenuModule,
     DxButtonModule,
     SharedModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

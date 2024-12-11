@@ -19,6 +19,30 @@ export class EmpresasService {
       telefono: '987654321',
       direccion: 'Calle 2', 
       fechaFundacion: '2010-05-15' },
+
+      { id: 1, 
+        nombre: 'Empresa C', 
+        email: 'contacto@empresaC.com', 
+        telefono: '0987654345',
+        direccion: 'Calle 3', 
+        fechaFundacion: '2015-01-13'
+      },
+      
+      { id: 2,
+        nombre: 'Empresa D', 
+        email: 'contacto@empresaD.com', 
+        telefono: '1938746538',
+        direccion: 'Calle 4', 
+        fechaFundacion: '2020-09-1' 
+      },
+      
+      { id: 2,
+        nombre: 'Empresa E', 
+        email: 'contacto@empresaE.com', 
+        telefono: '0192838476',
+        direccion: 'Calle 5', 
+        fechaFundacion: '2024-08-15' 
+      },
   ];
 
   getEmpresas() {

@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeaturesRoutingModule } from './feature/feature-routing';
+import { AuthRoutingModule } from './auth/auth-routing';
 
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/feature', pathMatch: 'full' }
-
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
   
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-    FeaturesRoutingModule,
+    AuthRoutingModule,
+    FeaturesRoutingModule
     
   ],
   exports: [RouterModule]

@@ -1,0 +1,41 @@
+<div class="auth-container">
+    <img src = "assets/images/icon/icon.jpg" alt = "Logo" class ="logo">
+    
+      <dx-form
+        [formData]="loginForm.value"
+        [colCount]="1"
+        labelLocation="top"
+      >
+       
+        <dxi-item
+        
+          dataField="email" [isRequired]="true"
+          editorType="dxTextBox"
+          [editorOptions]="{ mode: 'email', placeholder: 'Email' }"
+        ></dxi-item>
+    
+        <dxi-item
+          dataField="password"
+          editorType="dxTextBox"
+          [editorOptions]="{ mode: 'password', placeholder: 'Password' }"
+          [isRequired]="true"
+        ></dxi-item>
+    
+        <dxi-item>
+          <dx-button
+            text="Iniciar Session"
+            type="success"
+            [useSubmitBehavior]="true"
+            (onClick)="iniciarSesion()"
+          ></dx-button>
+          <p class="auth-link">
+            ¿No tienes cuenta? <a routerLink=""> <i class="fa fa-power-off"></i> Registarse</a>
+          </p>
+        </dxi-item>
+        
+      </dx-form>
+    
+    </div>
+  
+  
+  

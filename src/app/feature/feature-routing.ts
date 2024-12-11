@@ -8,7 +8,7 @@ import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ContactanosComponent } from './contactanos/contactanos.component';
 
 const routes: Routes = [
-  {path: '', 
+  {path: 'feature', 
     component: FeatureComponent,
     children: [
      
