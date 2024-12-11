@@ -11,6 +11,9 @@ import { FeaturesRoutingModule } from './feature-routing';
 import { EmpleadosService } from '../services/empleados.service';
 import { EmpresasService } from '../services/empresas.service';
 import { SidebarService } from '../services/sidebar.service';
+import { HomeComponent } from './home/home.component';
+import { ConocenosComponent } from './conocenos/conocenos.component';
+import { ContactanosComponent } from './contactanos/contactanos.component';
 
 
 
@@ -18,7 +21,10 @@ import { SidebarService } from '../services/sidebar.service';
   declarations: [
     FeatureComponent,
     EmpleadosComponent,
-    EmpresasComponent
+    EmpresasComponent,
+    HomeComponent,
+    ConocenosComponent,
+    ContactanosComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +48,10 @@ import { SidebarService } from '../services/sidebar.service';
   ],
   exports:[
     EmpleadosComponent,
-    EmpresasComponent
+    EmpresasComponent,
+    HomeComponent,
+    ConocenosComponent,
+    ContactanosComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

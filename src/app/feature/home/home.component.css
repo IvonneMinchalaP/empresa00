@@ -1,0 +1,88 @@
+/* Contenedor principal */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    min-height: calc(100vh - 120px); /* Ajusta la altura para no sobrepasar el footer */
+    box-sizing: border-box;
+    text-align: center;  /* Centrado del título */
+  }
+  /* Título sobre la tarjeta */
+.title {
+    position: absolute;
+    top: 40px; /* Ajusta la distancia desde el borde superior */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    z-index: 7; /* Asegura que el título esté sobre la tarjeta */
+  }
+  
+/* Estructura de la tarjeta */
+.card {
+    display: flex;
+    flex-direction: row;  /* Coloca los elementos de la tarjeta en fila */
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #d3eef7;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    position: relative; /* Necesario para la relación con el título */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Efecto hover para la tarjeta */
+  }
+  
+  /* Imagen a la derecha */
+  .crm {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cuerpo de la tarjeta */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    text-align: left;
+    flex: 1;  /* Toma el espacio restante */
+  }
+  
+  .card-body p {
+    font-size: 1.2rem; /* Tamaño de texto ligeramente mayor */
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px; /* Limita el ancho del texto para mayor legibilidad */
+  }
+  
+  .card-body h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Asegura que el contenido no sobrepase el footer */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    height: 100%;
+  }
+  
+  
+  

@@ -2,6 +2,19 @@
 <aside [class.open]="isSidebarOpen" class="left-sidebar">
   <nav class="sidebar-nav">
     <ul id="sidebarnav">
+      <!-- Opción Home con Submenú -->
+      <li [class.open]="isHomeOpen" class="nav-item">
+        <a (click)="toggleHomeSubMenu(); navigateToHome()">
+          <i class="mdi mdi-home"></i>
+          <span>Home</span>
+        </a>
+        <!-- Submenú de Home -->
+        <ul *ngIf="isHomeOpen" class="submenu">
+          <li><a routerLink="conocenos">Conócenos</a></li>
+          <!-- <li><a routerLink="contactanos">Contáctanos</a></li> -->
+          <li><a routerLink="contactanos">contactanos</a></li>
+        </ul>
+      </li>
       <li *ngFor="let item of menuItems">
         <a (click)="navigateTo(item.url)">
           <i class="mdi mdi-gauge"></i>
