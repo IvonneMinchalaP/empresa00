@@ -5,6 +5,8 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+
 }
 
 /* Título */
@@ -13,6 +15,8 @@
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
+  color: #065e98;
+
 }
 
 /* Botón Agregar Empleado */
@@ -32,6 +36,16 @@
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.export-buttons dx-button {
+  margin: 0 10px;
 }
 
 /* Botones en el popup */

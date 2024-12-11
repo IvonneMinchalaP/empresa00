@@ -39,6 +39,7 @@ export class EmpleadosService {
     },
   ];
 
+  constructor() {}
 
   getEmpleados() {
     return this.empleados;
@@ -48,9 +49,16 @@ export class EmpleadosService {
     this.empleados.push(empleado);
   }
 
-  updateEmpleado(id: number, updatedData: any) {
-    const empleado = this.empleados.find(e => e.id === id);
-    if (empleado) Object.assign(empleado, updatedData);
+  // updateEmpleado(id: number, updatedData: any) {
+  //   const empleado = this.empleados.find(e => e.id === id);
+  //   if (empleado) Object.assign(empleado, updatedData);
+  // }
+// Actualizar un empleado existente
+  updateEmpleado(id: number, updatedEmpleado: any) {
+    const index = this.empleados.findIndex((emp) => emp.id === id);
+    if (index !== -1) {
+      this.empleados[index] = { ...this.empleados[index], ...updatedEmpleado };
+    }
   }
 
   deleteEmpleado(id: number) {

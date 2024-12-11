@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { jsPDF } from 'jspdf';
+import { Workbook } from 'exceljs';
+import { saveAs } from 'file-saver';
+import { exportDataGrid } from 'devextreme/pdf_exporter';
+import { exportDataGrid as exportDataGridToPDF } from 'devextreme/pdf_exporter';
+import { exportDataGrid as exportDataGridToExcel } from 'devextreme/excel_exporter';
 
 @Component({
   selector: 'app-empleados',
@@ -68,5 +74,41 @@ export class EmpleadosComponent implements OnInit {
   cancelarEdicion() {
     this.isPopupVisible = false;
   }
-}
 
+  onExporting(e: any) {
+    const format = e.format;
+
+    if (format === 'pdf') {
+      const doc = new jsPDF();
+      exportDataGridToPDF({
+        jsPDFDocument: doc,
+        component: e.component,
+        indent: 5
+      }).then(() => {
+        doc.save('Empleados.pdf');
+      });
+    } else if (format === 'xlsx') {
+      const workbook = new Workbook();
+      const worksheet = workbook.addWorksheet('Empleados');
+
+      exportDataGridToExcel({
+        component: e.component,
+        worksheet,
+        autoFilterEnabled: true
+      }).then(() => {
+        workbook.xlsx.writeBuffer().then((buffer) => {
+          saveAs(
+            new Blob([buffer], { type: 'application/octet-stream' }),
+            'Empleados.xlsx'
+          );
+        });
+      });
+    }
+
+    e.cancel = true;
+  }
+
+}
+//  exportarPDF(e: DxDataGridTypes.ExportingEvent)  exportarExcel(e: DxDataGridTypes.ExportingEvent) {
+
+ 
