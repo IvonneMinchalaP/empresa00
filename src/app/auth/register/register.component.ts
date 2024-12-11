@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,17 +10,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
   registerForm: FormGroup;
   genders = ['Male', 'Female', 'Other'];
-
-  constructor(private fb: FormBuilder) {
+  
+  constructor(private fb: FormBuilder, private router:Router) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]*$')]], // Solo texto
+
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: ['', [Validators.required, Validators.minLength(50)]],
       gender: ['', [Validators.required]],
-      birthDate: ['', [Validators.required]],
+      birthDate: ['', [Validators.required, this.birthDateValidator]],
     }, { validator: this.passwordMatchValidator });
   }
 
@@ -29,11 +31,13 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  birthDateValidator(control: any): any {
+    const today = new Date().toISOString().split('T')[0];
+    return control.value === today ? { birthDateInvalid: true } : null;
+  }
+
+
   onSubmit() {
-    if (this.registerForm.valid) {
-      console.log('Register Data:', this.registerForm.value);
-    } else {
-      console.log('Invalid Form');
-    }
+    this.router.navigate(['']);
   }
 }

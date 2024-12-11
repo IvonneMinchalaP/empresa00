@@ -14,7 +14,7 @@
         
         dataField="name"
         editorType="dxTextBox"
-        [editorOptions]="{ placeholder: 'Name' }"
+        [editorOptions]="{ placeholder: 'Name', maxLength: 30  }"
         isRequired="true"
         ></dxi-item>
 
@@ -53,7 +53,7 @@
         <!-- Dirección -->
         <dxi-item
         dataField="address"
-        editorType="dxTextArea"
+        editorType="dxTextBox"
         [editorOptions]="{ placeholder: 'Address' }"
         isRequired="true"
         ></dxi-item>
@@ -68,9 +68,9 @@
 
         <!-- Fecha de nacimiento -->
         <dxi-item
-        dataField="birthDate"
+        dataField="nacimiento"
         editorType="dxDateBox"
-        [editorOptions]="{ displayFormat: 'yyyy-MM-dd', placeholder: 'Birth Date' }"
+        [editorOptions]="{ displayFormat: 'yyyy-MM-dd', placeholder: 'nacimiento' }"
         isRequired="true"
         ></dxi-item>
 
