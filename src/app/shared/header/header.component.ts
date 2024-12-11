@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,18 +13,14 @@ export class HeaderComponent {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
+  constructor(private router: Router) {}
   logout() {
-    console.log('Cerrando sesión...');
-    // Lógica para cerrar sesión (redireccionar o limpiar credenciales)
+  
+    // Redirige al login
+    this.router.navigate(['']);
   }
-}
+
+  }
 
 
-
-  // Método para redirigir al login
- // logout() {
-    // Redirige a la página de login
-   // this.router.navigate(['/login']);
-  //}
 

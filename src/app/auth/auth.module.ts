@@ -5,12 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxButtonModule, DxFormModule } from 'devextreme-angular';
 import { AppRoutingModule } from '../app-routing.module';
+import { RegisterComponent } from './register/register.component';
 
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   exports:[
     LoginComponent,
+    RegisterComponent
   ],
 })
 export class AuthModule { }

@@ -1,0 +1,90 @@
+<div class="auth-container">
+    <img src = "assets/images/icon/icon.jpg" alt = "Logo" class ="logo">
+
+    <h2> Registro</h2>
+
+        <dx-form
+            [formData]="registerForm.value"
+            [colCount]="1"
+            labelLocation="top"
+            
+        >
+        <!-- Nombre -->
+        <dxi-item
+        
+        dataField="name"
+        editorType="dxTextBox"
+        [editorOptions]="{ placeholder: 'Name' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Email -->
+        <dxi-item
+        dataField="email"
+        editorType="dxTextBox"
+        [editorOptions]="{ mode: 'email', placeholder: 'Email' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Contraseña -->
+        <dxi-item
+        dataField="password"
+        editorType="dxTextBox"
+        [editorOptions]="{ mode: 'password', placeholder: 'Password' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Confirmar Contraseña -->
+        <dxi-item
+        dataField="confirmPassword"
+        editorType="dxTextBox"
+        [editorOptions]="{ mode: 'password', placeholder: 'Confirm Password' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Teléfono -->
+        <dxi-item
+        dataField="phone"
+        editorType="dxTextBox"
+        [editorOptions]="{ placeholder: 'Phone (10 digits)' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Dirección -->
+        <dxi-item
+        dataField="address"
+        editorType="dxTextArea"
+        [editorOptions]="{ placeholder: 'Address' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Género -->
+        <dxi-item
+        dataField="gender"
+        editorType="dxSelectBox"
+        [editorOptions]="{ items: genders, placeholder: 'Select Gender' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Fecha de nacimiento -->
+        <dxi-item
+        dataField="birthDate"
+        editorType="dxDateBox"
+        [editorOptions]="{ displayFormat: 'yyyy-MM-dd', placeholder: 'Birth Date' }"
+        isRequired="true"
+        ></dxi-item>
+
+        <!-- Botón de registro -->
+        <dxi-item>
+        <dx-button
+            text="Register"
+            type="success"
+            [useSubmitBehavior]="true"
+            (onClick)="onSubmit()"
+        ></dx-button>
+        <p class="auth-link">
+            ¿Ya tienes cuenta? <a routerLink=""> <i class="fa fa-power-off"> </i>Iniciar Sesion </a>
+        </p>
+    </dxi-item>
+</dx-form>
+</div>
