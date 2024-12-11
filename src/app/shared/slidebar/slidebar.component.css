@@ -82,3 +82,9 @@
   border-radius: 50%;
   padding: 5px 10px;
 }
+
+/* Clase cuando el sidebar está abierto */
+.sidebar-open {
+  margin-left: 250px;  /* Desplaza el contenido hacia la derecha */
+}
+

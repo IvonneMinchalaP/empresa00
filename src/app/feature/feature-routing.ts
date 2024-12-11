@@ -5,9 +5,13 @@ import { EmpleadosComponent } from './empleados/empleados.component';
 import { FeatureComponent } from './feature.component';
 
 const routes: Routes = [
-{ path: 'empresas', component: EmpresasComponent},
-{ path: 'empleados', component: EmpleadosComponent },
-   
+  {path: '', 
+    component: FeatureComponent,
+    children: [
+      { path: 'empresas', component: EmpresasComponent },
+      { path: 'empleados', component: EmpleadosComponent},
+    ]},
+
 ];
 
 @NgModule({

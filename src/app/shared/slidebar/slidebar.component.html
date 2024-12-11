@@ -1,26 +1,18 @@
 
 <aside [class.open]="isSidebarOpen" class="left-sidebar">
-  <!-- Menú de navegación -->
   <nav class="sidebar-nav">
     <ul id="sidebarnav">
       <li *ngFor="let item of menuItems">
-        <a [routerLink]="item.url" routerLinkActive="active">
+        <a (click)="navigateTo(item.url)">
           <i class="mdi mdi-gauge"></i>
           <span>{{ item.titulo }}</span>
         </a>
       </li>
-      <li>
-        <a routerLink="/empleados" routerLinkActive="active" class="nav-link">
-          <i class="mdi mdi-account"></i>
-          
-        </a>
-      </li>
-    
     </ul>
   </nav>
 </aside>
 
-<!-- Botón para abrir el sidebar -->
 <button class="sidebar-toggle" (click)="toggleSidebar()">
   <i class="mdi mdi-menu"></i> ☰
-</button>
+</button>  
+

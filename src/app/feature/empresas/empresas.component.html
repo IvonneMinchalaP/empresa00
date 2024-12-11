@@ -1,70 +1,72 @@
-<div class =" container">
-<h2 class="titulo">Gestión de Empresas</h2>
+<div class="container">
+  <h2 class="titulo">Gestión de Empresas</h2>
+  <div class="button-container">
+    <dx-button
+      hint="Agregar"
+      icon="add"
+      type="default"
+      stylingMode="contained"
+      (onClick)="agregarEmpresa()"
+    ></dx-button>
+  
+  <dx-data-grid
+    [dataSource]="empresas"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+  >
+  <dxo-editing mode="row" [allowDeleting]="true" > </dxo-editing>
+   <dxo-editing
+      [allowUpdating]="true"
+      mode="popup">
+      <dxo-form labelLocation="top"></dxo-form>
+      <dxo-popup [showTitle]="true" title="Actualizar Empresa">
+      
+      </dxo-popup>
+    </dxo-editing>
+    <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showInfo]="true"
+    ></dxo-pager>
 
-<!-- Botón para agregar empresa -->
-<div class="button-container">
-  <dx-button
-    hint="Agregar"
-    icon="add"
-    type="default"
-    stylingMode="contained"
-    (onClick)="agregarEmpresa()"
-  ></dx-button>
-</div>
+    <dxi-column dataField="id" caption="ID" [width]="70"></dxi-column>
+    <dxi-column dataField="nombre" caption="Nombre"></dxi-column>
+    <dxi-column dataField="email" caption="Correo"></dxi-column>
+    <dxi-column dataField="telefono" caption="Teléfono"></dxi-column>
+    <dxi-column dataField="direccion" caption="Dirección"></dxi-column>
+    <dxi-column
+      dataField="fechaFundacion"
+      caption="Fecha de Fundación"
+      dataType="date"
+      format="shortDate"
+    ></dxi-column>
+    <dxi-column type="buttons">
+      <dxi-button
+        name="edit"
+        icon="edit"
+        hint="Editar"
+        type="default"
+      stylingMode="contained"
+        (onClick)="editarEmpresa($event)"
+      ></dxi-button>
+      
+      <dxi-button
+        name="delete"
+        icon="trash"
+        hint="Eliminar"
+        (onClick)="eliminarEmpresa($event)"
+      ></dxi-button>
+    </dxi-column>
+  </dx-data-grid>
 
-<!-- Contenedor del DataGrid -->
-<div class="datagrid-wrapper">
-  <div class="datagrid-container">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Teléfono</th>
-          <th>Dirección</th>
-          <th>Fecha de Fundación</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Aquí se renderizan dinámicamente las filas de datos -->
-        <tr *ngFor="let empresa of empresas">
-          <td>{{ empresa.id }}</td>
-          <td>{{ empresa.nombre }}</td>
-          <td>{{ empresa.email }}</td>
-          <td>{{ empresa.telefono }}</td>
-          <td>{{ empresa.direccion }}</td>
-          <td>{{ empresa.fechaFundacion | date: 'shortDate' }}</td>
-          <td>
-            <dx-button
-              hint="editar"
-              icon="edit"
-              type="default"
-              stylingMode="contained"
-              (click)="editarEmpresa($event)">
-              
-            </dx-button>
-            <button class="btn-delete" 
-              hint="eliminar"
-              icon="delete"
-              type="default"
-              (click)="eliminarEmpresa(empresa)">
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-</div>
-  <!-- Popup para agregar/editar empresa -->
+  
   <dx-popup
     [visible]="isPopupVisible"
     [dragEnabled]="true"
     [closeOnOutsideClick]="true"
     [showTitle]="true"
-    [title]="isUpdating ? 'Editar Empresa' : 'Agregar Empresa'"
+    [title]="isUpdating ? 'Editar Empresa':'Agregar Empresa'"
     [width]="500"
     [height]="500"
     (onHiding)="isPopupVisible = false"
@@ -88,13 +90,14 @@
           <dx-text-box [(value)]="currentEmpresa.direccion"></dx-text-box>
         </div>
         <div>
-          <label>Fecha de Fundación:</label>
+          <label>Fecha de Ingreso:</label>
           <dx-date-box
-            [(value)]="currentEmpresa.fechaFundacion"
+            [(value)]="currentEmpresa.fechaIngreso"
             [type]="'date'"
             displayFormat="dd/MM/yyyy"
           ></dx-date-box>
         </div>
+  
 
         <div class="form-actions">
           <dx-button
@@ -115,3 +118,4 @@
       </form>
     </div>
   </dx-popup>
+</div>

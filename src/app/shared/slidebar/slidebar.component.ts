@@ -8,18 +8,26 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 export class SlidebarComponent {
 
 
+
   menuItems = [
-    { titulo: 'Home', url: '/' },
-    { titulo: 'Empleados', url: '/empleados' },
-    { titulo: 'Empresas', url: '/empresa' },
+    { titulo: 'Empleados', url: 'empleados' },  // Ruta completa, incluye el prefijo 'feature'
+    { titulo: 'Empresas', url: 'empresas' }     // Ruta completa, incluye el prefijo 'feature'
   ];
 
+  constructor(private sidebarService: SidebarService) {}
+
   // Controla si el sidebar está abierto o cerrado
-  isSidebarOpen: boolean = false;
+    isSidebarOpen: boolean = false;
+
+
+  // Método para manejar el clic y navegar
+  navigateTo(route: string) {
+    this.sidebarService.navigateTo(route);
+  }
 
   // Función para alternar el estado del sidebar
   toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+     this.isSidebarOpen = !this.isSidebarOpen;
   }
   }
   

@@ -17,24 +17,6 @@ export class HeaderComponent {
     console.log('Cerrando sesión...');
     // Lógica para cerrar sesión (redireccionar o limpiar credenciales)
   }
-  // // Alterna la visibilidad del submenú
-  // toggleUserMenu(): void {
-  //   this.userMenuVisible = !this.userMenuVisible;
-  // }
-
-  // // Navega al perfil del usuario
-  // navigateToProfile(): void {
-  //   console.log('Navegando al perfil del usuario...');
-    
-  // }
-
-  // // Lógica para cerrar sesión
-  // logout(): void {
-  //   console.log('Cerrando sesión...');
-  //    // Redirige a la página de login
-  //  // this.router.navigate(['/login']);
-  //   // Aquí iría la lógica para cerrar sesión
-  // }
 }
 
 
