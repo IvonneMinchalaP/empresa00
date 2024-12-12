@@ -1,12 +1,11 @@
 /* Contenedor principal */
 .container {
   margin: 7px;
-  padding: 7px;
+  padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
-
 }
 
 /* Título */
@@ -16,6 +15,9 @@
   margin-bottom: 20px;
   text-align: center;
   color: #065e98;
+  text-align: center;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
 
 }
 
@@ -24,28 +26,6 @@
   text-align: right;
   margin-bottom: 20px;
   
-}
-
-
-/* Estilo para cada grupo de campos */
-.form-group {
-  margin-bottom: 7px;
-}
-
-.form-group label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.export-buttons {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-.export-buttons dx-button {
-  margin: 0 10px;
 }
 
 /* Botones en el popup */
@@ -136,9 +116,114 @@
   border-radius: 5px;
 }
 
-
-
 ::ng-deep .dx-datebox-popup {
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Botones */
+dx-button {
+  margin-left: 10px;
+}
+
+
+dx-button[type='default'] {
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+dx-button[type='danger'] {
+  background-color: #dc3545;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+dx-button[type='success'] {
+  background-color: #28a745;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+dx-button:hover {
+  opacity: 0.9;
+}
+
+/* DataGrid */
+dx-data-grid {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dx-datagrid-header-panel {
+  background-color: #007bff;
+  color: white;
+}
+
+.dx-datagrid-rowsview .dx-row:hover {
+  background-color: #f1f3f5;
+}
+
+.dx-datagrid-rowsview .dx-data-row {
+  transition: background-color 0.3s;
+}
+
+.dx-datagrid-pager {
+  margin-top: 40px;
+}
+
+
+/* Accordion */
+::ng-deep .accordion-container {
+  margin: 20px;
+}
+
+
+::ng-deep .dx-accordion  {
+  padding: 10px;
+  border: 1px solid #084c95;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+
+}
+
+::ng-deep .accordion-button {
+  display: inline-block;
+  margin: 2px;
+  padding: 8px 16px;
+  background-color: #18075c;
+  color: rgb(143, 145, 241);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.accordion-button:hover {
+  background-color: #31068d;
+}
+
+
+.panel {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+export-buttons-container {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  background-color: #31068d;
+
+}
+
+.submenu {
+  margin-left: 20px;
+  margin-top: 10px;
+
+
 }

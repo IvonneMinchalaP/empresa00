@@ -53,9 +53,11 @@ export class EmpresasService {
     this.empresas.push(empresa);
   }
 
-  updateEmpresa(id: number, updatedData: any) {
-    const empresa = this.empresas.find(e => e.id === id);
-    if (empresa) Object.assign(empresa, updatedData);
+  updateEmpresa(id: number, updateEmpresa: any) {
+    const index = this.empresas.findIndex((empr) => empr.id === id);
+    if (index !== -1) {
+      this.empresas[index] = { ...this.empresas[index], ...updateEmpresa };
+    }
   }
 
   deleteEmpresa(id: number) {

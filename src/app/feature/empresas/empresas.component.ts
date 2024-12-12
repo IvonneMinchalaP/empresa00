@@ -1,18 +1,33 @@
 import { Component } from '@angular/core';
 import { EmpresasService } from 'src/app/services/empresas.service';
+import { jsPDF } from 'jspdf';
+import * as ExcelJS from 'exceljs'; 
+import autoTable from 'jspdf-autotable';
 
+interface ExportMenuVisible {
+  excel: boolean;
+  pdf: boolean;
+}
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
   styleUrls: ['./empresas.component.css']
 })
 export class EmpresasComponent {
+  exportMenuVisible: ExportMenuVisible;
+  selectedRows: any[] = [];
+
   empresas: any[] = [];
   isPopupVisible = false;
   isUpdating = false;
   currentEmpresa: any = { nombre: '', email: '', telefono: '', direccion: '', fechaFundacion: null };
 
-  constructor(private empresasService: EmpresasService) {}
+  constructor(private empresasService: EmpresasService) {
+    this.exportMenuVisible = {
+      excel: false,
+      pdf: false
+    };
+  }
 
   ngOnInit(): void {
     this.loadEmpresas();
@@ -64,4 +79,188 @@ export class EmpresasComponent {
     this.isPopupVisible = false;
     this.currentEmpresa = { nombre: '', email: '', telefono: '', direccion: '', fechaFundacion: null };
   }
+   // Método que usa el índice
+   toggleExportMenu(menu: keyof ExportMenuVisible): void {
+    this.exportMenuVisible[menu] = !this.exportMenuVisible[menu];
+  }
+
+
+  exportGrid(format: string, selected: boolean) {
+    const data = selected ? this.getSelectedRows() : this.empresas;
+
+    if (data.length === 0) {
+      alert('No hay datos seleccionados para exportar.');
+      return;
+    }
+
+    if (format === 'excel') {
+      this.exportToExcel(data);
+    } else if (format === 'pdf') {
+      this.exportToPDF(data);
+    }
+  }
+
+  
+  exportToPDF(data: any[]) {
+    const doc = new jsPDF();
+
+    // Rutas de los logos
+    const logo1Path = 'assets/images/icon/logo1.png';
+    const logo2Path = 'assets/images/icon/logo2.png';
+
+    const imgWidth = 30;
+    const imgHeight = 15;
+
+    const columns = [
+      { header: 'ID', dataKey: 'id' },
+      { header: 'Nombre', dataKey: 'nombre' },
+      { header: 'Correo', dataKey: 'email' },
+      { header: 'Teléfono', dataKey: 'telefono' },
+      { header: 'Direccion', dataKey: 'direccion' },
+      { header: 'Fecha de Fundacion', dataKey: 'fechaFundacion' },
+    ];
+  
+
+    doc.addImage(logo1Path, 'PNG', 10, 10, imgWidth, imgHeight);
+    doc.addImage(logo2Path, 'PNG', 160, 10, imgWidth, imgHeight);
+
+    doc.setFontSize(16);
+    doc.text('Reporte de Empleados', 105, 30, { align: 'center' });
+
+    // Filtrar los datos seleccionados
+     const filteredData = data;
+    // Agregar tabla con sombreado en encabezados
+    autoTable(doc, {
+      head: [columns.map(c => c.header)],
+      body: filteredData.map(emp => columns.map(c => emp[c.dataKey])),
+      styles: { lineColor: [0, 0, 0], lineWidth: 0.1 },
+      startY: 50,
+      headStyles: { fillColor: [200, 200, 200] }, // Encabezado sombreado
+    });
+
+    doc.text("Usuario: Admin", 10, 280);
+    doc.text("Fecha exportacion: 12/12/2024", 10, 290);
+    doc.save('empleados.pdf');
+  }
+
+  exportToExcel(data: any[]) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Empleados');
+
+      // Función para convertir imagen a base64
+    const imageToBase64 = (path: string): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        const img = new Image();
+        img.src = path;
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/png').split(',')[1]); // Obtiene solo la parte base64
+        };
+
+        img.onerror = (error) => reject(error);
+      });
+    };
+
+  // Convertir ambas imágenes a base64
+  Promise.all([
+    imageToBase64('assets/images/icon/logo1.png'),
+    imageToBase64('assets/images/icon/logo2.png')
+  ]).then(([logo1Base64, logo2Base64]) => {
+    const logo1 = workbook.addImage({
+      base64: logo1Base64,
+      extension: 'png',
+    });
+    const logo2 = workbook.addImage({
+      base64: logo2Base64,
+      extension: 'png',
+    });
+
+   // Agregar el primer logo en las celdas combinadas A1:B1
+   
+   worksheet.addImage(logo1, {
+    tl: { col: 0, row: 0 },
+    ext: { width: 130, height: 50 },
+    
+  });
+
+    const titleRow = worksheet.addRow(['', '', 'Reporte de Empleados']);
+    worksheet.mergeCells('C2:E2'); // Combina las celdas C1 a E1 para el título
+    titleRow.font = { bold: true, size: 16 };
+    titleRow.alignment = { horizontal: 'center', vertical: 'middle' };
+
+    // Agregar el segundo logo en las celdas combinadas E1:F1
+    worksheet.addImage(logo2, {
+      tl: { col: 5, row: 0 },
+      ext: { width: 120, height: 50 },
+    });
+
+    // Subtítulo
+    const subtitleRow = worksheet.addRow(["Usuario: Admin", "  ", "Fecha exportación: 12/12/2024" ]);
+    subtitleRow.alignment = { horizontal: 'left' };
+
+    // Espacio entre títulos y encabezado
+    worksheet.addRow([]);
+
+      // Encabezados
+    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Fecha de Ingreso'];
+    
+    const headerRow = worksheet.addRow(headers);
+    headerRow.font = { bold: true };
+    headerRow.eachCell(cell => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFD3D3D3' }
+      };
+      cell.border = { bottom: { style: 'thin' } };
+    });
+
+
+  // Agregar datos con bordes
+  data.forEach(emp => {
+    const row = worksheet.addRow([emp.id, emp.nombre, emp.email, emp.puesto, emp.telefono, emp.fechaIngreso]);
+    row.eachCell(cell => {
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+    });
+  });
+
+  //Ajustar tamaño de columnas
+  worksheet.columns.forEach(column => {
+    column.width = column.header && column.header.length < 17 ? 17 : (column.header?.length || 17);  });
+  
+
+  // Exportar
+    workbook.xlsx.writeBuffer().then((data) => {
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'empleados.xlsx';
+      a.click();
+    });
+    }).catch(error => {
+      console.error('Error al convertir las imágenes a base64:', error);
+  });
+
+}
+
+  onSelectionChanged(e: any) {
+    this.selectedRows = e.selectedRowsData;
+  }
+  
+  getSelectedRows(): any[] {
+    return this.selectedRows;
+  }
+
 }

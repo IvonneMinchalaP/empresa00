@@ -1,3 +1,50 @@
+ <!-- Acordeón con botones de exportación -->
+<div class="accordion-container">
+  <dx-accordion [expanded]="accordionOpen" (onItemClick)="toggleAccordion()"  [allowCollapsing]="true">
+    <dxi-item title="Exportar">
+      <!-- Exportar a Excel -->
+      <div style="display: flex; gap: 10px;">
+      <div>
+        <dx-button
+          icon="xlsxfile"
+          type="default"
+          (onClick)="toggleExportMenu('excel')"
+        ></dx-button>
+        <div *ngIf="exportMenuVisible.excel" class="submenu">
+          <dx-button
+            text="Exportar Todo"
+            (onClick)="exportGrid('excel', false)"
+          ></dx-button>
+          <dx-button
+            text="Exportar Seleccionado"
+            (onClick)="exportGrid('excel', true)"
+          ></dx-button>
+        </div>
+      </div>
+
+      <!-- Exportar a PDF -->
+      <div>
+        <dx-button
+          icon="pdffile"
+          type="default"
+          (onClick)="toggleExportMenu('pdf')"
+        ></dx-button>
+        <div *ngIf="exportMenuVisible.pdf" class="submenu">
+          <dx-button
+            text="Exportar Todo"
+            (onClick)="exportGrid('pdf', false)"
+          ></dx-button>
+          <dx-button
+            text="Exportar Seleccionado"
+            (onClick)="exportGrid('pdf', true)"
+          ></dx-button>
+        </div>
+      </div>
+    </div>
+    </dxi-item>
+  </dx-accordion>
+</div>
+
 
 <div class="container">
   <h2 class="titulo">Gestión de Empleados</h2>
@@ -22,12 +69,11 @@
   [showBorders]="true" 
   [rowAlternationEnabled]="true" 
   [columnAutoWidth]="true"
-  [allowColumnResizing]="true"
-  [export]="{ enabled: true }"
-  (onExporting)="onExporting($event)"
+  [selection]="{ mode: 'multiple' }"
+  (onSelectionChanged)="onSelectionChanged($event)">
+
  >
- 
- 
+
   <dxo-editing
   mode="row"
   [allowDeleting]="true">
@@ -36,7 +82,7 @@
   [allowUpdating]="true"
   mode="popup">
   <!-- <dxo-form labelLocation="top"></dxo-form>
-  <dxo-popup [showTitle]="true" title="Actualizar Datos"></dxo-popup> -->
+  popup [showTitle]="true" title="Actualizar Datos"></dxo-popup> -->
 </dxo-editing>
 
   <dxo-paging [enabled]="true" [pageSize]="6"></dxo-paging>
@@ -45,6 +91,7 @@
     [allowedPageSizes]="[5, 10, 20]" 
     [showInfo]="true">
   </dxo-pager>
+
   <dxi-column 
     dataField="id" 
     caption="ID"
@@ -95,14 +142,7 @@
         (onClick)="eliminarEmpleado($event)"
       ></dxi-button>
     </dxi-column>
-    <dxo-selection mode="multiple"></dxo-selection>
-      <dxo-pager [visible]="true"></dxo-pager>
-      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
-      <dxo-export
-      [enabled]="true"
-      [formats]="['pdf', 'xlsx']"
-      [allowExportSelectedData]="true"
-    ></dxo-export>
+    
 
     
   </dx-data-grid>

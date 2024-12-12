@@ -64,4 +64,6 @@ export class EmpleadosService {
   deleteEmpleado(id: number) {
     this.empleados = this.empleados.filter(e => e.id !== id);
   }
+
+
 }
