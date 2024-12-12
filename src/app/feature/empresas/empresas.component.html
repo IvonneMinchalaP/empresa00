@@ -1,3 +1,54 @@
+<div class="accordion-container">
+  <dx-accordion  
+  [collapsible]="true"
+  [multiple]="false"
+   #accordion  >
+    <dxi-item title="Exportar">
+      <!-- Exportar a Excel -->
+      <div style="display: flex; gap: 10px;">
+      <div>
+        <dx-button
+          icon="xlsxfile"
+          type="default"
+          (onClick)="toggleExportMenu('excel')"
+        ></dx-button>
+        <div *ngIf="exportMenuVisible.excel" class="submenu">
+          <dx-button
+            text="Exportar Todo"
+            (onClick)="exportGrid('excel', false)"
+          ></dx-button>
+          <dx-button
+            text="Exportar Seleccionado"
+            (onClick)="exportGrid('excel', true)"
+          ></dx-button>
+        </div>
+      </div>
+
+      <!-- Exportar a PDF -->
+      <div>
+        <dx-button
+          icon="pdffile"
+          type="default"
+          (onClick)="toggleExportMenu('pdf')"
+        ></dx-button>
+        <div *ngIf="exportMenuVisible.pdf" class="submenu">
+          <dx-button
+            text="Exportar Todo"
+            (onClick)="exportGrid('pdf', false)"
+          ></dx-button>
+          <dx-button
+            text="Exportar Seleccionado"
+            (onClick)="exportGrid('pdf', true)"
+          ></dx-button>
+        </div>
+      </div>
+    </div>
+    </dxi-item>
+  </dx-accordion>
+</div>
+
+
+
 <div class="container">
   <h2 class="titulo">Gestión de Empresas</h2>
   <div class="button-container">
@@ -13,6 +64,9 @@
     [dataSource]="empresas"
     [showBorders]="true"
     [columnAutoWidth]="true"
+    [selection]="{ mode: 'multiple' }"
+    (onSelectionChanged)="onSelectionChanged($event)">
+  
   >
   <dxo-editing mode="row" [allowDeleting]="true" > </dxo-editing>
    <dxo-editing

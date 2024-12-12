@@ -177,22 +177,21 @@ dx-data-grid {
 
 
 /* Accordion */
-::ng-deep .accordion-container {
-  margin: 20px;
-}
-
-
-::ng-deep .dx-accordion  {
+::ng-deep #accordion {
   padding: 10px;
   border: 1px solid #084c95;
   border-top: none;
   border-radius: 0 0 8px 8px;
   background-color: #f8f9fa;
   transition: background-color 0.3s ease;
-
 }
 
-::ng-deep .accordion-button {
+::ng-deep #accordion-container {
+  margin: 20px;
+}
+
+
+::ng-deep #accordion-button {
   display: inline-block;
   margin: 2px;
   padding: 8px 16px;
@@ -203,16 +202,12 @@ dx-data-grid {
   cursor: pointer;
 }
 
-.accordion-button:hover {
+#accordion-button:hover {
   background-color: #31068d;
 }
 
 
-.panel {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
+
 
 export-buttons-container {
   display: flex;
@@ -221,9 +216,8 @@ export-buttons-container {
 
 }
 
-.submenu {
+#accordion-submenu {
   margin-left: 20px;
   margin-top: 10px;
-
 
 }

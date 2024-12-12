@@ -1,6 +1,8 @@
  <!-- Acordeón con botones de exportación -->
 <div class="accordion-container">
-  <dx-accordion [expanded]="accordionOpen" (onItemClick)="toggleAccordion()"  [allowCollapsing]="true">
+  <dx-accordion 
+  [collapsible]="true"
+   #accordion  >
     <dxi-item title="Exportar">
       <!-- Exportar a Excel -->
       <div style="display: flex; gap: 10px;">

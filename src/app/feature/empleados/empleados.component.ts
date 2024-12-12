@@ -84,10 +84,6 @@ export class EmpleadosComponent implements OnInit {
   cancelarEdicion() {
     this.isPopupVisible = false;
   }
-  // Alternar visibilidad del acordeón
-  toggleAccordion() {
-    this.accordionOpen = !this.accordionOpen;
-  }
 
  // Método que usa el índice
   toggleExportMenu(menu: keyof ExportMenuVisible): void {
@@ -147,9 +143,9 @@ export class EmpleadosComponent implements OnInit {
       startY: 50,
       headStyles: { fillColor: [200, 200, 200] }, // Encabezado sombreado
     });
-
-    doc.text("Usuario: Admin", 10, 280);
-    doc.text("Fecha exportacion: 12/12/2024", 10, 290);
+    doc.setFontSize(12);
+    doc.text("Usuario: Admin", 6, 290);
+    doc.text("Fecha exportacion: 12/12/2024", 146, 290);
     doc.save('empleados.pdf');
   }
 

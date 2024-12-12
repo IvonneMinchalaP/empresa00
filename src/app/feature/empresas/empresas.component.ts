@@ -125,7 +125,7 @@ export class EmpresasComponent {
     doc.addImage(logo2Path, 'PNG', 160, 10, imgWidth, imgHeight);
 
     doc.setFontSize(16);
-    doc.text('Reporte de Empleados', 105, 30, { align: 'center' });
+    doc.text('Reporte de Empresas', 105, 30, { align: 'center' });
 
     // Filtrar los datos seleccionados
      const filteredData = data;
@@ -137,15 +137,15 @@ export class EmpresasComponent {
       startY: 50,
       headStyles: { fillColor: [200, 200, 200] }, // Encabezado sombreado
     });
-
-    doc.text("Usuario: Admin", 10, 280);
-    doc.text("Fecha exportacion: 12/12/2024", 10, 290);
-    doc.save('empleados.pdf');
+    doc.setFontSize(12);
+    doc.text("Usuario: Admin", 6, 290);
+    doc.text("Fecha exportacion: 12/12/2024", 146, 290);
+    doc.save('empresa.pdf');
   }
 
   exportToExcel(data: any[]) {
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Empleados');
+    const worksheet = workbook.addWorksheet('Empresa');
 
       // Función para convertir imagen a base64
     const imageToBase64 = (path: string): Promise<string> => {
@@ -181,7 +181,7 @@ export class EmpresasComponent {
       extension: 'png',
     });
 
-   // Agregar el primer logo en las celdas combinadas A1:B1
+   // Agregar el primer logo 
    
    worksheet.addImage(logo1, {
     tl: { col: 0, row: 0 },
@@ -189,12 +189,12 @@ export class EmpresasComponent {
     
   });
 
-    const titleRow = worksheet.addRow(['', '', 'Reporte de Empleados']);
-    worksheet.mergeCells('C2:E2'); // Combina las celdas C1 a E1 para el título
+    const titleRow = worksheet.addRow(['', '', 'Reporte de Empresa']);
+    worksheet.mergeCells('C2:E2'); 
     titleRow.font = { bold: true, size: 16 };
     titleRow.alignment = { horizontal: 'center', vertical: 'middle' };
 
-    // Agregar el segundo logo en las celdas combinadas E1:F1
+    // Agregar el segundo logo 
     worksheet.addImage(logo2, {
       tl: { col: 5, row: 0 },
       ext: { width: 120, height: 50 },
@@ -208,7 +208,7 @@ export class EmpresasComponent {
     worksheet.addRow([]);
 
       // Encabezados
-    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Fecha de Ingreso'];
+    const headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Direccion', 'Fecha de Fundacion'];
     
     const headerRow = worksheet.addRow(headers);
     headerRow.font = { bold: true };
@@ -223,8 +223,8 @@ export class EmpresasComponent {
 
 
   // Agregar datos con bordes
-  data.forEach(emp => {
-    const row = worksheet.addRow([emp.id, emp.nombre, emp.email, emp.puesto, emp.telefono, emp.fechaIngreso]);
+  data.forEach(empr => {
+    const row = worksheet.addRow([empr.id, empr.nombre, empr.email, empr.telefono, empr.direccion, empr.fechaFundacion]);
     row.eachCell(cell => {
       cell.border = {
         top: { style: 'thin' },
@@ -246,7 +246,7 @@ export class EmpresasComponent {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'empleados.xlsx';
+      a.download = 'empresa.xlsx';
       a.click();
     });
     }).catch(error => {

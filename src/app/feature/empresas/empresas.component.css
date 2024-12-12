@@ -125,9 +125,54 @@
   border-radius: 5px;
 }
 
-
-
 ::ng-deep .dx-datebox-popup {
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Accordion */
+::ng-deep #accordion {
+  padding: 10px;
+  border: 1px solid #084c95;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+::ng-deep #accordion-container {
+  margin: 20px;
+}
+
+
+::ng-deep #accordion-button {
+  display: inline-block;
+  margin: 2px;
+  padding: 8px 16px;
+  background-color: #18075c;
+  color: rgb(143, 145, 241);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#accordion-button:hover {
+  background-color: #31068d;
+}
+
+
+
+
+export-buttons-container {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  background-color: #31068d;
+
+}
+
+#accordion-submenu {
+  margin-left: 20px;
+  margin-top: 10px;
+
 }
