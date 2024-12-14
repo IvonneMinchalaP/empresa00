@@ -11,7 +11,9 @@ export class EmpleadosService {
       email: 'juan@example.com',
       puesto: 'Gerente',
       telefono: '123456789',
+      empres: 'Empresa A',
       fechaIngreso: '2024-01-01',
+      
     },
     {
       id: 2,
@@ -19,7 +21,10 @@ export class EmpleadosService {
       email: 'ana@example.com',
       puesto: 'Analista',
       telefono: '987654321',
+      empres: 'Empresa B',
       fechaIngreso: '2022-03-15',
+      
+
     },
     {
       id: 3,
@@ -27,7 +32,10 @@ export class EmpleadosService {
       email: 'ariel@example.com',
       puesto: 'Soporte',
       telefono: '098347283',
+      empres: 'Empresa C',
       fechaIngreso: '2019-01-01',
+      
+
     },
     {
       id: 4,
@@ -35,6 +43,27 @@ export class EmpleadosService {
       email: 'alejo@example.com',
       puesto: 'Proyectos',
       telefono: '987654321',
+      empres: 'Empresa D',
+      fechaIngreso: '2023-03-18',
+    },
+    {
+      id: 5,
+      nombre: 'Manuela Perez',
+      email: 'manuela@example.com',
+      puesto: 'Soporte',
+      telefono: '09834756392',
+      empres: 'Empresa E',
+      fechaIngreso: '2019-01-01',
+      
+
+    },
+    {
+      id: 6,
+      nombre: 'Tamara Alvarez',
+      email: 'tamara@example.com',
+      puesto: 'Proyectos',
+      telefono: '0947382947',
+      empres: 'Empresa F',
       fechaIngreso: '2023-03-18',
     },
   ];

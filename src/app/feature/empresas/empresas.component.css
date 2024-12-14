@@ -13,6 +13,10 @@
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
+  color: #065e98;
+  text-align: center;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
 }
 
 /* Botón Agregar Empleado */
@@ -130,7 +134,6 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-
 /* Accordion */
 ::ng-deep #accordion {
   padding: 10px;
@@ -162,8 +165,6 @@
 }
 
 
-
-
 export-buttons-container {
   display: flex;
   gap: 10px; /* Espacio entre los botones */
@@ -176,3 +177,10 @@ export-buttons-container {
   margin-top: 10px;
 
 }
+
+.panel {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+

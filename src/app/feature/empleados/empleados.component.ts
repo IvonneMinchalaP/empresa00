@@ -25,7 +25,7 @@ export class EmpleadosComponent implements OnInit {
   isPopupVisible = false;
   // Determina si es agregar o actualizar
   isUpdating = false;
-  currentEmpleado: any = {  nombre: '', email: '', puesto: '', telefono: '', fechaIngreso: null};
+  currentEmpleado: any = {  nombre: '', email: '', puesto: '', telefono: '', empres: '', fechaIngreso: null};
   accordionOpen = false;
 
   constructor(private empleadosService: EmpleadosService  ) {
@@ -47,7 +47,7 @@ export class EmpleadosComponent implements OnInit {
 
   agregarEmpleado() {
     this.isUpdating = false;
-    this.currentEmpleado = {  nombre: '', apeliddo: '', email: '', puesto: '', telefono: '', fechaIngreso: null};
+    this.currentEmpleado = {  nombre: '', apeliddo: '', email: '', puesto: '', telefono: '', empres:'', fechaIngreso: null};
     // Muestra el popup
     this.isPopupVisible = true;
   }
@@ -123,6 +123,7 @@ export class EmpleadosComponent implements OnInit {
       { header: 'Correo', dataKey: 'email' },
       { header: 'Puesto', dataKey: 'puesto' },
       { header: 'Teléfono', dataKey: 'telefono' },
+      { header: 'Empresa', dataKey: 'empres' },
       { header: 'Fecha de Ingreso', dataKey: 'fechaIngreso' },
     ];
   
@@ -214,7 +215,7 @@ export class EmpleadosComponent implements OnInit {
     worksheet.addRow([]);
 
       // Encabezados
-    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Fecha de Ingreso'];
+    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Empresa', 'Fecha de Ingreso'];
     
     const headerRow = worksheet.addRow(headers);
     headerRow.font = { bold: true };
@@ -230,7 +231,7 @@ export class EmpleadosComponent implements OnInit {
 
   // Agregar datos con bordes
   data.forEach(emp => {
-    const row = worksheet.addRow([emp.id, emp.nombre, emp.email, emp.puesto, emp.telefono, emp.fechaIngreso]);
+    const row = worksheet.addRow([emp.id, emp.nombre, emp.email, emp.puesto, emp.telefono, emp.empres, emp.fechaIngreso]);
     row.eachCell(cell => {
       cell.border = {
         top: { style: 'thin' },
@@ -269,6 +270,8 @@ export class EmpleadosComponent implements OnInit {
   getSelectedRows(): any[] {
     return this.selectedRows;
   }
+
+  
 }
 
 

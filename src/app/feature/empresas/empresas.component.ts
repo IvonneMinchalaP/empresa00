@@ -20,7 +20,7 @@ export class EmpresasComponent {
   empresas: any[] = [];
   isPopupVisible = false;
   isUpdating = false;
-  currentEmpresa: any = { nombre: '', email: '', telefono: '', direccion: '', fechaFundacion: null };
+  currentEmpresa: any = { nombre: '', email: '', telefono: '', ciudad: '', estado: '', fechaFundacion: null };
 
   constructor(private empresasService: EmpresasService) {
     this.exportMenuVisible = {
@@ -39,7 +39,7 @@ export class EmpresasComponent {
 
   agregarEmpresa() {
     this.isUpdating = false;
-    this.currentEmpresa = { nombre: '', email: '', telefono: '', direccion: '', fechaFundacion: null };
+    this.currentEmpresa = { nombre: '', email: '', telefono: '', ciudad: '',estado:'', fechaFundacion: null };
     this.isPopupVisible = true;
   }
 
@@ -77,7 +77,7 @@ export class EmpresasComponent {
 
   cancelarEdicion() {
     this.isPopupVisible = false;
-    this.currentEmpresa = { nombre: '', email: '', telefono: '', direccion: '', fechaFundacion: null };
+    this.currentEmpresa = { nombre: '', email: '', telefono: '', ciudad: '',estado:'',fechaFundacion: null };
   }
    // Método que usa el índice
    toggleExportMenu(menu: keyof ExportMenuVisible): void {
@@ -116,7 +116,8 @@ export class EmpresasComponent {
       { header: 'Nombre', dataKey: 'nombre' },
       { header: 'Correo', dataKey: 'email' },
       { header: 'Teléfono', dataKey: 'telefono' },
-      { header: 'Direccion', dataKey: 'direccion' },
+      { header: 'Ciudad', dataKey: 'ciudad' },
+      { header: 'Estado', dataKey: 'estado' },
       { header: 'Fecha de Fundacion', dataKey: 'fechaFundacion' },
     ];
   
@@ -208,7 +209,7 @@ export class EmpresasComponent {
     worksheet.addRow([]);
 
       // Encabezados
-    const headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Direccion', 'Fecha de Fundacion'];
+    const headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Ciudad', 'Estado', 'Fecha de Fundacion'];
     
     const headerRow = worksheet.addRow(headers);
     headerRow.font = { bold: true };
@@ -224,7 +225,7 @@ export class EmpresasComponent {
 
   // Agregar datos con bordes
   data.forEach(empr => {
-    const row = worksheet.addRow([empr.id, empr.nombre, empr.email, empr.telefono, empr.direccion, empr.fechaFundacion]);
+    const row = worksheet.addRow([empr.id, empr.nombre, empr.email, empr.telefono, empr.ciudad,empr.estado, empr.fechaFundacion]);
     row.eachCell(cell => {
       cell.border = {
         top: { style: 'thin' },

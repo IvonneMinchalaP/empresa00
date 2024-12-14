@@ -65,56 +65,64 @@
     [showBorders]="true"
     [columnAutoWidth]="true"
     [selection]="{ mode: 'multiple' }"
-    (onSelectionChanged)="onSelectionChanged($event)">
-  
+    (onSelectionChanged)="onSelectionChanged($event)"
+    [allowColumnReordering]="true"
+    [groupPanel]="{visible:true}"
+    [grouping]="{autoExpandAll:true}"
+    [allowColumnResizing]="true"
+    [allowColumnReordering]="true"
   >
-  <dxo-editing mode="row" [allowDeleting]="true" > </dxo-editing>
-   <dxo-editing
-      [allowUpdating]="true"
-      mode="popup">
-      <dxo-form labelLocation="top"></dxo-form>
-      <dxo-popup [showTitle]="true" title="Actualizar Empresa">
-      
-      </dxo-popup>
-    </dxo-editing>
-    <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
-    <dxo-pager
-      [showPageSizeSelector]="true"
-      [allowedPageSizes]="[5, 10, 20]"
-      [showInfo]="true"
-    ></dxo-pager>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+  <dxo-pager 
+    [visible]="true"
+    [showInfo]="true">
+  </dxo-pager>
 
-    <dxi-column dataField="id" caption="ID" [width]="70"></dxi-column>
-    <dxi-column dataField="nombre" caption="Nombre"></dxi-column>
-    <dxi-column dataField="email" caption="Correo"></dxi-column>
-    <dxi-column dataField="telefono" caption="Teléfono"></dxi-column>
-    <dxi-column dataField="direccion" caption="Dirección"></dxi-column>
-    <dxi-column
-      dataField="fechaFundacion"
-      caption="Fecha de Fundación"
-      dataType="date"
-      format="shortDate"
-    ></dxi-column>
-    <dxi-column type="buttons">
-      <dxi-button
-        name="edit"
-        icon="edit"
-        hint="Editar"
-        type="default"
-      stylingMode="contained"
-        (onClick)="editarEmpresa($event)"
-      ></dxi-button>
-      
-      <dxi-button
-        name="delete"
-        icon="trash"
-        hint="Eliminar"
-        (onClick)="eliminarEmpresa($event)"
-      ></dxi-button>
-    </dxi-column>
+  <dxo-editing
+    [allowUpdating]="true"
+    mode="popup">
+    <dxo-form labelLocation="top"></dxo-form>
+    <dxo-popup [showTitle]="true" title="Actualizar Empresa">
+    
+    </dxo-popup>
+  </dxo-editing>
+  <dxo-paging [enabled]="true" ></dxo-paging>
+  
+    
+  <dxi-column dataField="id" caption="ID" [width]="70"></dxi-column>
+  <dxi-column dataField="nombre" caption="Nombre"></dxi-column>
+  <dxi-column dataField="email" caption="Correo"></dxi-column>
+  <dxi-column dataField="telefono" caption="Teléfono"></dxi-column>
+  <dxi-column dataField="ciudad" caption="Ciudad" [groupIndex]="0"></dxi-column>
+  <dxi-column dataField="estado" caption="Estado"></dxi-column>
+  <dxi-column
+    dataField="fechaFundacion"
+    caption="Fecha de Fundación"
+    dataType="date"
+    format="shortDate"
+  ></dxi-column>
+  <dxi-column type="buttons">
+    <dxi-button
+      name="edit"
+      icon="edit"
+      hint="Editar"
+      type="default"
+    stylingMode="contained"
+      (onClick)="editarEmpresa($event)"
+    ></dxi-button>
+    
+    <dxi-button
+      name="delete"
+      icon="trash"
+      hint="Eliminar"
+      (onClick)="eliminarEmpresa($event)"
+    ></dxi-button>
+  </dxi-column>
+   
   </dx-data-grid>
 
-  
   <dx-popup
     [visible]="isPopupVisible"
     [dragEnabled]="true"
@@ -140,8 +148,12 @@
           <dx-text-box [(value)]="currentEmpresa.telefono"></dx-text-box>
         </div>
         <div class="form-group">
-          <label>Dirección:</label>
-          <dx-text-box [(value)]="currentEmpresa.direccion"></dx-text-box>
+          <label>Ciudad:</label>
+          <dx-text-box [(value)]="currentEmpresa.ciudad"></dx-text-box>
+        </div>
+        <div class="form-group">
+          <label>Estado:</label>
+          <dx-text-box [(value)]="currentEmpresa.estado"></dx-text-box>
         </div>
         <div>
           <label>Fecha de Ingreso:</label>

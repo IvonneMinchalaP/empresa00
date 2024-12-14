@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
-import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxMenuModule, DxPopupModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxMenuModule, DxPopupModule, DxScrollViewModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpresasComponent } from './empresas/empresas.component';
@@ -43,7 +43,9 @@ import { ContactanosComponent } from './contactanos/contactanos.component';
     DxTemplateModule,  // Módulo para las plantillas
     DxCheckBoxModule,
     DxSliderModule,
-    DxTagBoxModule
+    DxTagBoxModule,
+    DxScrollViewModule
+
 
 ],
   providers: [

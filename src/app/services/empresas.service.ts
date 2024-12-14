@@ -6,42 +6,56 @@ import { Injectable } from '@angular/core';
 export class EmpresasService {
   private empresas = [
     { id: 1, 
-      nombre: 'Empresa A', 
+      nombre: 'E-Mart', 
       email: 'contacto@empresaA.com', 
       telefono: '123456789',
-      direccion: 'Calle 1', 
+      ciudad: 'Bentonville', 
+      estado: 'California',
       fechaFundacion: '2000-01-01'
     },
     
     { id: 2,
-      nombre: 'Empresa B', 
+      nombre: 'StereoShack ', 
       email: 'contacto@empresaB.com', 
       telefono: '987654321',
-      direccion: 'Calle 2', 
+      ciudad: 'Minneapolis', 
+      estado:'Pennsylvania',
       fechaFundacion: '2010-05-15' },
 
-      { id: 1, 
-        nombre: 'Empresa C', 
+      { id: 3, 
+        nombre: 'Circuit Town', 
         email: 'contacto@empresaC.com', 
-        telefono: '0987654345',
-        direccion: 'Calle 3', 
+        telefono: 'Issaquah',
+        ciudad: 'Bentonville', 
+        estado: 'Georgia',
         fechaFundacion: '2015-01-13'
       },
       
-      { id: 2,
-        nombre: 'Empresa D', 
+      { id: 4,
+        nombre: 'ElectrixMax', 
         email: 'contacto@empresaD.com', 
         telefono: '1938746538',
-        direccion: 'Calle 4', 
+        ciudad: 'Hoffman Estates', 
+        estado: 'California',
         fechaFundacion: '2020-09-1' 
       },
       
-      { id: 2,
-        nombre: 'Empresa E', 
+      { id: 5,
+        nombre: 'Video Emporium', 
         email: 'contacto@empresaE.com', 
         telefono: '0192838476',
-        direccion: 'Calle 5', 
+        ciudad: 'Bentonville', 
+        estado: 'Georgia',
         fechaFundacion: '2024-08-15' 
+      },
+      
+      { id: 6,
+        nombre: 'Braeburn', 
+        email: 'contacto@empresaD.com', 
+        telefono: '0876435678',
+        ciudad: 'Minnesota',
+        estado:'Washington', 
+        fechaFundacion: '2024-07-15' 
       },
   ];
 

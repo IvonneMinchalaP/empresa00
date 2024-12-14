@@ -72,9 +72,20 @@
   [rowAlternationEnabled]="true" 
   [columnAutoWidth]="true"
   [selection]="{ mode: 'multiple' }"
-  (onSelectionChanged)="onSelectionChanged($event)">
-
+  (onSelectionChanged)="onSelectionChanged($event)"
+  [groupPanel]="{visible:true}"
+  [grouping]="{autoExpandAll:true}"
+  [allowColumnResizing]="true"
+  [allowColumnReordering]="true"
  >
+ <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+  <dxo-pager 
+    [visible]="true"
+    [showInfo]="true">
+  </dxo-pager>
 
   <dxo-editing
   mode="row"
@@ -87,13 +98,8 @@
   popup [showTitle]="true" title="Actualizar Datos"></dxo-popup> -->
 </dxo-editing>
 
-  <dxo-paging [enabled]="true" [pageSize]="6"></dxo-paging>
-  <dxo-pager 
-    [showPageSizeSelector]="true" 
-    [allowedPageSizes]="[5, 10, 20]" 
-    [showInfo]="true">
-  </dxo-pager>
-
+  <dxo-paging [enabled]="true"></dxo-paging>
+  
   <dxi-column 
     dataField="id" 
     caption="ID"
@@ -102,22 +108,33 @@
 
   <dxi-column 
     dataField="nombre" 
-    caption="Nombre">
+    caption="Nombre"
+    sortOrder="desc">
+
   </dxi-column>
 
   <dxi-column 
     dataField="email" 
-    caption="Correo">
+    caption="Correo"
+    >
   </dxi-column>
 
   <dxi-column 
     dataField="puesto" 
-    caption="Puesto">
+    caption="Puesto"
+    >
+    
   </dxi-column>
 
   <dxi-column
-  dataField="telefono"
-  caption="Teléfono">
+    dataField="telefono"
+    caption="Teléfono">
+  </dxi-column>
+
+  <dxi-column
+    dataField="empres"
+    caption="Empresa"
+    [groupIndex]="0">
   </dxi-column>
 
   <dxi-column
@@ -127,27 +144,26 @@
     format="shortDate"
   ></dxi-column>
 
-<dxi-column type="buttons">
-      <dxi-button
-        name="edit"
-        icon="edit"
-        hint="Editar"
-        type="default"
-      stylingMode="contained"
-        (onClick)="editarEmpleado($event)"
-      ></dxi-button>
-      
-      <dxi-button
-        name="delete"
-        icon="trash"
-        hint="Eliminar"
-        (onClick)="eliminarEmpleado($event)"
-      ></dxi-button>
-    </dxi-column>
+  <dxi-column type="buttons">
+    <dxi-button
+      name="edit"
+      icon="edit"
+      hint="Editar"
+      type="default"
+    stylingMode="contained"
+      (onClick)="editarEmpleado($event)"
+    ></dxi-button>
     
-
+    <dxi-button
+      name="delete"
+      icon="trash"
+      hint="Eliminar"
+      (onClick)="eliminarEmpleado($event)"
+    ></dxi-button>
+  </dxi-column>
     
   </dx-data-grid>
+
 <!-- Popup para Agregar -->
 <dx-popup
   [visible]="isPopupVisible"
@@ -178,6 +194,10 @@
         <label>Teléfono:</label>
         <dx-text-box [(value)]="currentEmpleado.telefono"></dx-text-box>
       </div>
+      <div class="form-group">
+        <label>Empresa:</label>
+        <dx-text-box [(value)]="currentEmpleado.empres"></dx-text-box>
+      </div>
       <div>
         <label>Fecha de Ingreso:</label>
         <dx-date-box
@@ -186,7 +206,7 @@
           displayFormat="dd/MM/yyyy"
         ></dx-date-box>
       </div>
-
+   
       <div class="form-actions">
         <dx-button
           text="Guardar"
