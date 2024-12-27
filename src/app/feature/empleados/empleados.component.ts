@@ -25,7 +25,7 @@ export class EmpleadosComponent implements OnInit {
   isPopupVisible = false;
   // Determina si es agregar o actualizar
   isUpdating = false;
-  currentEmpleado: any = {  nombre: '', email: '', puesto: '', telefono: '', empres: '', fechaIngreso: null};
+  currentEmpleado: any = {  Nombre: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
   accordionOpen = false;
 
   constructor(private empleadosService: EmpleadosService  ) {
@@ -47,7 +47,7 @@ export class EmpleadosComponent implements OnInit {
 
   agregarEmpleado() {
     this.isUpdating = false;
-    this.currentEmpleado = {  nombre: '', apeliddo: '', email: '', puesto: '', telefono: '', empres:'', fechaIngreso: null};
+    this.currentEmpleado = {  Nombre: '', Apeliddo: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
     // Muestra el popup
     this.isPopupVisible = true;
   }
@@ -64,10 +64,10 @@ export class EmpleadosComponent implements OnInit {
   guardarEmpleado() {
 
     if (this.isUpdating) {
-      this.empleadosService.updateEmpleado(this.currentEmpleado.id, this.currentEmpleado );
+      this.empleadosService.updateEmpleado(this.currentEmpleado.EmpleadoID, this.currentEmpleado );
       //this.currentEmpleado = { ...event.row.data };
     } else {
-      this.empleadosService.addEmpleado({ ...this.currentEmpleado, id: Date.now() });
+      this.empleadosService.addEmpleado({ ...this.currentEmpleado, EmpleadoID: Date.now() });
     }
     // Oculta el popup
     this.isPopupVisible = false;
@@ -76,8 +76,8 @@ export class EmpleadosComponent implements OnInit {
   }
 
   eliminarEmpleado(event:any) {
-    const id = event.row.data.id;
-    this.empleadosService.deleteEmpleado(id);
+    const EmpleadoID = event.row.data.EmpleadoID;
+    this.empleadosService.deleteEmpleado(EmpleadoID);
     this.loadEmpleados();
   }
   // Cancelar la edición o adición
@@ -231,7 +231,7 @@ export class EmpleadosComponent implements OnInit {
 
   // Agregar datos con bordes
   data.forEach(emp => {
-    const row = worksheet.addRow([emp.id, emp.nombre, emp.email, emp.puesto, emp.telefono, emp.empres, emp.fechaIngreso]);
+    const row = worksheet.addRow([emp.EmpleadoID, emp.Nombre, emp.Email, emp.Puesto, emp.Telefono, emp.FechaIngreso]);
     row.eachCell(cell => {
       cell.border = {
         top: { style: 'thin' },

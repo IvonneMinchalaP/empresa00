@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-
-
-
 const routes: Routes = [
    
     { path: 'login', component: LoginComponent},
@@ -13,7 +10,6 @@ const routes: Routes = [
    
     
 ];
-
 @NgModule({
     imports: [RouterModule.forChild(routes),
     ],

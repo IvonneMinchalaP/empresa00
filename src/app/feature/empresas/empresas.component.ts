@@ -20,7 +20,7 @@ export class EmpresasComponent {
   empresas: any[] = [];
   isPopupVisible = false;
   isUpdating = false;
-  currentEmpresa: any = { nombre: '', email: '', telefono: '', ciudad: '', estado: '', fechaFundacion: null };
+  currentEmpresa: any = { Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '', FechaFundacion: null };
 
   constructor(private empresasService: EmpresasService) {
     this.exportMenuVisible = {
@@ -39,7 +39,7 @@ export class EmpresasComponent {
 
   agregarEmpresa() {
     this.isUpdating = false;
-    this.currentEmpresa = { nombre: '', email: '', telefono: '', ciudad: '',estado:'', fechaFundacion: null };
+    this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'', FechaFundacion: null };
     this.isPopupVisible = true;
   }
 
@@ -51,15 +51,15 @@ export class EmpresasComponent {
   
 
   guardarEmpresa() {
-    if (!this.currentEmpresa.nombre || !this.currentEmpresa.email || !this.currentEmpresa.telefono) {
+    if (!this.currentEmpresa.Nombre || !this.currentEmpresa.Email || !this.currentEmpresa.Telefono) {
       alert('Por favor, complete todos los campos requeridos.');
       return;
     }
   
     if (this.isUpdating) {
-      this.empresasService.updateEmpresa(this.currentEmpresa.id, this.currentEmpresa);
+      this.empresasService.updateEmpresa(this.currentEmpresa.EmpresaID, this.currentEmpresa);
     } else {
-      this.empresasService.addEmpresa({ ...this.currentEmpresa, id: Date.now() });
+      this.empresasService.addEmpresa({ ...this.currentEmpresa, EmpresaID: Date.now() });
     }
   
     this.isPopupVisible = false;
@@ -69,15 +69,15 @@ export class EmpresasComponent {
  
   eliminarEmpresa(event: any) {
     if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
-      const id = event.row.data.id;
-      this.empresasService.deleteEmpresa(id);
+      const EmpresaID = event.row.data.id;
+      this.empresasService.deleteEmpresa(EmpresaID);
       this.loadEmpresas();
     }
   }
 
   cancelarEdicion() {
     this.isPopupVisible = false;
-    this.currentEmpresa = { nombre: '', email: '', telefono: '', ciudad: '',estado:'',fechaFundacion: null };
+    this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: null };
   }
    // Método que usa el índice
    toggleExportMenu(menu: keyof ExportMenuVisible): void {
@@ -225,7 +225,7 @@ export class EmpresasComponent {
 
   // Agregar datos con bordes
   data.forEach(empr => {
-    const row = worksheet.addRow([empr.id, empr.nombre, empr.email, empr.telefono, empr.ciudad,empr.estado, empr.fechaFundacion]);
+    const row = worksheet.addRow([empr.EmpresaID, empr.Nombre, empr.Email, empr.Telefono, empr.Ciudad,empr.Estado, empr.FechaFundacion]);
     row.eachCell(cell => {
       cell.border = {
         top: { style: 'thin' },

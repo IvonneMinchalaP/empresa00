@@ -18,8 +18,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      console.log('Login:', { email, password });
+      const { Email, Contrasena } = this.loginForm.value;
+      console.log('Login:', { Email, Contrasena });
     }
   }
 

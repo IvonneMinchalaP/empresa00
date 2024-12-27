@@ -13,7 +13,7 @@ import { EmpresasService } from '../services/empresas.service';
 import { SidebarService } from '../services/sidebar.service';
 import { HomeComponent } from './home/home.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
-import { ContactanosComponent } from './contactanos/contactanos.component';
+import { ContactanosComponent } from './contacto/contactanos.component';
 
 
 

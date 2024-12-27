@@ -6,65 +6,59 @@ import { Injectable } from '@angular/core';
 export class EmpleadosService {
   private empleados = [
     {
-      id: 1,
-      nombre: 'Juan Pérez',
-      email: 'juan@example.com',
-      puesto: 'Gerente',
-      telefono: '123456789',
-      empres: 'Empresa A',
-      fechaIngreso: '2024-01-01',
+      EmpleadoID: 1,
+      Nombre: 'Juan Pérez',
+      Email: 'juan@example.com',
+      Puesto: 'Gerente',
+      Telefono: '123456789',
+      FechaIngreso: '2024-01-01',
       
     },
     {
-      id: 2,
-      nombre: 'Ana López',
-      email: 'ana@example.com',
-      puesto: 'Analista',
-      telefono: '987654321',
-      empres: 'Empresa B',
-      fechaIngreso: '2022-03-15',
+      EmpleadoID: 2,
+      Nombre: 'Ana López',
+      Email: 'ana@example.com',
+      Puesto: 'Analista',
+      Telefono: '987654321',
+      FechaIngreso: '2022-03-15',
       
 
     },
     {
-      id: 3,
-      nombre: 'Ariel Ortega',
-      email: 'ariel@example.com',
-      puesto: 'Soporte',
-      telefono: '098347283',
-      empres: 'Empresa C',
-      fechaIngreso: '2019-01-01',
+      EmpleadoID: 3,
+      Nombre: 'Ariel Ortega',
+      Email: 'ariel@example.com',
+      Puesto: 'Soporte',
+      Telefono: '098347283',
+      FechaIngreso: '2019-01-01',
       
 
     },
     {
-      id: 4,
-      nombre: 'Alejo Torres',
-      email: 'alejo@example.com',
-      puesto: 'Proyectos',
-      telefono: '987654321',
-      empres: 'Empresa D',
-      fechaIngreso: '2023-03-18',
+      EmpleadoID: 4,
+      Nombre: 'Alejo Torres',
+      Email: 'alejo@example.com',
+      Puesto: 'Proyectos',
+      Telefono: '987654321',
+      FechaIngreso: '2023-03-18',
     },
     {
-      id: 5,
-      nombre: 'Manuela Perez',
-      email: 'manuela@example.com',
-      puesto: 'Soporte',
-      telefono: '09834756392',
-      empres: 'Empresa E',
-      fechaIngreso: '2019-01-01',
+      EmpleadoID: 5,
+      Nombre: 'Manuela Perez',
+      Email: 'manuela@example.com',
+      Puesto: 'Soporte',
+      Telefono: '09834756392',
+      FechaIngreso: '2019-01-01',
       
 
     },
     {
-      id: 6,
-      nombre: 'Tamara Alvarez',
-      email: 'tamara@example.com',
-      puesto: 'Proyectos',
-      telefono: '0947382947',
-      empres: 'Empresa F',
-      fechaIngreso: '2023-03-18',
+      EmpleadoID: 6,
+      Nombre: 'Tamara Alvarez',
+      Email: 'tamara@example.com',
+      Puesto: 'Proyectos',
+      Telefono: '0947382947',
+      FechaIngreso: '2023-03-18',
     },
   ];
 
@@ -83,15 +77,15 @@ export class EmpleadosService {
   //   if (empleado) Object.assign(empleado, updatedData);
   // }
 // Actualizar un empleado existente
-  updateEmpleado(id: number, updatedEmpleado: any) {
-    const index = this.empleados.findIndex((emp) => emp.id === id);
+  updateEmpleado(EmpleadoID: number, updatedEmpleado: any) {
+    const index = this.empleados.findIndex((emp) => emp.EmpleadoID === EmpleadoID);
     if (index !== -1) {
       this.empleados[index] = { ...this.empleados[index], ...updatedEmpleado };
     }
   }
 
-  deleteEmpleado(id: number) {
-    this.empleados = this.empleados.filter(e => e.id !== id);
+  deleteEmpleado(EmpleadoID: number) {
+    this.empleados = this.empleados.filter(e => e.EmpleadoID !== EmpleadoID);
   }
 
 

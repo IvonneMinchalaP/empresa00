@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  genders = ['Male', 'Female', 'Other'];
+  genders = ['Masculino', 'Femenino', 'Otro'];
   
   constructor(private fb: FormBuilder, private router:Router) {
     this.registerForm = this.fb.group({

@@ -8,24 +8,23 @@ import { Component } from '@angular/core';
 export class ContactanosComponent {
 // Modelo para almacenar los datos del formulario
 contactFormData = {
-  name: '',
-  phone: '',
-  email: '',
-  message: ''
+  Nombre: '',
+  Telefono: '',
+  Email: '',
+  Mensaje: ''
 };
 
 // Método que se ejecuta al enviar el formulario
 onSubmit(): void {
   // Validar si todos los campos están completos
   if (
-    this.contactFormData.name &&
-    this.contactFormData.phone &&
-    this.contactFormData.email &&
-    this.contactFormData.message
+    this.contactFormData.Nombre &&
+    this.contactFormData.Telefono &&
+    this.contactFormData.Email &&
+    this.contactFormData.Mensaje
   ) {
     console.log('Formulario enviado:', this.contactFormData);
 
-    // Aquí puedes realizar la lógica adicional, como enviar los datos a un servidor o API.
     alert('Gracias por contactarnos. Pronto nos pondremos en contacto contigo.');
 
     // Reiniciar el formulario después de enviarlo
@@ -38,10 +37,10 @@ onSubmit(): void {
 // Método para reiniciar los datos del formulario
 resetForm(): void {
   this.contactFormData = {
-    name: '',
-    phone: '',
-    email: '',
-    message: ''
+    Nombre: '',
+    Telefono: '',
+    Email: '',
+    Mensaje: ''
   };
 }
 }

@@ -5,7 +5,7 @@ import { EmpleadosComponent } from './empleados/empleados.component';
 import { FeatureComponent } from './feature.component';
 import { HomeComponent } from './home/home.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
-import { ContactanosComponent } from './contactanos/contactanos.component';
+import { ContactanosComponent } from './contacto/contactanos.component';
 
 const routes: Routes = [
   {path: 'feature', 

@@ -5,57 +5,57 @@ import { Injectable } from '@angular/core';
 })
 export class EmpresasService {
   private empresas = [
-    { id: 1, 
-      nombre: 'E-Mart', 
-      email: 'contacto@empresaA.com', 
-      telefono: '123456789',
-      ciudad: 'Bentonville', 
-      estado: 'California',
-      fechaFundacion: '2000-01-01'
+    { EmpresaID: 1, 
+      Nombre: 'E-Mart', 
+      Email: 'contacto@empresaA.com', 
+      Telefono: '123456789',
+      Ciudad: 'Bentonville', 
+      Estado: 'California',
+      FechaFundacion: '2000-01-01'
     },
     
-    { id: 2,
-      nombre: 'StereoShack ', 
-      email: 'contacto@empresaB.com', 
-      telefono: '987654321',
-      ciudad: 'Minneapolis', 
-      estado:'Pennsylvania',
-      fechaFundacion: '2010-05-15' },
+    { EmpresaID: 2,
+      Nombre: 'StereoShack ', 
+      Email: 'contacto@empresaB.com', 
+      Telefono: '987654321',
+      Ciudad: 'Minneapolis', 
+      Estado:'Pennsylvania',
+      FechaFundacion: '2010-05-15' },
 
-      { id: 3, 
-        nombre: 'Circuit Town', 
-        email: 'contacto@empresaC.com', 
-        telefono: 'Issaquah',
-        ciudad: 'Bentonville', 
-        estado: 'Georgia',
-        fechaFundacion: '2015-01-13'
+      { EmpresaID: 3, 
+        Nombre: 'Circuit Town', 
+        Email: 'contacto@empresaC.com', 
+        Telefono: 'Issaquah',
+        Ciudad: 'Bentonville', 
+        Estado: 'Georgia',
+        FechaFundacion: '2015-01-13'
       },
       
-      { id: 4,
-        nombre: 'ElectrixMax', 
-        email: 'contacto@empresaD.com', 
-        telefono: '1938746538',
-        ciudad: 'Hoffman Estates', 
-        estado: 'California',
-        fechaFundacion: '2020-09-1' 
+      { EmpresaID: 4,
+        Nombre: 'ElectrixMax', 
+        Email: 'contacto@empresaD.com', 
+        Telefono: '1938746538',
+        Ciudad: 'Hoffman Estates', 
+        Estado: 'California',
+        FechaFundacion: '2020-09-1' 
       },
       
-      { id: 5,
-        nombre: 'Video Emporium', 
-        email: 'contacto@empresaE.com', 
-        telefono: '0192838476',
-        ciudad: 'Bentonville', 
-        estado: 'Georgia',
-        fechaFundacion: '2024-08-15' 
+      { EmpresaID: 5,
+        Nombre: 'Video Emporium', 
+        Email: 'contacto@empresaE.com', 
+        Telefono: '0192838476',
+        Ciudad: 'Bentonville', 
+        Estado: 'Georgia',
+        FechaFundacion: '2024-08-15' 
       },
       
-      { id: 6,
-        nombre: 'Braeburn', 
-        email: 'contacto@empresaD.com', 
-        telefono: '0876435678',
-        ciudad: 'Minnesota',
-        estado:'Washington', 
-        fechaFundacion: '2024-07-15' 
+      { EmpresaID: 6,
+        Nombre: 'Braeburn', 
+        Email: 'contacto@empresaD.com', 
+        Telefono: '0876435678',
+        Ciudad: 'Minnesota',
+        Estado:'Washington', 
+        FechaFundacion: '2024-07-15' 
       },
   ];
 
@@ -67,14 +67,14 @@ export class EmpresasService {
     this.empresas.push(empresa);
   }
 
-  updateEmpresa(id: number, updateEmpresa: any) {
-    const index = this.empresas.findIndex((empr) => empr.id === id);
+  updateEmpresa(EmpresaID: number, updateEmpresa: any) {
+    const index = this.empresas.findIndex((empr) => empr.EmpresaID === EmpresaID);
     if (index !== -1) {
       this.empresas[index] = { ...this.empresas[index], ...updateEmpresa };
     }
   }
 
-  deleteEmpresa(id: number) {
-    this.empresas = this.empresas.filter(e => e.id !== id);
+  deleteEmpresa(EmpresaID: number) {
+    this.empresas = this.empresas.filter(e => e.EmpresaID !== EmpresaID);
   }
 }

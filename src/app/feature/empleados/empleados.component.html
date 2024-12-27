@@ -60,7 +60,23 @@
       stylingMode="contained"
       (onClick)="agregarEmpleado()"
     ></dx-button>
+    <dx-button
+      hint="Editar"
+      icon="edit"
+      type="default"
+      stylingMode="contained"
+      (onClick)="editarEmpleado($event)"
+    ></dx-button>
+    <dx-button
+      hint="Eliminar"
+      icon="trash"
+      type="default"
+      stylingMode="contained"
+      (onClick)="eliminarEmpleado($event)"
+  ></dx-button>
+    
   </div>
+  
 
 
   <!-- DataGrid con la información de los empleados -->
@@ -99,46 +115,34 @@
 </dxo-editing>
 
   <dxo-paging [enabled]="true"></dxo-paging>
-  
-  <dxi-column 
-    dataField="id" 
-    caption="ID"
-    [width]="70">
-  </dxi-column>
 
   <dxi-column 
-    dataField="nombre" 
+    dataField="Nombre" 
     caption="Nombre"
     sortOrder="desc">
 
   </dxi-column>
 
   <dxi-column 
-    dataField="email" 
-    caption="Correo"
+    dataField="Email" 
+    caption="Email"
     >
   </dxi-column>
 
   <dxi-column 
-    dataField="puesto" 
+    dataField="Puesto" 
     caption="Puesto"
     >
     
   </dxi-column>
 
   <dxi-column
-    dataField="telefono"
+    dataField="Telefono"
     caption="Teléfono">
   </dxi-column>
 
   <dxi-column
-    dataField="empres"
-    caption="Empresa"
-    [groupIndex]="0">
-  </dxi-column>
-
-  <dxi-column
-    dataField="fechaIngreso"
+    dataField="FechaIngreso"
     caption="Fecha de Ingreso"
     dataType="date"
     format="shortDate"
@@ -180,28 +184,24 @@
     <form>
       <div class="form-group">
         <label>Nombre:</label>
-        <dx-text-box [(value)]="currentEmpleado.nombre"></dx-text-box>
+        <dx-text-box [(value)]="currentEmpleado.Nombre"></dx-text-box>
       </div>
       <div class="form-group">
         <label>Correo:</label>
-        <dx-text-box [(value)]="currentEmpleado.email"></dx-text-box>
+        <dx-text-box [(value)]="currentEmpleado.Email"></dx-text-box>
       </div>
       <div class="form-group">
         <label>Puesto:</label>
-        <dx-text-box [(value)]="currentEmpleado.puesto"></dx-text-box>
+        <dx-text-box [(value)]="currentEmpleado.Puesto"></dx-text-box>
       </div>
       <div class="form-group">
         <label>Teléfono:</label>
-        <dx-text-box [(value)]="currentEmpleado.telefono"></dx-text-box>
-      </div>
-      <div class="form-group">
-        <label>Empresa:</label>
-        <dx-text-box [(value)]="currentEmpleado.empres"></dx-text-box>
+        <dx-text-box [(value)]="currentEmpleado.Telefono"></dx-text-box>
       </div>
       <div>
         <label>Fecha de Ingreso:</label>
         <dx-date-box
-          [(value)]="currentEmpleado.fechaIngreso"
+          [(value)]="currentEmpleado.FechaIngreso"
           [type]="'date'"
           displayFormat="dd/MM/yyyy"
         ></dx-date-box>
