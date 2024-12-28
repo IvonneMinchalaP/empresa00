@@ -6,6 +6,7 @@ import { SlidebarComponent } from './slidebar/slidebar.component';
 import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { FeatureComponent } from '../feature/feature.component';
+import { UsuarioService } from '../services/Usuario.service';
 
 
 
@@ -22,7 +23,7 @@ import { FeatureComponent } from '../feature/feature.component';
     RouterModule,
     DxButtonModule,
     DxMenuModule,
-    
+  
   ],
   exports:[
     FooterComponent,

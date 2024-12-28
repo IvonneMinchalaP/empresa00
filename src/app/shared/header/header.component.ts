@@ -22,7 +22,7 @@ export class HeaderComponent {
   Perfil() {
   
     // Redirige al perfil del usuario
-    this.router.navigate(['/usuario']);
+    this.router.navigate(['feature/usuario']);
   }
 
   }

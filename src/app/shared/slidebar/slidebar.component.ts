@@ -14,7 +14,7 @@ isHomeOpen: boolean = false;  // Estado del submenú de Home
   menuItems = [
     { titulo: 'Empleados', url: 'feature/empleados' },  // Ruta completa, incluye el prefijo 'feature'
     { titulo: 'Empresas', url: 'feature/empresas' },
-    { titulo: 'Perfil Usuario', url: 'usuario' }       // Ruta completa, incluye el prefijo 'feature'
+    { titulo: 'Perfil Usuario', url: 'feature/usuario'},     
   ];
 
   constructor(private sidebarService: SidebarService, private router: Router) {}

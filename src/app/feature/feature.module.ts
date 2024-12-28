@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
-import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxMenuModule, DxPopupModule, DxScrollViewModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFormModule, DxMenuModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpresasComponent } from './empresas/empresas.component';
@@ -14,6 +14,8 @@ import { SidebarService } from '../services/sidebar.service';
 import { HomeComponent } from './home/home.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ContactanosComponent } from './contacto/contactanos.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { UsuarioService } from '../services/Usuario.service';
 
 
 
@@ -24,7 +26,8 @@ import { ContactanosComponent } from './contacto/contactanos.component';
     EmpresasComponent,
     HomeComponent,
     ConocenosComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    UsuarioComponent
   ],
   imports: [
     CommonModule,
@@ -44,18 +47,22 @@ import { ContactanosComponent } from './contacto/contactanos.component';
     DxCheckBoxModule,
     DxSliderModule,
     DxTagBoxModule,
-    DxScrollViewModule
+    DxScrollViewModule,
+    DxFormModule,
+    DxSelectBoxModule
 
 
 ],
   providers: [
     EmpleadosService,
     EmpresasService,
+    UsuarioService,
     SidebarService
   ],
   exports:[
     EmpleadosComponent,
     EmpresasComponent,
+    UsuarioComponent,
     HomeComponent,
     ConocenosComponent,
     ContactanosComponent
