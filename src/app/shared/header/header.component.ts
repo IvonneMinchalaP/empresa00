@@ -19,6 +19,11 @@ export class HeaderComponent {
     // Redirige al login
     this.router.navigate(['']);
   }
+  Perfil() {
+  
+    // Redirige al perfil del usuario
+    this.router.navigate(['/usuario']);
+  }
 
   }
 

@@ -12,6 +12,11 @@
         <i class="fa fa-bars"></i>
       </button>
       <div class="dropdown-menu" *ngIf="isMenuOpen">
+        <a (click)="Perfil()">
+          <i class="fa fa-power-off"></i> Perfil Usuario 
+        </a>
+      </div>
+      <div class="dropdown-menu" *ngIf="isMenuOpen">
         <a (click)="logout()">
           <i class="fa fa-power-off"></i> Cerrar sesión
         </a>
