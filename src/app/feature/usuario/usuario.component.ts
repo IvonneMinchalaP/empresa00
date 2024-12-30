@@ -8,34 +8,67 @@ import { UsuarioService } from 'src/app/services/Usuario.service';
 })
 export class UsuarioComponent implements OnInit {
     usuario: any = {};
-    currentUsuario: any = { Nombre: '', Apellido: '', Email: '', Genero: '', FechaNacimiento: null };
+    token: string | null = null;
     isPopupVisible: boolean = false;
+    usuarioActualizado: any = {};
     genders = ['Masculino', 'Femenino', 'Otro'];
     constructor(private usuarioService: UsuarioService) {}
   
-    ngOnInit() {
-      // Cargar datos del usuario al inicializar el componente
-      this.usuario = this.usuarioService.getUsuario()[0];
-      this.currentUsuario = { ...this.usuario };
-    }
+    ngOnInit(): void {
+      // Obtener token del almacenamiento local al iniciar
+      this.token = localStorage.getItem('token');
+      const usuarioID = Number(localStorage.getItem('usuarioID')); // Almacena el ID después del inicio de sesión
+      console.log('Token:', this.token);
+      console.log('UsuarioID:', usuarioID);
+      if (this.token && usuarioID) {
+        this.usuarioService.consultarUsuario(this.token, usuarioID).subscribe(
+          (response) => {
+            if (response) {
+              this.usuario = response; // Asignar datos recibidos
+            } else {
+              console.error('Datos del usuario no encontrados.');
+              console.log('Datos del usuario:', response);
+
+            }
   
-    abrirPopup() {
-      this.currentUsuario = { ...this.usuario }; // Copiar datos para edición
-      this.isPopupVisible = true;
-    }
-  
-    cerrarPopup() {
-      this.isPopupVisible = false;
-    }
-  
-    guardarCambios() {
-      if (!this.currentUsuario.Nombre || !this.currentUsuario.Apellido || !this.currentUsuario.Email || !this.currentUsuario.Genero) {
-        alert('Por favor, complete todos los campos requeridos.');
-        return;
+          },
+          (error) => {
+            console.error('Error al cargar el usuario:', error);
+          }
+        );
+      }else {
+        console.error('Token o ID de usuario no disponible.');
       }
   
-      this.usuarioService.updateUsuario(this.usuario.UsuarioID, this.currentUsuario);
-      this.usuario = { ...this.currentUsuario };
-      this.cerrarPopup();
     }
+  
+    abrirPopup(): void {
+      if (this.usuario) {
+        this.usuarioActualizado = { ...this.usuario }; // Copia los datos del usuario
+        this.isPopupVisible = true;
+      } else {
+        console.error('No se pudo cargar los datos del usuario para actualizar.');
+      }
+  
+    }
+  
+  
+    actualizarUsuario(): void {
+      if (this.token && this.usuarioActualizado) {
+        this.usuarioService.actualizarUsuario(this.token, this.usuarioActualizado).subscribe(
+          (data) => {
+            console.log('Usuario actualizado:', data);
+            this.isPopupVisible = false; // Cierra el popup
+            this.ngOnInit(); // Recargar datos del usuario
+          },
+          (error) => {
+            console.error('Error al actualizar el usuario:', error);
+          }
+        );
+      } else {
+        console.error('Token o datos del usuario no disponibles para actualizar.');
+      }
+  
+    }
+  
 }

@@ -7,8 +7,7 @@ import { FeatureModule } from './feature/feature.module';
 import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
-import { UsuarioService } from './services/Usuario.service';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -20,7 +19,8 @@ import { UsuarioService } from './services/Usuario.service';
     DxMenuModule,
     DxButtonModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    HttpClientModule
   ],
   providers: [
   ],

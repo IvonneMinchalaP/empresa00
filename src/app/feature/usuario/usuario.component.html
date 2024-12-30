@@ -21,6 +21,7 @@
       <dx-button
         text="Actualizar"
         type="default"
+        icon="save"
         stylingMode="contained"
         (onClick)="abrirPopup()"
       ></dx-button>
@@ -35,26 +36,25 @@
       title="Actualizar Usuario"
       [height]="500"
       [width]="500"
-      (onHiding)="cerrarPopup()"
     >
       <div *dxTemplate="let data of 'content'" class="popup-content">
         <form>
           <div class="form-group">
             <label>Nombre:</label>
-            <dx-text-box [(value)]="currentUsuario.Nombre"></dx-text-box>
+            <dx-text-box [(value)]="usuarioActualizado.Nombre"></dx-text-box>
           </div>
           <div class="form-group">
             <label>Apellido:</label>
-            <dx-text-box [(value)]="currentUsuario.Apellido"></dx-text-box>
+            <dx-text-box [(value)]="usuarioActualizado.Apellido"></dx-text-box>
           </div>
           <div class="form-group">
             <label>Email:</label>
-            <dx-text-box [(value)]="currentUsuario.Email"></dx-text-box>
+            <dx-text-box [(value)]="usuarioActualizado.Email"></dx-text-box>
           </div>
           <div class="form-group">
             <label>Género:</label>
             <dx-select-box
-            [(value)]="currentUsuario.Genero"
+            [(value)]="usuarioActualizado.Genero"
             [editorOptions]="{ placeholder: 'Select Genero' }"
             [dataSource]="genders"
             ></dx-select-box>
@@ -62,7 +62,7 @@
           <div class="form-group">
             <label>Fecha de Nacimiento:</label>
             <dx-date-box
-              [(value)]="currentUsuario.FechaNacimiento"
+              [(value)]="usuarioActualizado.FechaNacimiento"
               [type]="'date'"
               displayFormat="dd/MM/yyyy"
             ></dx-date-box>
@@ -73,8 +73,14 @@
               icon="save"
               type="success"
               stylingMode="contained"
-              (onClick)="guardarCambios()"
+              (onClick)="actualizarUsuario()"
             ></dx-button>
+            <dx-button
+          text="Cancelar"
+          type="danger"
+          (onClick)="isPopupVisible = false"
+      ></dx-button>
+
           </div>
         </form>
       </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/Usuario.service';
 
 @Component({
   selector: 'app-register',
@@ -11,33 +12,51 @@ export class RegisterComponent {
   registerForm: FormGroup;
   genders = ['Masculino', 'Femenino', 'Otro'];
   
-  constructor(private fb: FormBuilder, private router:Router) {
+  constructor(private fb: FormBuilder, private router: Router, private usuarioService: UsuarioService) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÿ\\s]*$')]], // Solo texto
-
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      address: ['', [Validators.required, Validators.minLength(50)]],
-      gender: ['', [Validators.required]],
-      birthDate: ['', [Validators.required, this.birthDateValidator]],
-    }, { validator: this.passwordMatchValidator });
+      Nombre: [''],
+      Apellido: [''],
+      Email: [''],
+      Contrasena: [''],
+      Genero: [''],
+      FechaNacimiento: ['']
+    });
   }
 
-  passwordMatchValidator(group: FormGroup): any {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
+ 
 
   birthDateValidator(control: any): any {
     const today = new Date().toISOString().split('T')[0];
     return control.value === today ? { birthDateInvalid: true } : null;
   }
 
-
   onSubmit() {
-    this.router.navigate(['']);
+    if (this.registerForm.valid) {
+      const formData = this.registerForm.value;
+
+      // Validación y formato de la fecha de nacimiento
+      const fechaNacimiento = formData.FechaNacimiento
+        ? new Date(formData.FechaNacimiento).toISOString().split('T')[0]
+        : null;
+
+      const usuario = {
+        ...formData,
+        Genero: formData.Genero.toString(),
+        FechaNacimiento: fechaNacimiento, // Fecha formateada
+      };
+
+      this.usuarioService.registrarUsuario(usuario).subscribe(
+        (response) => {
+          alert('Usuario registrado correctamente');
+          this.router.navigate(['']);
+        },
+        (error) => {
+          alert('Error al registrar usuario: ' + error.error.mensaje);
+        }
+      );
+    } else {
+      alert('Por favor, completa todos los campos correctamente.');
+    }
+    
   }
 }

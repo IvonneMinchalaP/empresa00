@@ -7,15 +7,14 @@
             [formData]="registerForm.value"
             [colCount]="1"
             labelLocation="top"
+            (ngSubmit)="onSubmit()"
             
         >
         <!-- Nombre -->
         <dxi-item
-        
         dataField="Nombre"
         editorType="dxTextBox"
         [editorOptions]="{ placeholder: 'Nombre', maxLength: 30  }"
-        isRequired="true"
         ></dxi-item>
 
         <!-- Apellido -->
@@ -23,23 +22,20 @@
         dataField="Apellido"
         editorType="dxTextBox"
         [editorOptions]="{ placeholder: 'Apellido', maxLength: 30  }"
-        isRequired="true"
         ></dxi-item>
 
         <!-- Email -->
         <dxi-item
         dataField="Email"
         editorType="dxTextBox"
-        [editorOptions]="{ mode: 'Email', placeholder: 'Email' }"
-        isRequired="true"
+        [editorOptions]="{ mode: 'email', placeholder: 'Email' }"
         ></dxi-item>
 
         <!-- Contraseña -->
         <dxi-item
         dataField="Contrasena"
         editorType="dxTextBox"
-        [editorOptions]="{ mode: 'Contrasena', placeholder: 'Contrasena' }"
-        isRequired="true"
+        [editorOptions]="{ mode: 'password', placeholder: 'Contrasena' }"
         ></dxi-item>
 
        
@@ -47,22 +43,21 @@
         <dxi-item
         dataField="Genero"
         editorType="dxSelectBox"
-        [editorOptions]="{ items: genders, placeholder: 'Select Genero' }"
-        isRequired="true"
+        [editorOptions]="{ items: genders, placeholder: 'Seleccione Genero', valueExpr: null}"
         ></dxi-item>
 
         <!-- Fecha de nacimiento -->
         <dxi-item
         dataField="FechaNacimiento"
         editorType="dxDateBox"
-        [editorOptions]="{ displayFormat: 'yyyy-MM-dd', placeholder: 'FechaNacimiento' }"
-        isRequired="true"
+        [editorOptions]="{ displayFormat: 'yyyy-MM-dd', placeholder: 'Fecha de Nacimiento',type: 'date' }"
         ></dxi-item>
 
         <!-- Botón de registro -->
         <dxi-item>
         <dx-button
             text="Register"
+            icon="user"
             type="success"
             [useSubmitBehavior]="true"
             (onClick)="onSubmit()"

@@ -8,16 +8,15 @@
       >
        
         <dxi-item
-        
           dataField="Email" [isRequired]="true"
           editorType="dxTextBox"
-          [editorOptions]="{ mode: 'Email', placeholder: 'Email' }"
+          [editorOptions]="{ mode: 'email', placeholder: 'Email' }"
         ></dxi-item>
     
         <dxi-item
           dataField="Contrasena"
           editorType="dxTextBox"
-          [editorOptions]="{ mode: 'Contrasena', placeholder: 'Contrasena' }"
+          [editorOptions]="{ mode: 'password', placeholder: 'Contrasena' }"
           [isRequired]="true"
         ></dxi-item>
     
@@ -25,6 +24,7 @@
           <dx-button
             text="Iniciar Session"
             type="success"
+            icon="user"
             [useSubmitBehavior]="true"
             (onClick)="iniciarSesion()"
           ></dx-button>
