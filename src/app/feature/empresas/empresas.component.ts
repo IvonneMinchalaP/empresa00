@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { EmpresasService } from 'src/app/services/empresas.service';
 import { jsPDF } from 'jspdf';
-import * as ExcelJS from 'exceljs'; 
+import * as ExcelJS from 'exceljs';
 import autoTable from 'jspdf-autotable';
 
 interface ExportMenuVisible {
@@ -19,8 +19,12 @@ export class EmpresasComponent {
 
   empresas: any[] = [];
   isPopupVisible = false;
-  isUpdating = false;
-  currentEmpresa: any = { Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '', FechaFundacion: null };
+  //isUpdating = false;
+  //currentEmpresa: any = { Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '', FechaFundacion: null };
+
+  token: string = ''; // Almacenar el token del usuario
+  usuarioID: number = 0; // Almacenar el ID del usuario
+
 
   constructor(private empresasService: EmpresasService) {
     this.exportMenuVisible = {
@@ -30,54 +34,98 @@ export class EmpresasComponent {
   }
 
   ngOnInit(): void {
-    this.loadEmpresas();
+    this.cargarEmpresas();
   }
 
-  loadEmpresas() {
-    this.empresas = this.empresasService.getEmpresas();
+  cargarEmpresas(): void {
+    this.empresasService.obtenerEmpresas().subscribe(
+        (data: any) => {
+          if (data && data.empresas) {
+            this.empresas = data.empresas;
+          } else {
+            console.error('No se encontraron empresas');
+          }
+        },
+        (error) => {
+          console.error('Error al cargar empresas', error);
+        }
+      );
   }
 
+  // ngOnInit(): void {
+  //   this.token = localStorage.getItem('token') || ''; // Obtener el token desde el almacenamiento local
+  //   this.usuarioID = parseInt(localStorage.getItem('usuarioID') || '0', 10); // Obtener el ID de usuario
+
+  //   if (this.token && this.usuarioID) {
+  //     this.loadEmpresas();
+  //   } else {
+  //     console.error('Token o UsuarioID no disponibles.');
+  //     alert('Debe iniciar sesión nuevamente.');
+  //   }
+  //   console.log('token:', this.token);
+  //   console.log('usuarioID:', this.usuarioID);
+
+  // }
+
+  // loadEmpresas(): void {
+
+  //   const empresaID = parseInt(localStorage.getItem('empresaID') || '0', 10);
+
+  //   this.empresasService.cargarEmpresa(empresaID, this.token).subscribe(
+  //     (data: any) => {
+  //       console.log('Datos de empresas:', data);
+  //       this.empresas = data;
+  //     },
+  //     (error: any) => {
+  //       console.error('Error al cargar empresas:', error);
+  //       alert('Hubo un problema al cargar los datos de las empresas.');
+  //     }
+  //   );
+  // }
+
+
+  
   agregarEmpresa() {
-    this.isUpdating = false;
-    this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'', FechaFundacion: null };
-    this.isPopupVisible = true;
+    // this.isUpdating = false;
+    // this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'', FechaFundacion: null };
+    // this.isPopupVisible = true;
   }
 
   editarEmpresa(event: any) {
-    this.isUpdating = true;
-    this.currentEmpresa = { ...event.row.data }; // Corrige la referencia al evento del DataGrid
-    this.isPopupVisible = true;
+    // this.isUpdating = true;
+    // this.currentEmpresa = { ...event.row.data }; // Corrige la referencia al evento del DataGrid
+    // this.isPopupVisible = true;
   }
-  
+
 
   guardarEmpresa() {
-    if (!this.currentEmpresa.Nombre || !this.currentEmpresa.Email || !this.currentEmpresa.Telefono) {
-      alert('Por favor, complete todos los campos requeridos.');
-      return;
-    }
-  
-    if (this.isUpdating) {
-      this.empresasService.updateEmpresa(this.currentEmpresa.EmpresaID, this.currentEmpresa);
-    } else {
-      this.empresasService.addEmpresa({ ...this.currentEmpresa, EmpresaID: Date.now() });
-    }
-  
-    this.isPopupVisible = false;
-    this.loadEmpresas();
+    // if (!this.currentEmpresa.Nombre || !this.currentEmpresa.Email || !this.currentEmpresa.Telefono) {
+    //   alert('Por favor, complete todos los campos requeridos.');
+    //   return;
+    // }
+
+    // if (this.isUpdating) {
+    //   this.empresasService.updateEmpresa(this.currentEmpresa.EmpresaID, this.currentEmpresa);
+    // } else {
+    //   this.empresasService.addEmpresa({ ...this.currentEmpresa, EmpresaID: Date.now() });
+    // }
+
+    // this.isPopupVisible = false;
+    // this.loadEmpresas();
   }
 
- 
+
   eliminarEmpresa(event: any) {
-    if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
-      const EmpresaID = event.row.data.id;
-      this.empresasService.deleteEmpresa(EmpresaID);
-      this.loadEmpresas();
-    }
+    // if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
+    //   const EmpresaID = event.row.data.id;
+    //   this.empresasService.deleteEmpresa(EmpresaID);
+    //   this.loadEmpresas();
+    // }
   }
 
   cancelarEdicion() {
-    this.isPopupVisible = false;
-    this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: null };
+    // this.isPopupVisible = false;
+    // this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: null };
   }
    // Método que usa el índice
    toggleExportMenu(menu: keyof ExportMenuVisible): void {
@@ -100,7 +148,7 @@ export class EmpresasComponent {
     }
   }
 
-  
+
   exportToPDF(data: any[]) {
     const doc = new jsPDF();
 
@@ -120,7 +168,7 @@ export class EmpresasComponent {
       { header: 'Estado', dataKey: 'estado' },
       { header: 'Fecha de Fundacion', dataKey: 'fechaFundacion' },
     ];
-  
+
 
     doc.addImage(logo1Path, 'PNG', 10, 10, imgWidth, imgHeight);
     doc.addImage(logo2Path, 'PNG', 160, 10, imgWidth, imgHeight);
@@ -182,20 +230,20 @@ export class EmpresasComponent {
       extension: 'png',
     });
 
-   // Agregar el primer logo 
-   
+   // Agregar el primer logo
+
    worksheet.addImage(logo1, {
     tl: { col: 0, row: 0 },
     ext: { width: 130, height: 50 },
-    
+
   });
 
     const titleRow = worksheet.addRow(['', '', 'Reporte de Empresa']);
-    worksheet.mergeCells('C2:E2'); 
+    worksheet.mergeCells('C2:E2');
     titleRow.font = { bold: true, size: 16 };
     titleRow.alignment = { horizontal: 'center', vertical: 'middle' };
 
-    // Agregar el segundo logo 
+    // Agregar el segundo logo
     worksheet.addImage(logo2, {
       tl: { col: 5, row: 0 },
       ext: { width: 120, height: 50 },
@@ -210,7 +258,7 @@ export class EmpresasComponent {
 
       // Encabezados
     const headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Ciudad', 'Estado', 'Fecha de Fundacion'];
-    
+
     const headerRow = worksheet.addRow(headers);
     headerRow.font = { bold: true };
     headerRow.eachCell(cell => {
@@ -239,7 +287,7 @@ export class EmpresasComponent {
   //Ajustar tamaño de columnas
   worksheet.columns.forEach(column => {
     column.width = column.header && column.header.length < 17 ? 17 : (column.header?.length || 17);  });
-  
+
 
   // Exportar
     workbook.xlsx.writeBuffer().then((data) => {
@@ -259,7 +307,7 @@ export class EmpresasComponent {
   onSelectionChanged(e: any) {
     this.selectedRows = e.selectedRowsData;
   }
-  
+
   getSelectedRows(): any[] {
     return this.selectedRows;
   }

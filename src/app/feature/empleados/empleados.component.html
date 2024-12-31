@@ -115,6 +115,7 @@
 </dxo-editing>
 
   <dxo-paging [enabled]="true"></dxo-paging>
+  <dxi-column dataField="EmpresaID" caption="ID"></dxi-column>
 
   <dxi-column 
     dataField="Nombre" 
@@ -147,24 +148,6 @@
     dataType="date"
     format="shortDate"
   ></dxi-column>
-
-  <dxi-column type="buttons">
-    <dxi-button
-      name="edit"
-      icon="edit"
-      hint="Editar"
-      type="default"
-    stylingMode="contained"
-      (onClick)="editarEmpleado($event)"
-    ></dxi-button>
-    
-    <dxi-button
-      name="delete"
-      icon="trash"
-      hint="Eliminar"
-      (onClick)="eliminarEmpleado($event)"
-    ></dxi-button>
-  </dxi-column>
     
   </dx-data-grid>
 

@@ -90,7 +90,7 @@
   </dxo-editing>
   <dxo-paging [enabled]="true" ></dxo-paging>
   
-    
+  <dxi-column dataField="EmpresaID" caption="ID"></dxi-column>
   <dxi-column dataField="Nombre" caption="Nombre"></dxi-column>
   <dxi-column dataField="Email" caption="Email"></dxi-column>
   <dxi-column dataField="Telefono" caption="Telefono"></dxi-column>
@@ -126,12 +126,12 @@
     [dragEnabled]="true"
     [closeOnOutsideClick]="true"
     [showTitle]="true"
-    [title]="isUpdating ? 'Editar Empresa':'Agregar Empresa'"
+    [title]="'Agregar Empresa'"
     [width]="500"
     [height]="500"
     (onHiding)="isPopupVisible = false"
   >
-    <div *dxTemplate="let data of 'content'" class="popup-content">
+    <!-- <div *dxTemplate="let data of 'content'" class="popup-content">
       <form>
         <div class="form-group">
           <label>Nombre:</label>
@@ -160,7 +160,7 @@
             [type]="'date'"
             displayFormat="dd/MM/yyyy"
           ></dx-date-box>
-        </div>
+        </div> -->
   
 
         <div class="form-actions">
@@ -179,7 +179,6 @@
             (onClick)="cancelarEdicion()"
           ></dx-button>
         </div>
-      </form>
-    </div>
+    
   </dx-popup>
 </div>

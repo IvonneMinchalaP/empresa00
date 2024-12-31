@@ -27,7 +27,8 @@ export class EmpleadosComponent implements OnInit {
   isUpdating = false;
   currentEmpleado: any = {  Nombre: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
   accordionOpen = false;
-
+  token: string = ''; // Almacenar el token del usuario
+  usuarioID: number = 0; // Almacenar el ID del usuario
   constructor(private empleadosService: EmpleadosService  ) {
     this.exportMenuVisible = {
       excel: false,
@@ -77,7 +78,7 @@ export class EmpleadosComponent implements OnInit {
 
   eliminarEmpleado(event:any) {
     const EmpleadoID = event.row.data.EmpleadoID;
-    this.empleadosService.deleteEmpleado(EmpleadoID);
+   // this.empleadosService.deleteEmpleado(EmpleadoID);
     this.loadEmpleados();
   }
   // Cancelar la edición o adición
