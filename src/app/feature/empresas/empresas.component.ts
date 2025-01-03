@@ -3,6 +3,7 @@ import { EmpresasService } from 'src/app/services/empresas.service';
 import { jsPDF } from 'jspdf';
 import * as ExcelJS from 'exceljs';
 import autoTable from 'jspdf-autotable';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 interface ExportMenuVisible {
   excel: boolean;
@@ -19,12 +20,11 @@ export class EmpresasComponent {
 
   empresas: any[] = [];
   isPopupVisible = false;
-  //isUpdating = false;
-  //currentEmpresa: any = { Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '', FechaFundacion: null };
 
   token: string = ''; // Almacenar el token del usuario
   usuarioID: number = 0; // Almacenar el ID del usuario
-
+ // currentEmpresa = {Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '',FechaFundacion: new Date() };
+   currentEmpresa: any = {};
 
   constructor(private empresasService: EmpresasService) {
     this.exportMenuVisible = {
@@ -39,81 +39,83 @@ export class EmpresasComponent {
 
   cargarEmpresas(): void {
     this.empresasService.obtenerEmpresas().subscribe(
-        (data: any) => {
-          if (data && data.empresas) {
-            this.empresas = data.empresas;
-          } else {
-            console.error('No se encontraron empresas');
-          }
-        },
-        (error) => {
-          console.error('Error al cargar empresas', error);
+      (data: any) => {
+        if (data && data.empresas) {
+          this.empresas = data.empresas.map((empresa: any) => {
+            if (empresa.FechaFundacion) {
+              empresa.FechaFundacion = new Date(empresa.FechaFundacion); // Convertir a Date
+            }
+            return empresa;
+          });
+        } else {
+          console.error('No se encontraron empresas');
         }
-      );
+      },
+      (error) => {
+        console.error('Error al cargar empresas', error);
+      }
+    );
   }
-
-  // ngOnInit(): void {
-  //   this.token = localStorage.getItem('token') || ''; // Obtener el token desde el almacenamiento local
-  //   this.usuarioID = parseInt(localStorage.getItem('usuarioID') || '0', 10); // Obtener el ID de usuario
-
-  //   if (this.token && this.usuarioID) {
-  //     this.loadEmpresas();
-  //   } else {
-  //     console.error('Token o UsuarioID no disponibles.');
-  //     alert('Debe iniciar sesión nuevamente.');
-  //   }
-  //   console.log('token:', this.token);
-  //   console.log('usuarioID:', this.usuarioID);
-
-  // }
-
-  // loadEmpresas(): void {
-
-  //   const empresaID = parseInt(localStorage.getItem('empresaID') || '0', 10);
-
-  //   this.empresasService.cargarEmpresa(empresaID, this.token).subscribe(
-  //     (data: any) => {
-  //       console.log('Datos de empresas:', data);
-  //       this.empresas = data;
-  //     },
-  //     (error: any) => {
-  //       console.error('Error al cargar empresas:', error);
-  //       alert('Hubo un problema al cargar los datos de las empresas.');
-  //     }
-  //   );
-  // }
-
 
   
-  agregarEmpresa() {
-    // this.isUpdating = false;
-    // this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'', FechaFundacion: null };
-    // this.isPopupVisible = true;
+  mostrarPopup(): void {
+    this.isPopupVisible = true;
   }
 
-  editarEmpresa(event: any) {
-    // this.isUpdating = true;
-    // this.currentEmpresa = { ...event.row.data }; // Corrige la referencia al evento del DataGrid
-    // this.isPopupVisible = true;
+  cerrarPopup(): void {
+    this.isPopupVisible = false;
+  }
+
+  cancelarEdicion() {
+    this.isPopupVisible = false;
+    this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: new Date() };
+ }
+
+  guardarEmpresa(): void {
+    const empresaParaGuardar = {
+      ...this.currentEmpresa,
+      FechaFundacion: this.currentEmpresa.FechaFundacion
+        ? this.currentEmpresa.FechaFundacion.toISOString().split('T')[0] // Convertir a string (formato YYYY-MM-DD)
+        : undefined,
+    };
+  
+    this.empresasService.agregarEmpresa(empresaParaGuardar).subscribe(
+      (respuesta) => {
+        console.log('Empresa agregada:', respuesta);
+        this.cargarEmpresas(); // Actualiza la lista de empresas
+        this.cerrarPopup();
+      },
+      (error) => {
+        console.error('Error al agregar empresa:', error);
+      }
+    );
   }
 
 
-  guardarEmpresa() {
-    // if (!this.currentEmpresa.Nombre || !this.currentEmpresa.Email || !this.currentEmpresa.Telefono) {
-    //   alert('Por favor, complete todos los campos requeridos.');
-    //   return;
-    // }
-
-    // if (this.isUpdating) {
-    //   this.empresasService.updateEmpresa(this.currentEmpresa.EmpresaID, this.currentEmpresa);
-    // } else {
-    //   this.empresasService.addEmpresa({ ...this.currentEmpresa, EmpresaID: Date.now() });
-    // }
-
-    // this.isPopupVisible = false;
-    // this.loadEmpresas();
+  abrirPopup(empresa: any): void {
+    this.empresasService.cargarEmpresa(empresa.EmpresaID).subscribe({
+      next: (data: any) => {
+        this.currentEmpresa = data;
+        this.isPopupVisible = true;
+      },
+      error: (err) => console.error('Error al cargar los datos de la empresa:', err)
+    });
   }
 
+  editarEmpresa(): void {
+    this.empresasService.actualizarEmpresa(this.currentEmpresa).subscribe({
+      next: () => {
+        // Actualizar el dataSource del grid
+        const index = this.empresas.findIndex(e => e.EmpresaID === this.currentEmpresa.EmpresaID);
+        if (index !== -1) {
+          this.empresas[index] = { ...this.currentEmpresa };
+        }
+        this.isPopupVisible = false;
+      },
+      error: (err) => console.error('Error al actualizar la empresa:', err)
+    });
+  }
+ 
 
   eliminarEmpresa(event: any) {
     // if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
@@ -123,10 +125,7 @@ export class EmpresasComponent {
     // }
   }
 
-  cancelarEdicion() {
-    // this.isPopupVisible = false;
-    // this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: null };
-  }
+  
    // Método que usa el índice
    toggleExportMenu(menu: keyof ExportMenuVisible): void {
     this.exportMenuVisible[menu] = !this.exportMenuVisible[menu];
@@ -160,13 +159,13 @@ export class EmpresasComponent {
     const imgHeight = 15;
 
     const columns = [
-      { header: 'ID', dataKey: 'id' },
-      { header: 'Nombre', dataKey: 'nombre' },
-      { header: 'Correo', dataKey: 'email' },
-      { header: 'Teléfono', dataKey: 'telefono' },
-      { header: 'Ciudad', dataKey: 'ciudad' },
-      { header: 'Estado', dataKey: 'estado' },
-      { header: 'Fecha de Fundacion', dataKey: 'fechaFundacion' },
+      { header: 'ID', dataKey: 'EmpresaID' },
+      { header: 'Nombre', dataKey: 'Nombre' },
+      { header: 'Correo', dataKey: 'Email' },
+      { header: 'Teléfono', dataKey: 'Telefono' },
+      { header: 'Ciudad', dataKey: 'Ciudad' },
+      { header: 'Estado', dataKey: 'Estado' },
+      { header: 'Fecha de Fundacion', dataKey: 'FechaFundacion' },
     ];
 
 

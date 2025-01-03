@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
 import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFormModule, DxMenuModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
@@ -16,6 +16,9 @@ import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ContactanosComponent } from './contacto/contactanos.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { UsuarioService } from '../services/Usuario.service';
+import { dxItem } from 'devextreme/ui/widget/ui.widget';
+import { AppRoutingModule } from '../app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -49,7 +52,28 @@ import { UsuarioService } from '../services/Usuario.service';
     DxTagBoxModule,
     DxScrollViewModule,
     DxFormModule,
-    DxSelectBoxModule
+    DxSelectBoxModule,
+    CommonModule,
+    AppRoutingModule,
+      FormsModule,
+      ReactiveFormsModule,
+      BrowserModule,
+      DxButtonModule,
+      DxFormModule,
+      DxDataGridModule, // Grid para manejar datos
+      FeaturesRoutingModule,
+      DxPopupModule,
+      DxTextBoxModule,
+      DxDateBoxModule,
+      SharedModule,
+      DxAccordionModule, // Módulo del acordeón
+      DxTemplateModule,  // Módulo para las plantillas
+      DxCheckBoxModule,
+      DxSliderModule,
+      DxTagBoxModule,
+      DxScrollViewModule
+
+  
 
 
 ],
@@ -57,7 +81,8 @@ import { UsuarioService } from '../services/Usuario.service';
     EmpleadosService,
     EmpresasService,
     UsuarioService,
-    SidebarService
+    SidebarService,
+    DatePipe
   ],
   exports:[
     EmpleadosComponent,

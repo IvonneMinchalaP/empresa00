@@ -5,14 +5,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmpleadosService {
-  private apiUrlObtenerTodas = 'https://localhost:7085/api/empleado/obtener-empleados'; 
-  private empleados = [
-  ];
+  private apiUrlObtenerEmpleado= 'https://localhost:7085/api/empleado/obtener-empleado'; 
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
+  obtenerEmpleado() {
+    const token = localStorage.getItem('token'); 
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.apiUrlObtenerEmpleado, { headers });
+  }
+
+  
   getEmpleados() {
-    return this.empleados;
+    //return this.empleados;
   }
 
   addEmpleado(empleado: any) {

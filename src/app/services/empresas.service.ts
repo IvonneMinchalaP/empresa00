@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmpresasService {
+  private apiUrlObtenerTodas = 'https://localhost:7085/api/empresa/obtener-empresas';
   private apiUrlcargar = 'https://localhost:7085/api/empresa/cargar'; 
-  private apiUrlObtenerTodas = 'https://localhost:7085/api/empresa/obtener-empresas'; 
+  private apiUrlAgregar = 'https://localhost:7085/api/empresa/agregar';
+  private apiUrlActualizar = 'https://localhost:7085/api/empresa/actualizar'; 
 
   constructor(private http: HttpClient) {}
 
@@ -20,25 +22,37 @@ export class EmpresasService {
     return this.http.get(this.apiUrlObtenerTodas, { headers });
   }
   
-    cargarEmpresa( empresaID: number, token: string,): Observable<any> {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      });
-  
-      // El usuarioID se envía como un parámetro en la URL
-    const url = `${this.apiUrlcargar}?empresaID=${empresaID}`;
-    return this.http.get(url, { headers });
-    }
-  addEmpresa(empresa: any) {
-    //this.empresas.push(empresa);
+  agregarEmpresa(empresa: any) : Observable<any>{
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(this.apiUrlAgregar, empresa, { headers });
   }
 
-  updateEmpresa(EmpresaID: number, updateEmpresa: any) {
-    // const index = this.empresas.findIndex((empr) => empr.EmpresaID === EmpresaID);
-    // if (index !== -1) {
-    //   this.empresas[index] = { ...this.empresas[index], ...updateEmpresa };
-    // }
+
+  cargarEmpresa( empresaID: number): Observable<any> {
+    const token = localStorage.getItem('token'); 
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    // El usuarioID se envía como un parámetro en la URL
+  const url = `${this.apiUrlcargar}?empresaID=${empresaID}`;
+  return this.http.get(url, { headers });
+  }
+
+  actualizarEmpresa(empresa: any) : Observable<any>{
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(this.apiUrlActualizar, empresa, { headers });
+    
   }
 
   deleteEmpresa(EmpresaID: number) {

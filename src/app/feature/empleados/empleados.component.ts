@@ -23,12 +23,12 @@ export class EmpleadosComponent implements OnInit {
   empleados: any[] = [];
   // Controla la visibilidad del popup
   isPopupVisible = false;
-  // Determina si es agregar o actualizar
-  isUpdating = false;
-  currentEmpleado: any = {  Nombre: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
   accordionOpen = false;
+
+  currentEmpleado: any = {  Nombre: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
   token: string = ''; // Almacenar el token del usuario
   usuarioID: number = 0; // Almacenar el ID del usuario
+
   constructor(private empleadosService: EmpleadosService  ) {
     this.exportMenuVisible = {
       excel: false,
@@ -37,49 +37,58 @@ export class EmpleadosComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.loadEmpleados();
+ ngOnInit(): void {
+    this.cargarEmpleado();
   }
 
-  // Cargar la lista de empleados
-  loadEmpleados() {
-    this.empleados = this.empleadosService.getEmpleados();
+  cargarEmpleado(): void {
+    this.empleadosService.obtenerEmpleado().subscribe(
+        (data: any) => {
+          if (data && data.empleados) {
+            this.empleados = data.empleados;
+          } else {
+            console.error('No se encontraron empleados');
+          }
+        },
+        (error) => {
+          console.error('Error al cargar empleados', error);
+        }
+      );
   }
-
   agregarEmpleado() {
-    this.isUpdating = false;
-    this.currentEmpleado = {  Nombre: '', Apeliddo: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
-    // Muestra el popup
-    this.isPopupVisible = true;
+    // this.isUpdating = false;
+    // this.currentEmpleado = {  Nombre: '', Apeliddo: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
+    // // Muestra el popup
+    // this.isPopupVisible = true;
   }
 
   editarEmpleado(event: any) {
-   this.isUpdating = true;
-     //Carga los datos del empleado seleccionado
-    this.currentEmpleado = { ...event.row.data};
-    this.currentEmpleado = { ...this.empleados};
-     //Muestra el popup
-    this.isPopupVisible = true;
+  //  this.isUpdating = true;
+  //    //Carga los datos del empleado seleccionado
+  //   this.currentEmpleado = { ...event.row.data};
+  //   this.currentEmpleado = { ...this.empleados};
+  //    //Muestra el popup
+  //   this.isPopupVisible = true;
   }
 
   guardarEmpleado() {
 
-    if (this.isUpdating) {
-      this.empleadosService.updateEmpleado(this.currentEmpleado.EmpleadoID, this.currentEmpleado );
-      //this.currentEmpleado = { ...event.row.data };
-    } else {
-      this.empleadosService.addEmpleado({ ...this.currentEmpleado, EmpleadoID: Date.now() });
-    }
-    // Oculta el popup
-    this.isPopupVisible = false;
-    // Recarga los datoss
-    this.loadEmpleados();
+    // if (this.isUpdating) {
+    //   this.empleadosService.updateEmpleado(this.currentEmpleado.EmpleadoID, this.currentEmpleado );
+    //   //this.currentEmpleado = { ...event.row.data };
+    // } else {
+    //   this.empleadosService.addEmpleado({ ...this.currentEmpleado, EmpleadoID: Date.now() });
+    // }
+    // // Oculta el popup
+    // this.isPopupVisible = false;
+    // // Recarga los datoss
+    // this.loadEmpleados();
   }
 
   eliminarEmpleado(event:any) {
     const EmpleadoID = event.row.data.EmpleadoID;
    // this.empleadosService.deleteEmpleado(EmpleadoID);
-    this.loadEmpleados();
+    this.cargarEmpleado();
   }
   // Cancelar la edición o adición
   cancelarEdicion() {
