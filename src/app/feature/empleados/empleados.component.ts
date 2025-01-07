@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { jsPDF } from 'jspdf';
 import * as ExcelJS from 'exceljs'; 
 import autoTable from 'jspdf-autotable';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 interface ExportMenuVisible {
   excel: boolean;
@@ -24,10 +25,10 @@ export class EmpleadosComponent implements OnInit {
   // Controla la visibilidad del popup
   isPopupVisible = false;
   accordionOpen = false;
+  currentEmpleado: any = { Nombre: '', Email: '', Puesto: '', Telefono: '',FechaIngreso: new Date() };
 
-  currentEmpleado: any = {  Nombre: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
-  token: string = ''; // Almacenar el token del usuario
-  usuarioID: number = 0; // Almacenar el ID del usuario
+  @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
+
 
   constructor(private empleadosService: EmpleadosService  ) {
     this.exportMenuVisible = {
@@ -45,7 +46,12 @@ export class EmpleadosComponent implements OnInit {
     this.empleadosService.obtenerEmpleado().subscribe(
         (data: any) => {
           if (data && data.empleados) {
-            this.empleados = data.empleados;
+            this.empleados = data.empleados.map((empleado: any) => {
+              if (empleado.FechaIngreso) {
+                empleado.FechaIngreso = new Date(empleado.FechaIngreso); // Convertir a Date
+              }
+              return empleado;
+            });
           } else {
             console.error('No se encontraron empleados');
           }
@@ -55,51 +61,111 @@ export class EmpleadosComponent implements OnInit {
         }
       );
   }
-  agregarEmpleado() {
-    // this.isUpdating = false;
-    // this.currentEmpleado = {  Nombre: '', Apeliddo: '', Email: '', Puesto: '', Telefono: '', FechaIngreso: null};
-    // // Muestra el popup
-    // this.isPopupVisible = true;
-  }
-
-  editarEmpleado(event: any) {
-  //  this.isUpdating = true;
-  //    //Carga los datos del empleado seleccionado
-  //   this.currentEmpleado = { ...event.row.data};
-  //   this.currentEmpleado = { ...this.empleados};
-  //    //Muestra el popup
-  //   this.isPopupVisible = true;
-  }
-
-  guardarEmpleado() {
-
-    // if (this.isUpdating) {
-    //   this.empleadosService.updateEmpleado(this.currentEmpleado.EmpleadoID, this.currentEmpleado );
-    //   //this.currentEmpleado = { ...event.row.data };
-    // } else {
-    //   this.empleadosService.addEmpleado({ ...this.currentEmpleado, EmpleadoID: Date.now() });
-    // }
-    // // Oculta el popup
-    // this.isPopupVisible = false;
-    // // Recarga los datoss
-    // this.loadEmpleados();
-  }
-
-  eliminarEmpleado(event:any) {
-    const EmpleadoID = event.row.data.EmpleadoID;
-   // this.empleadosService.deleteEmpleado(EmpleadoID);
-    this.cargarEmpleado();
-  }
-  // Cancelar la edición o adición
-  cancelarEdicion() {
+   
+ 
+  cerrarPopup(): void {
     this.isPopupVisible = false;
   }
+
+  cancelarEdicion() {
+    this.isPopupVisible = false;
+    this.currentEmpleado = { Nombre: '', Email: '', Puesto: '', Telefono: '',FechaIngreso: new Date() };
+ }
+  mostrarPopup(): void {
+    this.isPopupVisible = true;
+  }
+
+  guardarOEditarEmpleado(): void {
+    const empleadoParaGuardar = {
+      ...this.currentEmpleado,
+      FechaIngreso: this.currentEmpleado.FechaIngreso
+        ? new Date(this.currentEmpleado.FechaIngreso).toISOString().split('T')[0] // Convertir a string (formato YYYY-MM-DD)
+        : undefined,
+    };
+  
+    if (this.currentEmpleado.EmpleadoID) {
+      // Actualizar empleado
+      this.empleadosService.actualizarEmpleado(empleadoParaGuardar).subscribe({
+        next: () => {
+          const index = this.empleados.findIndex(e => e.EmpleadoID === this.currentEmpleado.EmpleadoID);
+          if (index !== -1) {
+            this.empleados[index] = { ...empleadoParaGuardar };
+          }
+          console.log('Empleado actualizado:', empleadoParaGuardar);
+          this.cargarEmpleado(); // Actualiza la lista de empleados
+          this.cerrarPopup();
+        },
+        error: (err) => console.error('Error al actualizar el empleado:', err),
+      });
+    } else {
+      // Agregar empleado
+      this.empleadosService.agregarEmpleado(empleadoParaGuardar).subscribe({
+        next: (respuesta) => {
+          console.log('Empleado agregado:', respuesta);
+          this.cargarEmpleado(); // Actualiza la lista de empleados
+          this.cerrarPopup();
+        },
+        error: (err) => console.error('Error al agregar el empleado:', err),
+      });
+    }
+  }
+  
+  
+  get tituloPopup(): string {
+    return this.currentEmpleado?.EmpleadoID ? 'Actualizar Empleado' : 'Agregar Empleado';
+  }
+  
+
+  abrirPopup(empleado: any): void {
+    if (!empleado) {
+      console.error('No se ha seleccionado un empleado para editar.');
+      return;
+    }
+    this.empleadosService.cargarEmpleado(empleado.EmpleadoID).subscribe({
+      next: (data: any) => {
+        this.currentEmpleado = data;
+        this.isPopupVisible = true;
+      },
+      error: (err) => console.error('Error al cargar los datos de la empresa:', err)
+    });
+  }
+ 
+  eliminarEmpleado(empleadoID: number): void {
+    if (confirm('¿Está seguro de que desea eliminar este empleado?')) {
+      this.empleadosService.eliminarEmpleado(empleadoID).subscribe({
+        next: (response) => {
+          alert(response?.Mensaje || 'Empresa eliminada correctamente');
+          this.cargarEmpleado(); // Recarga las empresas después de la eliminación
+        },
+        error: (error) => {
+          alert('Error al eliminar la empleado');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+  onEliminarClick(): void {
+    const selectedRowKeys = this.dataGrid.instance.getSelectedRowKeys();
+    if (selectedRowKeys.length > 0) {
+      const empleadoID = selectedRowKeys[0].EmpleadoID;
+      this.eliminarEmpleado(empleadoID);
+    } else {
+      alert('Por favor, seleccione una empresa para eliminar.');
+    }
+  }
+
 
  // Método que usa el índice
   toggleExportMenu(menu: keyof ExportMenuVisible): void {
     this.exportMenuVisible[menu] = !this.exportMenuVisible[menu];
   }
-
+    // Método para obtener la fecha actual
+    getCurrentDate(): string {
+      const today = new Date();
+     return today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+   }
+ 
 
   exportGrid(format: string, selected: boolean) {
     const data = selected ? this.getSelectedRows() : this.empleados;
@@ -128,13 +194,12 @@ export class EmpleadosComponent implements OnInit {
     const imgHeight = 15;
 
     const columns = [
-      { header: 'ID', dataKey: 'id' },
-      { header: 'Nombre', dataKey: 'nombre' },
-      { header: 'Correo', dataKey: 'email' },
-      { header: 'Puesto', dataKey: 'puesto' },
-      { header: 'Teléfono', dataKey: 'telefono' },
-      { header: 'Empresa', dataKey: 'empres' },
-      { header: 'Fecha de Ingreso', dataKey: 'fechaIngreso' },
+      { header: 'ID', dataKey: 'EmpleadoID' },
+      { header: 'Nombre', dataKey: 'Nombre' },
+      { header: 'Correo', dataKey: 'Email' },
+      { header: 'Puesto', dataKey: 'Puesto' },
+      { header: 'Teléfono', dataKey: 'Telefono' },
+      { header: 'Fecha de Ingreso', dataKey: 'FechaIngreso' },
     ];
   
 
@@ -155,8 +220,11 @@ export class EmpleadosComponent implements OnInit {
       headStyles: { fillColor: [200, 200, 200] }, // Encabezado sombreado
     });
     doc.setFontSize(12);
-    doc.text("Usuario: Admin", 6, 290);
-    doc.text("Fecha exportacion: 12/12/2024", 146, 290);
+    const currentUser = sessionStorage.getItem('nombre') || 'Invitado'; // Usuario actual desde sessionStorage
+    const exportDate = this.getCurrentDate(); // Fecha actual
+    doc.text(`Usuario: ${currentUser}`, 6, 290);
+    doc.text(`Fecha exportación: ${exportDate}`, 146, 290);
+
     doc.save('empleados.pdf');
   }
 
@@ -217,15 +285,17 @@ export class EmpleadosComponent implements OnInit {
       ext: { width: 120, height: 50 },
     });
 
-    // Subtítulo
-    const subtitleRow = worksheet.addRow(["Usuario: Admin", "  ", "Fecha exportación: 12/12/2024" ]);
+    // Subtítulo con el nombre del usuario logueado y la fecha actual
+    const usuarioNombre = sessionStorage.getItem('nombre') || 'Usuario desconocido';
+    const currentDate = this.getCurrentDate();
+    const subtitleRow = worksheet.addRow([`Usuario: ${usuarioNombre}`, "", `Fecha exportación: ${currentDate}`]);    subtitleRow.alignment = { horizontal: 'left' };
     subtitleRow.alignment = { horizontal: 'left' };
 
     // Espacio entre títulos y encabezado
     worksheet.addRow([]);
 
       // Encabezados
-    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Empresa', 'Fecha de Ingreso'];
+    const headers = ['ID', 'Nombre', 'Correo', 'Puesto', 'Teléfono', 'Fecha de Ingreso'];
     
     const headerRow = worksheet.addRow(headers);
     headerRow.font = { bold: true };

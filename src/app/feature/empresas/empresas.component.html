@@ -73,7 +73,7 @@
       hint="Eliminar"
       type="default"
     stylingMode="contained"
-      (onClick)="eliminarEmpresa($event)"
+      (onClick)="onEliminarClick()"
     ></dx-button>
    
   <dx-data-grid
@@ -89,20 +89,22 @@
     [allowColumnResizing]="true"
     [allowColumnReordering]="true"
   >
-  <dxo-header-filter [visible]="true"></dxo-header-filter>
-  <dxo-scrolling mode="virtual"></dxo-scrolling>
-  <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
-  <dxo-pager 
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+  <dxo-paging [pageSize]="5"> </dxo-paging>
+  <dxo-pager
     [visible]="true"
-    [showInfo]="true">
+    [allowedPageSizes]="[5, 10, 'all']"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true">
+    >
   </dxo-pager>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
 
-    <dxo-form labelLocation="top"></dxo-form>
-    <dxo-popup [showTitle]="true" title="Actualizar Empresa">
-    
-    </dxo-popup>
-
-  <dxo-paging [enabled]="true" ></dxo-paging>
+  <dxo-form labelLocation="top"></dxo-form>
+  <dxo-popup [showTitle]="true" title="Actualizar Empresa">
+  </dxo-popup>
   
   <dxi-column dataField="EmpresaID" caption="ID"></dxi-column>
   <dxi-column dataField="Nombre" caption="Nombre"></dxi-column>
@@ -118,124 +120,64 @@
   ></dxi-column>
   </dx-data-grid>
 
-  <dx-popup
-    [visible]="isPopupVisible"
-    [dragEnabled]="true"
-    [closeOnOutsideClick]="true"
-    [showTitle]="true"
-    [title]="'Agregar Empresa'"
-    [width]="500"
-    [height]="500"
-    (onHiding)="isPopupVisible = false"
-  >
-    <div *dxTemplate="let data of 'content'" class="popup-content">
-      <form>
-        <div class="form-group">
-          <label>Nombre:</label>
-          <dx-text-box [(value)]="currentEmpresa.Nombre"></dx-text-box>
-        </div>
-        <div class="form-group">
-          <label>Correo:</label>
-          <dx-text-box [(value)]="currentEmpresa.Email"></dx-text-box>
-        </div>
-        <div class="form-group">
-          <label>Teléfono:</label>
-          <dx-text-box [(value)]="currentEmpresa.Telefono"></dx-text-box>
-        </div>
-        <div class="form-group">
-          <label>Ciudad:</label>
-          <dx-text-box [(value)]="currentEmpresa.Ciudad"></dx-text-box>
-        </div>
-        <div class="form-group">
-          <label>Estado:</label>
-          <dx-text-box [(value)]="currentEmpresa.Estado"></dx-text-box>
-        </div>
-        <div class="form-group">       
-          <label>Fecha de Fundacion:</label>
-          <dx-date-box
-          [value]="currentEmpresa.FechaFundacion"
-          displayFormat="dd/MM/yyyy"
-        ></dx-date-box>
-        </div> 
+    <dx-popup
+      [visible]="isPopupVisible"
+      [dragEnabled]="true"
+      [showTitle]="true"
+      [title]="tituloPopup"
+      [width]="500"
+      [height]="500"
+      (onHiding)="isPopupVisible = false"
+    >
+      <div *dxTemplate="let data of 'content'" class="popup-content">
+        <form>
+          <div class="form-group">
+            <label>Nombre:</label>
+            <dx-text-box [(value)]="currentEmpresa.Nombre"></dx-text-box>
+          </div>
+          <div class="form-group">
+            <label>Correo:</label>
+            <dx-text-box [(value)]="currentEmpresa.Email"></dx-text-box>
+          </div>
+          <div class="form-group">
+            <label>Teléfono:</label>
+            <dx-text-box [(value)]="currentEmpresa.Telefono"></dx-text-box>
+          </div>
+          <div class="form-group">
+            <label>Ciudad:</label>
+            <dx-text-box [(value)]="currentEmpresa.Ciudad"></dx-text-box>
+          </div>
+          <div class="form-group">
+            <label>Estado:</label>
+            <dx-text-box [(value)]="currentEmpresa.Estado"></dx-text-box>
+          </div>
+          <div class="form-group">       
+            <label>Fecha de Fundacion:</label>
+            <dx-date-box
+            [value]="currentEmpresa.FechaFundacion"
+            displayFormat="dd/MM/yyyy"
+          ></dx-date-box>
+          </div> 
 
-        <div class="form-actions">
-          <dx-button
-            text="Guardar"
-            icon="save"
-            type="success"
-            stylingMode="contained"
-            (onClick)="guardarEmpresa()"
-          ></dx-button>
-          <dx-button
-            text="Cancelar"
-            icon="close"
-            type="danger"
-            stylingMode="outlined"
-            (onClick)="cancelarEdicion()"
-          ></dx-button>
-        </div>
-      </form>
-    </div>
-  </dx-popup>
-</div>
+          <div class="form-actions">
+            <dx-button
+              text="Guardar"
+              icon="save"
+              type="success"
+              stylingMode="contained"
+              (onClick)="guardarOEditarEmpleado()"
+            ></dx-button>
+            <dx-button
+              text="Cancelar"
+              icon="close"
+              type="danger"
+              stylingMode="outlined"
+              (onClick)="cancelarEdicion()"
+            ></dx-button>
+          </div>
+        </form>
+      </div>
+    </dx-popup>
+  </div>
 
-<dx-popup
-[visible]="isPopupVisible"
-[dragEnabled]="true"
-[closeOnOutsideClick]="true"
-[showTitle]="true"
-[title]="'Actualizar Empresa'"
-[width]="500"
-[height]="500"
-(onHiding)="cancelarEdicion()"
->
-<div *dxTemplate="let data of 'content'" class="popup-content">
-  <form>
-    <div class="form-group">
-      <label>Nombre:</label>
-      <dx-text-box [(value)]="currentEmpresa.Nombre"></dx-text-box>
-    </div>
-    <div class="form-group">
-      <label>Correo:</label>
-      <dx-text-box [(value)]="currentEmpresa.Email"></dx-text-box>
-    </div>
-    <div class="form-group">
-      <label>Teléfono:</label>
-      <dx-text-box [(value)]="currentEmpresa.Telefono"></dx-text-box>
-    </div>
-    <div class="form-group">
-      <label>Ciudad:</label>
-      <dx-text-box [(value)]="currentEmpresa.Ciudad"></dx-text-box>
-    </div>
-    <div class="form-group">
-      <label>Estado:</label>
-      <dx-text-box [(value)]="currentEmpresa.Estado"></dx-text-box>
-    </div>
-    <div class="form-group">       
-      <label>Fecha de Fundacion:</label>
-      <dx-date-box
-      [(value)]="currentEmpresa.FechaFundacion"
-      displayFormat="dd/MM/yyyy"
-    ></dx-date-box>
-    </div> 
-
-    <div class="form-actions">
-      <dx-button
-        text="Actualizar"
-        icon="save"
-        type="success"
-        stylingMode="contained"
-        (onClick)="editarEmpresa()"
-      ></dx-button>
-      <dx-button
-        text="Cancelar"
-        icon="close"
-        type="danger"
-        stylingMode="outlined"
-        (onClick)="cancelarEdicion()"
-      ></dx-button>
-    </div>
-  </form>
-</div>
-</dx-popup>
-</div>
+ 

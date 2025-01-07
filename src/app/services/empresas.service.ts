@@ -6,24 +6,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmpresasService {
-  private apiUrlObtenerTodas = 'https://localhost:7085/api/empresa/obtener-empresas';
+  private apiUrlObtenerEmpresa = 'https://localhost:7085/api/empresa/obtener-empresas';
   private apiUrlcargar = 'https://localhost:7085/api/empresa/cargar'; 
   private apiUrlAgregar = 'https://localhost:7085/api/empresa/agregar';
   private apiUrlActualizar = 'https://localhost:7085/api/empresa/actualizar'; 
+  private apiUrlEliminar = 'https://localhost:7085/api/empresa/eliminar'; 
 
   constructor(private http: HttpClient) {}
 
   obtenerEmpresas() {
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
 
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(this.apiUrlObtenerTodas, { headers });
+    return this.http.get(this.apiUrlObtenerEmpresa,{ headers });
   }
   
   agregarEmpresa(empresa: any) : Observable<any>{
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -33,7 +35,7 @@ export class EmpresasService {
 
 
   cargarEmpresa( empresaID: number): Observable<any> {
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export class EmpresasService {
   }
 
   actualizarEmpresa(empresa: any) : Observable<any>{
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -55,8 +57,14 @@ export class EmpresasService {
     
   }
 
-  deleteEmpresa(EmpresaID: number) {
-    //this.empresas = this.empresas.filter(e => e.EmpresaID !== EmpresaID);
-  }
+  eliminarEmpresa(empresaID: number): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.apiUrlEliminar}?empresaID=${empresaID}`;
+    return this.http.delete(url, { headers });
+    }
 }
 

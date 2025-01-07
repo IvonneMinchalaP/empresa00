@@ -16,10 +16,14 @@ export class UsuarioComponent implements OnInit {
   
     ngOnInit(): void {
       // Obtener token del almacenamiento local al iniciar
-      this.token = localStorage.getItem('token');
-      const usuarioID = Number(localStorage.getItem('usuarioID')); // Almacena el ID después del inicio de sesión
+      this.token = sessionStorage.getItem('token');
+      const usuarioID = Number(sessionStorage.getItem('usuarioID'));
+      const nombre = sessionStorage.getItem('nombre');
+      
       console.log('Token:', this.token);
       console.log('UsuarioID:', usuarioID);
+      console.log('Nombre:', nombre);
+
       if (this.token && usuarioID) {
         this.usuarioService.consultarUsuario(this.token, usuarioID).subscribe(
           (response) => {

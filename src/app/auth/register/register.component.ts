@@ -59,4 +59,22 @@ export class RegisterComponent {
     }
     
   }
+  // Método para obtener mensajes de error para cada campo
+  getErrorMessage(field: string): string {
+    const control = this.registerForm.get(field);
+
+    if (control?.hasError('required')) {
+      return `${field} es obligatorio.`;
+    } else if (control?.hasError('minlength')) {
+      return `${field} debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres.`;
+    } else if (control?.hasError('maxlength')) {
+      return `${field} no debe superar los ${control.errors?.['maxlength'].requiredLength} caracteres.`;
+    } else if (control?.hasError('email')) {
+      return `Introduce un correo válido.`;
+    } else if (control?.hasError('birthDateInvalid')) {
+      return `La fecha de nacimiento debe ser anterior a hoy.`;
+    }
+    return '';
+  }
+
 }

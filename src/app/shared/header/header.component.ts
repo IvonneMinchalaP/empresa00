@@ -14,11 +14,16 @@ export class HeaderComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
   constructor(private router: Router) {}
-  logout() {
-  
-    // Redirige al login
+  logout(): void {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('usuarioID');
+    sessionStorage.removeItem('Nombre'); 
+    console.log('Sesión cerrada exitosamente');
+        // Redirige al login
+
     this.router.navigate(['']);
   }
+
   Perfil() {
   
     // Redirige al perfil del usuario

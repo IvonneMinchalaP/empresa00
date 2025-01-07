@@ -2,7 +2,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
-import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFormModule, DxMenuModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSliderModule, DxTagBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFormModule, 
+        DxMenuModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSliderModule, DxTagBoxModule,
+         DxTemplateModule,DxTextBoxModule } from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpresasComponent } from './empresas/empresas.component';
@@ -19,6 +21,7 @@ import { UsuarioService } from '../services/Usuario.service';
 import { dxItem } from 'devextreme/ui/widget/ui.widget';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModule, DxoPagerModule, DxoPagingModule, DxoScrollingModule } from 'devextreme-angular/ui/nested';
 
 
 
@@ -53,27 +56,15 @@ import { BrowserModule } from '@angular/platform-browser';
     DxScrollViewModule,
     DxFormModule,
     DxSelectBoxModule,
-    CommonModule,
     AppRoutingModule,
-      FormsModule,
-      ReactiveFormsModule,
-      BrowserModule,
-      DxButtonModule,
-      DxFormModule,
-      DxDataGridModule, // Grid para manejar datos
-      FeaturesRoutingModule,
-      DxPopupModule,
-      DxTextBoxModule,
-      DxDateBoxModule,
-      SharedModule,
-      DxAccordionModule, // Módulo del acordeón
-      DxTemplateModule,  // Módulo para las plantillas
-      DxCheckBoxModule,
-      DxSliderModule,
-      DxTagBoxModule,
-      DxScrollViewModule
-
-  
+    BrowserModule,
+    DxoPagingModule,
+    DxoScrollingModule,
+    DxiItemModule,
+    DxoPagerModule,
+    DxoHeaderFilterModule,
+    DxoGroupingModule,
+    DxiColumnModule
 
 
 ],
@@ -82,7 +73,6 @@ import { BrowserModule } from '@angular/platform-browser';
     EmpresasService,
     UsuarioService,
     SidebarService,
-    DatePipe
   ],
   exports:[
     EmpleadosComponent,

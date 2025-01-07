@@ -14,31 +14,52 @@
     <div class="right-section">
       <div class="form-card">
         <h1>Contactar con DataCRM</h1>
-        <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="Nombre">Nombre</label>
-              <input type="text" ContactoID="Nombre" name="Nombre" [(ngModel)]="contactFormData.Nombre" required />
-            </div>
-            <div class="form-group">
-              <label for="Teléfono">Teléfono</label>
-              <input type="tel" ContactoID="Teléfono" name="Teléfono" [(ngModel)]="contactFormData.Telefono" required />
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="Email">Email</label>
-            <input type="Email" ContactoID="Email" name="Email" [(ngModel)]="contactFormData.Email" required />
-          </div>
-  
-          <div class="form-group">
-            <label for="Mensaje">Mensaje</label>
-            <textarea ContactoID="Mensaje" name="Mensaje" [(ngModel)]="contactFormData.Mensaje" rows="4" required></textarea>
-          </div>
-  
-          <button type="submit" class="submit-button">Enviar</button>
-        </form>
-      </div>
-    </div>
+          <dx-form
+              [formData]="contactoForm.value"
+              [colCount]="1"
+              labelLocation="top"
+              (ngSubmit)="onSubmit()"
+          >
+            <!-- Nombre -->
+            <dxi-item
+            dataField="Nombre"
+            editorType="dxTextBox"
+            [editorOptions]="{ placeholder: 'Nombre', maxLength: 30  }"
+            ></dxi-item>
+
+            <!-- Telefono -->
+            <dxi-item
+            dataField="Telefono"
+            editorType="dxTextBox"
+            [editorOptions]="{ placeholder: 'Telefono', maxLength: 10  }"
+            ></dxi-item>
+
+            <!-- Email -->
+            <dxi-item
+            dataField="Email"
+            editorType="dxTextBox"
+            [editorOptions]="{ mode: 'email', placeholder: 'Email' }"
+            ></dxi-item>
+
+            <!-- Mensaje -->
+            <dxi-item
+            dataField="Mensaje"
+            editorType="dxTextBox"
+            [editorOptions]="{ placeholder: 'Mensaje', maxLength: 100  }"
+            ></dxi-item>
+
+            <!-- Botón de contacto -->
+            <dxi-item>
+              <dx-button
+                  text="Enviar"
+                  icon="user"
+                  type="success"
+                  [useSubmitBehavior]="true"
+                  (onClick)="onSubmit()"
+             ></dx-button>
+            </dxi-item>
+          </dx-form>
+        </div>
   </div>
+</div>
   

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContactoService } from 'src/app/services/contacto.service';
 
 @Component({
   selector: 'app-contactanos',
@@ -6,41 +9,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./contactanos.component.css']
 })
 export class ContactanosComponent {
-// Modelo para almacenar los datos del formulario
-contactFormData = {
-  Nombre: '',
-  Telefono: '',
-  Email: '',
-  Mensaje: ''
-};
-
-// Método que se ejecuta al enviar el formulario
-onSubmit(): void {
-  // Validar si todos los campos están completos
-  if (
-    this.contactFormData.Nombre &&
-    this.contactFormData.Telefono &&
-    this.contactFormData.Email &&
-    this.contactFormData.Mensaje
-  ) {
-    console.log('Formulario enviado:', this.contactFormData);
-
-    alert('Gracias por contactarnos. Pronto nos pondremos en contacto contigo.');
-
-    // Reiniciar el formulario después de enviarlo
-    this.resetForm();
-  } else {
-    alert('Por favor, completa todos los campos antes de enviar.');
+  contactoForm: FormGroup;
+ 
+constructor(private fb: FormBuilder, private router: Router, private contactoService: ContactoService) {
+    this.contactoForm = this.fb.group({
+      Nombre: [''],
+      Telefono: [''],
+      Email: [''],
+      Mensaje: [''],
+    });
   }
+
+  // Método que se ejecuta al enviar el formulario
+  onSubmit(): void {
+    if (this.contactoForm.valid) {
+      const contacto  = this.contactoForm.value;
+
+      this.contactoService.insertarContacto(contacto).subscribe(
+        (response) => {
+          const mensaje = response?.mensaje || 'Contacto enviado correctamente.';
+          alert(mensaje);
+          this.contactoForm.reset(); // Vacía el formulario
+
+        },
+        (error) => {
+          const mensajeError = error?.error?.mensaje || 'Error al enviar contacto.';
+          alert(mensajeError);
+        }
+      );
+    } else {
+      alert('Por favor, completa todos los campos correctamente.');
+    }
+    
+  }
+
 }
 
-// Método para reiniciar los datos del formulario
-resetForm(): void {
-  this.contactFormData = {
-    Nombre: '',
-    Telefono: '',
-    Email: '',
-    Mensaje: ''
-  };
-}
-}

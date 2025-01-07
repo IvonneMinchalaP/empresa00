@@ -6,41 +6,64 @@ import { Observable } from 'rxjs';
 })
 export class EmpleadosService {
   private apiUrlObtenerEmpleado= 'https://localhost:7085/api/empleado/obtener-empleado'; 
+  private apiUrlcargarEmpleado = 'https://localhost:7085/api/empleado/cargar'; 
+  private apiUrlAgregarEmpleado = 'https://localhost:7085/api/empleado/agregar';
+  private apiUrlActualizarEmpleado = 'https://localhost:7085/api/empleado/actualizar'; 
+  private apiUrlEliminarEmpleado = 'https://localhost:7085/api/empleado/eliminar'; 
 
   constructor(private http: HttpClient) {}
 
   obtenerEmpleado() {
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
 
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(this.apiUrlObtenerEmpleado, { headers });
   }
 
-  
-  getEmpleados() {
-    //return this.empleados;
+  agregarEmpleado(empleado: any) : Observable<any>{
+    const token = sessionStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(this.apiUrlAgregarEmpleado, empleado, { headers });
   }
 
-  addEmpleado(empleado: any) {
-    //this.empleados.push(empleado);
+
+  cargarEmpleado( empleadoID: number): Observable<any> {
+    const token = sessionStorage.getItem('token'); 
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    // El usuarioID se envía como un parámetro en la URL
+  const url = `${this.apiUrlcargarEmpleado}?empleadoID=${empleadoID}`;
+  return this.http.get(url, { headers });
   }
 
-  // updateEmpleado(id: number, updatedData: any) {
-  //   const empleado = this.empleados.find(e => e.id === id);
-  //   if (empleado) Object.assign(empleado, updatedData);
-  // }
-// Actualizar un empleado existente
-  updateEmpleado(EmpleadoID: number, updatedEmpleado: any) {
-    // const index = this.empleados.findIndex((emp) => emp.EmpleadoID === EmpleadoID);
-    // if (index !== -1) {
-    //   this.empleados[index] = { ...this.empleados[index], ...updatedEmpleado };
+  actualizarEmpleado(empleado: any) : Observable<any>{
+    const token = sessionStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(this.apiUrlActualizarEmpleado, empleado, { headers });
+    
+  }
+
+  eliminarEmpleado(empleadoID: number): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.apiUrlEliminarEmpleado}?empleadoID=${empleadoID}`;
+    return this.http.delete(url, { headers });
     }
-  }
-
-  // deleteEmpleado(EmpleadoID: number) {
-  //  //this.empleados = this.empleados.filter(e => e.EmpleadoID !== EmpleadoID);
-  // }
-
+}
 

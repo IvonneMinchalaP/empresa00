@@ -1,116 +1,110 @@
 .contact-container {
-    display: flex;
-    justify-content: space-evenly; /* Distribuir las secciones horizontalmente */
-    align-items: flex-start;
-    gap: 20px; /* Espacio entre secciones */
-    padding: 20px;
-    box-sizing: border-box;
-    height: calc(100vh - 120px); /* Ajusta para header y footer */
-    overflow-y: auto;
-  }
-  
-  .middle-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrar imagen y tarjeta */
-    gap: 15px; /* Reducir separación entre imagen y tarjeta */
-  }
-  
-  .contact-image {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .company-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 10px;
-    width: 300px; /* Ancho fijo para mantener consistencia con la imagen */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .company-card h3 {
-    margin-bottom: 10px;
-    text-align: center;
-    color: #333;
-  }
-  
-  .company-card p {
-    margin: 4px 0;
-    font-size: 14px;
-  }
-  
-  .right-section {
-    width: 35%; /* Ajustado para que el formulario no ocupe demasiado espacio */
-  }
-  
-  .form-card {
-    background-color: #ebf5fa;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .form-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  input,
-  textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  textarea {
-    resize: none;
-  }
-  
-  .submit-button {
-    align-self: center;
-    padding: 10px 20px;
-    background-color: #074d99;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  font-family: "Roboto", sans-serif;
+  background-color: #f7f9fc;
+}
+
+.middle-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-image {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.company-card {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  width: 270px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-card h3 {
+  margin-bottom: 15px;
+  color: #003366;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.company-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.right-section {
+  width: 30%;
+}
+
+.form-card {
+  background: #cde6f1;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #053b71;
+}
+
+dx-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+dx-button {
+  align-self: center;
+  text-align: center;
+  background-color: #5395f9 !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  padding: 8px 18px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+dx-button:hover {
+  background-color: #4e8be8 !important;
+}
+
+dx-textbox,
+dx-textarea {
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  transition: border 0.3s ease !important;
+}
+
+dx-textbox:focus,
+dx-textarea:focus {
+  border: 1px solid #0d6efd !important;
+  outline: none !important;
+}
+
+dx-textarea {
+  resize: none !important;
+  height: 100px !important;
+}
+

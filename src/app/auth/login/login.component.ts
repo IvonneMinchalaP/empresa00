@@ -23,11 +23,12 @@ export class LoginComponent {
 
       this.usuarioService.iniciarSesion({ Email, Contrasena }).subscribe(
         (response: any) => {
-          if (response.token) {
-            // Guardar el token en el almacenamiento local
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('usuarioID', response.usuarioID.toString());
-            console.log('Inicio de sesión exitoso:', response);
+          if (response.token ) {
+          // Guardar el token, usuarioID y Nombre en sessionStorage
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('usuarioID', response.usuarioID.toString());
+          sessionStorage.setItem('nombre', response.nombre);
+          console.log('Inicio de sesión exitoso:', response);
 
             // Redirigir al usuario a la página de inicio
             this.router.navigate(['feature/home']);

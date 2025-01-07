@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { EmpresasService } from 'src/app/services/empresas.service';
 import { jsPDF } from 'jspdf';
 import * as ExcelJS from 'exceljs';
@@ -20,12 +20,15 @@ export class EmpresasComponent {
 
   empresas: any[] = [];
   isPopupVisible = false;
+  currentEmpresa: any = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: new Date() };
 
+  
   token: string = ''; // Almacenar el token del usuario
   usuarioID: number = 0; // Almacenar el ID del usuario
- // currentEmpresa = {Nombre: '', Email: '', Telefono: '', Ciudad: '', Estado: '',FechaFundacion: new Date() };
-   currentEmpresa: any = {};
 
+  @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
+
+  
   constructor(private empresasService: EmpresasService) {
     this.exportMenuVisible = {
       excel: false,
@@ -71,58 +74,83 @@ export class EmpresasComponent {
     this.currentEmpresa = { Nombre: '', Email: '', Telefono: '', Ciudad: '',Estado:'',FechaFundacion: new Date() };
  }
 
-  guardarEmpresa(): void {
-    const empresaParaGuardar = {
-      ...this.currentEmpresa,
-      FechaFundacion: this.currentEmpresa.FechaFundacion
-        ? this.currentEmpresa.FechaFundacion.toISOString().split('T')[0] // Convertir a string (formato YYYY-MM-DD)
-        : undefined,
-    };
-  
-    this.empresasService.agregarEmpresa(empresaParaGuardar).subscribe(
-      (respuesta) => {
-        console.log('Empresa agregada:', respuesta);
-        this.cargarEmpresas(); // Actualiza la lista de empresas
-        this.cerrarPopup();
-      },
-      (error) => {
-        console.error('Error al agregar empresa:', error);
-      }
-    );
-  }
+ guardarOEditarEmpleado(): void {
+  const empresaParaGuardar = {
+    ...this.currentEmpresa,
+    FechaFundacion: this.currentEmpresa.FechaFundacion
+      ? new Date(this.currentEmpresa.FechaFundacion).toISOString().split('T')[0] // Convertir a string (formato YYYY-MM-DD)
+      : undefined,
+  };
 
-
-  abrirPopup(empresa: any): void {
-    this.empresasService.cargarEmpresa(empresa.EmpresaID).subscribe({
-      next: (data: any) => {
-        this.currentEmpresa = data;
-        this.isPopupVisible = true;
-      },
-      error: (err) => console.error('Error al cargar los datos de la empresa:', err)
-    });
-  }
-
-  editarEmpresa(): void {
-    this.empresasService.actualizarEmpresa(this.currentEmpresa).subscribe({
+  if (this.currentEmpresa.EmpresaID) {
+    // Actualizar Empresa
+    this.empresasService.actualizarEmpresa(empresaParaGuardar).subscribe({
       next: () => {
-        // Actualizar el dataSource del grid
         const index = this.empresas.findIndex(e => e.EmpresaID === this.currentEmpresa.EmpresaID);
         if (index !== -1) {
-          this.empresas[index] = { ...this.currentEmpresa };
+          this.empresas[index] = { ...empresaParaGuardar };
         }
-        this.isPopupVisible = false;
+        console.log('Empresa actualizado:', empresaParaGuardar);
+        this.cargarEmpresas(); // Actualiza la lista de Empresa
+        this.cerrarPopup();
       },
-      error: (err) => console.error('Error al actualizar la empresa:', err)
+      error: (err) => console.error('Error al actualizar el Empresa:', err),
+    });
+  } else {
+    // Agregar Empresa
+    this.empresasService.agregarEmpresa(empresaParaGuardar).subscribe({
+      next: (respuesta) => {
+        console.log('Empresa agregado:', respuesta);
+        this.cargarEmpresas(); // Actualiza la lista de Empresa
+        this.cerrarPopup();
+      },
+      error: (err) => console.error('Error al agregar el Empresa:', err),
     });
   }
- 
+}
 
-  eliminarEmpresa(event: any) {
-    // if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
-    //   const EmpresaID = event.row.data.id;
-    //   this.empresasService.deleteEmpresa(EmpresaID);
-    //   this.loadEmpresas();
-    // }
+
+get tituloPopup(): string {
+  return this.currentEmpresa?.EmpresaID ? 'Actualizar Empresa' : 'Agregar Empresa';
+}
+
+
+abrirPopup(empresa: any): void {
+  if (!empresa) {
+    console.error('No se ha seleccionado una Empresa para editar.');
+    return;
+  }
+  this.empresasService.cargarEmpresa(empresa.EmpresaID).subscribe({
+    next: (data: any) => {
+      this.currentEmpresa = data;
+      this.isPopupVisible = true;
+    },
+    error: (err) => console.error('Error al cargar los datos de la empresa:', err)
+  });
+}
+  eliminarEmpresa(empresaID: number): void {
+    if (confirm('¿Está seguro de que desea eliminar esta empresa?')) {
+      this.empresasService.eliminarEmpresa(empresaID).subscribe({
+        next: (response) => {
+          alert(response?.Mensaje || 'Empresa eliminada correctamente');
+          this.cargarEmpresas(); // Recarga las empresas después de la eliminación
+        },
+        error: (error) => {
+          alert('Error al eliminar la empresa');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+  onEliminarClick(): void {
+    const selectedRowKeys = this.dataGrid.instance.getSelectedRowKeys();
+    if (selectedRowKeys.length > 0) {
+      const empresaID = selectedRowKeys[0].EmpresaID;
+      this.eliminarEmpresa(empresaID);
+    } else {
+      alert('Por favor, seleccione una empresa para eliminar.');
+    }
   }
 
   
@@ -130,7 +158,11 @@ export class EmpresasComponent {
    toggleExportMenu(menu: keyof ExportMenuVisible): void {
     this.exportMenuVisible[menu] = !this.exportMenuVisible[menu];
   }
-
+    // Método para obtener la fecha actual
+  getCurrentDate(): string {
+     const today = new Date();
+    return today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+  }
 
   exportGrid(format: string, selected: boolean) {
     const data = selected ? this.getSelectedRows() : this.empresas;
@@ -186,8 +218,11 @@ export class EmpresasComponent {
       headStyles: { fillColor: [200, 200, 200] }, // Encabezado sombreado
     });
     doc.setFontSize(12);
-    doc.text("Usuario: Admin", 6, 290);
-    doc.text("Fecha exportacion: 12/12/2024", 146, 290);
+    const currentUser = sessionStorage.getItem('nombre') || 'Invitado'; // Usuario actual desde sessionStorage
+    const exportDate = this.getCurrentDate(); // Fecha actual
+    doc.text(`Usuario: ${currentUser}`, 6, 290);
+    doc.text(`Fecha exportación: ${exportDate}`, 146, 290);
+
     doc.save('empresa.pdf');
   }
 
@@ -248,8 +283,10 @@ export class EmpresasComponent {
       ext: { width: 120, height: 50 },
     });
 
-    // Subtítulo
-    const subtitleRow = worksheet.addRow(["Usuario: Admin", "  ", "Fecha exportación: 12/12/2024" ]);
+    // Subtítulo con el nombre del usuario logueado y la fecha actual
+    const usuarioNombre = sessionStorage.getItem('nombre') || 'Usuario desconocido';
+    const currentDate = this.getCurrentDate();
+    const subtitleRow = worksheet.addRow([`Usuario: ${usuarioNombre}`, "", `Fecha exportación: ${currentDate}`]);    subtitleRow.alignment = { horizontal: 'left' };
     subtitleRow.alignment = { horizontal: 'left' };
 
     // Espacio entre títulos y encabezado
