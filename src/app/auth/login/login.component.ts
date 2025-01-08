@@ -16,20 +16,24 @@ export class LoginComponent {
       Contrasena: [''],
     });
   }
-
-  iniciarSesion(){
+  iniciarSesion() {
     if (this.loginForm.valid) {
       const { Email, Contrasena } = this.loginForm.value;
-
-      this.usuarioService.iniciarSesion({ Email, Contrasena }).subscribe(
+  
+      
+      this.usuarioService.iniciarSesion({ Email, Contrasena}).subscribe(
         (response: any) => {
-          if (response.token ) {
-          // Guardar el token, usuarioID y Nombre en sessionStorage
-          sessionStorage.setItem('token', response.token);
-          sessionStorage.setItem('usuarioID', response.usuarioID.toString());
-          sessionStorage.setItem('nombre', response.nombre);
-          console.log('Inicio de sesión exitoso:', response);
-
+          if (response.idrespuesta === 1 && response.mensaje.codigo === "InicioSesionExitoso") {
+            // Extraer datos del mensaje
+            const { token, usuarioID, nombre } = response.mensaje;
+  
+            // Guardar el token, usuarioID y nombre en sessionStorage
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('usuarioID', usuarioID.toString());
+            sessionStorage.setItem('nombre', nombre);
+  
+            console.log('Inicio de sesión exitoso:', response);
+  
             // Redirigir al usuario a la página de inicio
             this.router.navigate(['feature/home']);
           } else {
@@ -46,4 +50,5 @@ export class LoginComponent {
       alert('Por favor, llena todos los campos correctamente.');
     }
   }
+  
 }
