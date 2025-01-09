@@ -2,10 +2,10 @@
   max-width: 300px;
   margin: 50px auto;
   padding: 20px;
-  border: 1px solid #0e70cc;
+  border: 1px solid #0e70cc!important;
   border-radius: 10px;
-  background-color: #e1ebf3;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #e1ebf3!important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1)!important;
   display: flex;
   flex-direction: column;
   align-items: center;  
@@ -29,7 +29,7 @@
 h2 {
   text-align: center;
   margin: 0.3; 
-  color: #333;
+  color: #333!important;
   font-size: 1.6rem; 
 }
 
@@ -40,7 +40,7 @@ margin-top: 10px;
 }
 
 .auth-link a {
-color: #007bff;
+color: #007bff!important;
 text-decoration: none;
 }
 

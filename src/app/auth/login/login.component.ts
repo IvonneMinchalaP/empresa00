@@ -35,7 +35,7 @@ export class LoginComponent {
             console.log('Inicio de sesión exitoso:', response);
   
             // Redirigir al usuario a la página de inicio
-            this.router.navigate(['feature/home']);
+            this.router.navigate(['feature/conocenos']);
           } else {
             console.error('Error en la respuesta del servidor:', response);
             alert('Usuario o contraseña incorrectos');

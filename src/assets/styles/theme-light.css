@@ -1,0 +1,21 @@
+/* Tema Claro */
+body {
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+  header, footer, aside.left-sidebar {
+    background-color: #0d71d5;
+    color: #000;
+  }
+  
+  .page-wrapper {
+    background-color: #f2f2f2;
+  }
+  
+  button, a {
+    color: #007bff;
+  }
+  
+
+  

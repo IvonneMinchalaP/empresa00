@@ -8,7 +8,6 @@
   .card .card-title {
     position: relative; }
 
-    /* Botón de menú dentro del contenedor */
 
 /* Asegurar que el contenedor no ocupe demasiado espacio */
 #main-wrapper {
@@ -37,3 +36,4 @@
     left: 5px;
   }
 }
+

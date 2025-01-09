@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeatureModule } from './feature/feature.module';
-import { DxButtonModule, DxMenuModule } from 'devextreme-angular';
+import { DxButtonModule, DxMenuModule, DxSwitchModule } from 'devextreme-angular';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent
@@ -20,10 +21,16 @@ import { HttpClientModule } from '@angular/common/http';
     DxButtonModule,
     SharedModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    DxSwitchModule,
+    FormsModule,
+    
+
   ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 })
 export class AppModule { }

@@ -6,3 +6,16 @@
     height: 100%;
     text-align: center;
   }
+
+  /* Tema claro */
+body.generic.light {
+  --primary-bg: #ffffff;
+  --primary-color: #000000;
+}
+
+/* Tema oscuro */
+body.generic.dark {
+  --primary-bg: #000000;
+  --primary-color: #ffffff;
+}
+
