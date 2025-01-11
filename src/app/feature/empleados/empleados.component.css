@@ -1,32 +1,87 @@
-/* Contenedor principal */
-.container {
-  margin: 7px;
-  padding: 20px;
+
+/* Contenedor principal para los DataGrids */
+.datagrid-container {
+  display: flex;
+  flex-direction: row; /* Dirección horizontal */
+  gap: 7px; /* Espacio entre los DataGrids */
+  padding: 10px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; 
+  height: 60%;
+  overflow-x: auto; /* Barra de desplazamiento horizontal si es necesario */
+  overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
+  position: relative; /* Necesario para posicionar los botones en la parte inferior */
 }
 
-/* Título */
-.titulo {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #065e98;
-  text-align: center;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-
+/* Estilo para el DataGrid */ 
+dx-data-grid {
+  flex: 1; /* Permitir que el DataGrid ocupe el espacio disponible */
+  min-width: 300px; /* Ancho mínimo para evitar que se colapse demasiado */
+  max-width: 50%; /* Ancho máximo */
+  height: 65%;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
 }
 
-/* Botón Agregar Empleado */
+
+.dx-datagrid-header-panel {
+  background-color: #d3dfec;
+  color: rgb(254, 254, 254);
+}
+
+.dx-datagrid-rowsview .dx-row:hover {
+  background-color: #164169;
+}
+
+.dx-datagrid-rowsview .dx-data-row {
+  transition: background-color 0.3s;
+}
+
+.dx-datagrid-pager {
+  margin-top: 40px;
+}
+
+/* Contenedor envolvente de los botones */
+.button-wrapper {
+  display: flex;
+  padding: 8px 16px; /* Espaciado interno alrededor de los botones */
+  justify-content: flex-start; /* Alinea el contenedor a la izquierda */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  background-color: #f1f1f1; /* Color de fondo del contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidad */
+  margin-bottom: 20px; /* Margen inferior para separar de otros elementos */
+}
+
+/* Contenedor de los botones */
 .button-container {
-  text-align: right;
-  margin-bottom: 20px;
-  
+  display: flex;
+  flex-direction: row; /* Los botones se alinean horizontalmente */
+  justify-content: flex-start; /* Alinea los botones al lado izquierdo */
+  gap: 5px; /* Espaciado más amplio entre botones */
 }
+
+/* Estilo de los botones */
+dx-button {
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves para los botones */
+}
+
+dx-button:hover {
+  background-color: #e0e0e0; /* Fondo más oscuro al pasar el mouse */
+  transform: translateY(-2px); /* Sutil efecto de elevación al pasar el mouse */
+}
+
+dx-button:focus {
+  outline: none; /* Elimina el contorno del botón al hacer foco */
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.2); /* Agrega una sombra suave al enfocar */
+}
+
+
 
 /* Botones en el popup */
 .form-actions {
@@ -149,46 +204,22 @@ dx-button:hover {
   opacity: 0.9;
 }
 
-/* DataGrid */
-dx-data-grid {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; 
-}
-
-.dx-datagrid-header-panel {
-  background-color: #007bff;
-  color: white;
-}
-
-.dx-datagrid-rowsview .dx-row:hover {
-  background-color: #f1f3f5;
-}
-
-.dx-datagrid-rowsview .dx-data-row {
-  transition: background-color 0.3s;
-}
-
-.dx-datagrid-pager {
-  margin-top: 40px;
-}
-
 
 /* Accordion */
+
 ::ng-deep #accordion {
-  padding: 10px;
+  padding: 7px;
   border: 1px solid #084c95;
   border-top: none;
   border-radius: 0 0 8px 8px;
-  background-color: #f8f9fa;
+  background-color: #164471;
   transition: background-color 0.3s ease;
 }
 
 ::ng-deep #accordion-container {
   margin: 20px;
+  
+
 }
 
 
@@ -206,9 +237,6 @@ dx-data-grid {
 #accordion-button:hover {
   background-color: #31068d;
 }
-
-
-
 
 export-buttons-container {
   display: flex;

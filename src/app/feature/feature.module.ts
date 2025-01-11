@@ -13,7 +13,6 @@ import { FeaturesRoutingModule } from './feature-routing';
 import { EmpleadosService } from '../services/empleados.service';
 import { EmpresasService } from '../services/empresas.service';
 import { SidebarService } from '../services/sidebar.service';
-import { HomeComponent } from './home/home.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ContactanosComponent } from './contacto/contactanos.component';
 import { UsuarioComponent } from './usuario/usuario.component';
@@ -30,7 +29,6 @@ import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModul
     FeatureComponent,
     EmpleadosComponent,
     EmpresasComponent,
-    HomeComponent,
     ConocenosComponent,
     ContactanosComponent,
     UsuarioComponent
@@ -78,7 +76,6 @@ import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModul
     EmpleadosComponent,
     EmpresasComponent,
     UsuarioComponent,
-    HomeComponent,
     ConocenosComponent,
     ContactanosComponent
   ],

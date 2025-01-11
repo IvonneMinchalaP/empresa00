@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class EmpleadosService {
   private apiUrlObtenerEmpleado= 'https://localhost:7085/api/empleado/obtener-empleado'; 
+  private apiUrlObtenerEmpleadoData= 'https://localhost:7085/api/empleado/obtener-empleadoData'; 
   private apiUrlcargarEmpleado = 'https://localhost:7085/api/empleado/cargar'; 
   private apiUrlAgregarEmpleado = 'https://localhost:7085/api/empleado/agregar';
   private apiUrlActualizarEmpleado = 'https://localhost:7085/api/empleado/actualizar'; 
@@ -22,6 +23,18 @@ export class EmpleadosService {
     });
     return this.http.get(this.apiUrlObtenerEmpleado, { headers });
   }
+
+  obtenerEmpleadoData() {
+    const token = sessionStorage.getItem('token'); 
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.apiUrlObtenerEmpleadoData, { headers });
+  }
+
+
 
   agregarEmpleado(empleado: any) : Observable<any>{
     const token = sessionStorage.getItem('token'); 

@@ -4,6 +4,8 @@ import { jsPDF } from 'jspdf';
 import * as ExcelJS from 'exceljs'; 
 import autoTable from 'jspdf-autotable';
 import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 
 interface ExportMenuVisible {
   excel: boolean;
@@ -22,6 +24,9 @@ export class EmpleadosComponent implements OnInit {
 
 
   empleados: any[] = [];
+  empleadosData: any[] = [];
+ 
+
   // Controla la visibilidad del popup
   isPopupVisible = false;
   accordionOpen = false;
@@ -29,30 +34,44 @@ export class EmpleadosComponent implements OnInit {
 
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
 
-
+    tooltipContent: string = '';
+    target: any = null;
+    tooltipVisible: boolean = false;
+    contextMenuVisible: boolean = false;
+    contextMenuTarget: any = null;
   constructor(private empleadosService: EmpleadosService  ) {
     this.exportMenuVisible = {
       excel: false,
       pdf: false
     };
+    empleadosService.obtenerEmpleado().subscribe((data: any) => {
+      this.empleados = data;
+    });
 
   }
 
  ngOnInit(): void {
     this.cargarEmpleado();
+    this.cargarEmpleadoData();
   }
 
   cargarEmpleado(): void {
     this.empleadosService.obtenerEmpleado().subscribe(
         (data: any) => {
+          let dataArr : any[]= [];
           if (data && data.empleados) {
-            this.empleados = data.empleados.map((empleado: any) => {
+           
+             data.empleados.map((empleado: any) => {
               if (empleado.FechaIngreso) {
                 empleado.FechaIngreso = new Date(empleado.FechaIngreso); // Convertir a Date
               }
-              return empleado;
+           
+             dataArr.push(empleado);
             });
+            this.empleados = dataArr;
+            console.log('Empleado:', this.empleados);
           } else {
+            dataArr=[];
             console.error('No se encontraron empleados');
           }
         },
@@ -61,8 +80,58 @@ export class EmpleadosComponent implements OnInit {
         }
       );
   }
-   
+  cargarEmpleadoData(): void {
+    this.empleadosService.obtenerEmpleadoData().subscribe(
+        (data: any) => {
+          let dataArr : any[]= [];
+          if (data && data.empleadosData) {
+           
+             data.empleadosData.map((empleado: any) => {
+              if (empleado.FechaIngreso) {
+                empleado.FechaIngreso = new Date(empleado.FechaIngreso); // Convertir a Date
+              }
+           
+             dataArr.push(empleado);
+            });
+            this.empleadosData = dataArr;
+            console.log('EmpleadosData cargado:', this.empleadosData);
+          } else {
+            dataArr=[];
+            console.error('No se encontraron empleados Data');
+          }
+        },
+        (error) => {
+          console.error('Error al cargar empleados', error);
+        }
+      );
+  }
  
+   // Row dragging options for the first DataGrid
+   rowDraggingOptions1 = {
+    allowReordering: true,
+    group: 'empleadosGroup',
+    onAdd: (e: any) => {
+      const item = e.itemData;
+      this.empleados.push(item);
+      this.empleadosData = this.empleadosData.filter(emp => emp.EmpleadoID !== item.EmpleadoID);
+      console.log('onAdd', e.itemData, this.empleados);
+
+    }
+  };
+
+  // Row dragging options for the second DataGrid
+  rowDraggingOptions2 = {
+    allowReordering: true,
+    group: 'empleadosGroup',
+    onAdd: (e: any) => {
+      const item = e.itemData;
+      this.empleadosData.push(item);
+      this.empleados = this.empleados.filter(emp => emp.EmpleadoID !== item.EmpleadoID);
+      console.log('onAdd', e.itemData, this.empleadosData);
+
+    }
+  };
+  
   cerrarPopup(): void {
     this.isPopupVisible = false;
   }

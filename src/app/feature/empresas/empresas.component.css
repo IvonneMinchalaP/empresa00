@@ -1,10 +1,12 @@
 /* Contenedor principal */
-.container {
+.container-Empresas {
   margin: 20px;
   padding: 10px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+
 }
 
 /* Título */
@@ -25,11 +27,11 @@
   margin-bottom: 20px;
   
 }
+dx-data-grid { 
+  overflow: auto;
+}
 
-/* Formulario en el popup 
-.popup-content {
-  padding: 20px;
-}*/
+
 
 /* Estilo para cada grupo de campos */
 .form-group {
@@ -104,23 +106,23 @@
 }
 
 ::ng-deep  dx-button-default {
-  background-color: #10476b;
+  background-color: #10476b!important;
   color: #fff;
   border: none;
 }
 
 ::ng-deep dx-button-default:hover {
-  background-color: #29b959;
+  background-color: #1751a8!important;
 }
 
 ::ng-deep .dx-popup .dx-button-danger {
-  background-color: #e74c3c;
+  background-color: #e74c3c!important;
   color: #fff;
   border: none;
 }
 
 ::ng-deep .dx-popup .dx-button-danger:hover {
-  background-color: #c0392b;
+  background-color: #c0392b!important;
 }
 
 /* Input */
@@ -182,5 +184,6 @@ export-buttons-container {
   padding: 10px;
   border: 1px solid #ccc;
   border-top: none;
+  background-color: #f9f9f9;
 }
 

@@ -1,16 +1,16 @@
 /* Tema Oscuro*/
 body {
-    background-color: #121212;
+    background-color: #3f3e3e;
     color: #e0e0e0;
   }
   
   header, footer, aside.left-sidebar {
-    background-color: #3a3838!important;
+    background-color: #504e4e!important;
     color: #fff!important;
   }
   
   .page-wrapper {
-    background-color: #333333;
+    background-color: #474343;
   }
   
   button, a {
@@ -18,14 +18,14 @@ body {
   }
 /* Tema Oscuro - Estilos para la pantalla de contacto */
 .contact-container {
-  background-color: #121212; /* Fondo negro */
+  background-color:  #474343!important; /* Fondo negro */
   color: #e0e0e0; /* Texto claro */
 }
 
 .middle-section .company-card {
-  background: #1f1f1f; /* Fondo oscuro para la tarjeta */
-  color: #e0e0e0; /* Texto claro */
-  border: 1px solid #333; /* Bordes oscuros */
+  background:  #c5c1c1!important; /* Fondo oscuro para la tarjeta */
+  color: #e4e2e2; /* Texto claro */
+  border: 1px solid #656161; /* Bordes oscuros */
 }
 
 .middle-section .contact-image {
@@ -33,14 +33,27 @@ body {
 }
 
 .right-section .form-card {
-  background: #1f1f1f; /* Fondo oscuro para el formulario */
+  background: #b8b5b5; /* Fondo oscuro para el formulario */
   color: #e0e0e0; /* Texto claro */
   border: 1px solid #333; /* Bordes oscuros */
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Sombra suave */
 }
 
 dx-textbox, dx-textarea {
-  background-color: #333; /* Fondo oscuro para los campos de texto */
+  background-color: #474343; /* Fondo oscuro para los campos de texto */
   color: #e0e0e0; /* Texto claro */
   border: 1px solid #555; /* Bordes más oscuros */
 }
+.datagrid-container {
+  background-color: #474343!important;
+  border: 1px solid #333; /* Bordes oscuros */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Sombra suave */
+
+}
+.button-wrapper {
+  background-color: #5d5d5d!important;
+  border: 1px solid #333; /* Bordes oscuros */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Sombra suave */
+
+}
+  

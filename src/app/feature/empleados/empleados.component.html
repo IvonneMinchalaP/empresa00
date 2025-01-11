@@ -2,6 +2,7 @@
 <div class="accordion-container">
   <dx-accordion 
   [collapsible]="true"
+
    #accordion  >
     <dxi-item title="Exportar">
       <!-- Exportar a Excel -->
@@ -47,156 +48,214 @@
   </dx-accordion>
 </div>
 
+  <div class="button-wrapper">
+    <div class="button-container">
+      <dx-button
+        hint="Agregar"
+        icon="add"
+        type="default"
+        stylingMode="contained"
+        (onClick)="mostrarPopup()"
+      ></dx-button>
+      <dx-button
+        hint="Editar"
+        icon="edit"
+        type="default"
+        stylingMode="contained"
+        (onClick)="abrirPopup(empleadoGrid1.instance.getSelectedRowsData()[0])"
 
-<div class="container">
-  <h2 class="titulo">Gestión de Empleados</h2>
-  
-  <!-- Botón Agregar Empleado -->
-  <div class="button-container">
-    <dx-button
-      hint="Agregar"
-      icon="add"
-      type="default"
-      stylingMode="contained"
-      (onClick)="mostrarPopup()"
-    ></dx-button>
-    <dx-button
-      hint="Editar"
-      icon="edit"
-      type="default"
-      stylingMode="contained"
-      (onClick)="abrirPopup(empleadoGrid.instance.getSelectedRowsData()[0])"
-
-    ></dx-button>
-    <dx-button
-      hint="Eliminar"
-      icon="trash"
-      type="default"
-      stylingMode="contained"
-      (onClick)="onEliminarClick()"
-    ></dx-button>
-    
-  </div>
-  
-  <!-- DataGrid con la información de los empleados -->
-
-<dx-data-grid 
-  #empleadoGrid
-  [dataSource]="empleados" 
-  [showBorders]="true" 
-  [rowAlternationEnabled]="true" 
-  [columnAutoWidth]="true"
-  [selection]="{ mode: 'multiple' }"
-  (onSelectionChanged)="onSelectionChanged($event)"
-  [groupPanel]="{visible:true}"
-  [grouping]="{autoExpandAll:true}"
-  [allowColumnResizing]="true"
-  [allowColumnReordering]="true"
- >
- <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  <dxo-paging [pageSize]="5"> </dxo-paging>
-  <dxo-pager
-    [visible]="true"
-    [allowedPageSizes]="[5, 10, 'all']"
-    [showPageSizeSelector]="true"
-    [showInfo]="true"
-    [showNavigationButtons]="true">
+      ></dx-button>
+      <dx-button
+        hint="Eliminar"
+        icon="trash"
+        type="default"
+        stylingMode="contained"
+        (onClick)="onEliminarClick()"
+      ></dx-button>
+    </div>  
+  </div> 
+    <!-- DataGrid con la información de los empleados -->
+    <div class="datagrid-container">
+      
+    <dx-data-grid 
+      #empleadoGrid1
+      [dataSource]="empleados" 
+      [showBorders]="true" 
+      [rowAlternationEnabled]="true" 
+      [columnAutoWidth]="true"
+      [selection]="{ mode: 'multiple' }"
+      (onSelectionChanged)="onSelectionChanged($event)"
+      [groupPanel]="{visible:true}"
+      [grouping]="{autoExpandAll:true}"
+      [allowColumnResizing]="true"
+      [allowColumnReordering]="true"
+      [rowDragging]="rowDraggingOptions1"
     >
-  </dxo-pager>
-  <dxo-header-filter [visible]="true"></dxo-header-filter>
-  <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
-  
-  <dxo-form labelLocation="top"></dxo-form>
-  <dxo-popup [showTitle]="true" title="Actualizar Empleado">
-  </dxo-popup>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-paging [pageSize]="2"> </dxo-paging>
+      <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="[20, 5, 'all']"
+        [showPageSizeSelector]="true"
+        [showInfo]="true"
+        [showNavigationButtons]="true">
+        >
+      </dxo-pager>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+      <!-- <dxo-row-dragging group="tasksGroup" [onAdd]="onAdd"></dxo-row-dragging> -->
 
-  <dxi-column dataField="EmpleadoID" caption="ID"></dxi-column>
+      <dxo-form labelLocation="top"></dxo-form>
 
-  <dxi-column 
-    dataField="Nombre" 
-    caption="Nombre">
-  </dxi-column>
+      <dxi-column dataField="EmpleadoID" caption="ID"></dxi-column>
 
-  <dxi-column 
-    dataField="Email" 
-    caption="Email"
+      <dxi-column 
+        dataField="Nombre" 
+        caption="Nombre">
+      </dxi-column>
+
+     
+      <dxi-column 
+        dataField="Puesto" 
+        caption="Puesto"
+        >
+        
+      </dxi-column>
+
+      <dxi-column
+        dataField="Telefono"
+        caption="Teléfono">
+      </dxi-column>
+
+      <dxi-column
+        dataField="FechaIngreso"
+        caption="Fecha de Ingreso"
+        dataType="date"
+        format="shortDate"
+      ></dxi-column>
+        
+      </dx-data-grid>
+
+   <!-- Segundo DataGrid -->
+    <dx-data-grid 
+    #empleadoGrid2
+    [dataSource]="empleadosData"
+    [showBorders]="true" 
+    [rowAlternationEnabled]="true" 
+    [columnAutoWidth]="true"
+    [selection]="{ mode: 'multiple' }"
+    (onSelectionChanged)="onSelectionChanged($event)"
+    [groupPanel]="{visible:true}"
+    [grouping]="{autoExpandAll:true}"
+    [allowColumnResizing]="true"
+    [allowColumnReordering]="true"
+    [rowDragging]="rowDraggingOptions2"
+
     >
-  </dxi-column>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling> 
+    <dxo-paging [pageSize]="2"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[2, 5, 'all']"
+      [showPageSizeSelector]="true"
+      [showInfo]="true"
+      [showNavigationButtons]="true">
+      >
+    </dxo-pager>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+    <!-- <dxo-row-dragging group="tasksGroup" [onAdd]="onAdd"></dxo-row-dragging> -->
 
-  <dxi-column 
-    dataField="Puesto" 
-    caption="Puesto"
+    <dxo-form labelLocation="top"></dxo-form>
+
+    <dxi-column dataField="EmpleadoID" caption="ID"></dxi-column>
+
+    <dxi-column 
+      dataField="Nombre" 
+      caption="Nombre">
+    </dxi-column>
+
+    <dxi-column 
+      dataField="Email" 
+      caption="Email"
+      >
+    </dxi-column>
+
+    <dxi-column 
+      dataField="Puesto" 
+      caption="Puesto"
+      >
+      
+    </dxi-column>
+
+    <dxi-column
+      dataField="Telefono"
+      caption="Teléfono">
+    </dxi-column>
+
+    <dxi-column
+      dataField="FechaIngreso"
+      caption="Fecha de Ingreso"
+      dataType="date"
+      format="shortDate"
+    ></dxi-column>
+      
+    </dx-data-grid>
+
+
+    <dx-popup
+    [visible]="isPopupVisible"
+    [dragEnabled]="true"
+    [showTitle]="true"
+    [title]="tituloPopup"
+    [width]="500"
+    [height]="500"
+    (onHiding)="cancelarEdicion()"
     >
-    
-  </dxi-column>
-
-  <dxi-column
-    dataField="Telefono"
-    caption="Teléfono">
-  </dxi-column>
-
-  <dxi-column
-    dataField="FechaIngreso"
-    caption="Fecha de Ingreso"
-    dataType="date"
-    format="shortDate"
-  ></dxi-column>
-    
-  </dx-data-grid>
-
-  <!-- Popup para Agregar -->
-  <dx-popup
-  [visible]="isPopupVisible"
-  [dragEnabled]="true"
-  [showTitle]="true"
-  [title]="tituloPopup"
-  [width]="500"
-  [height]="500"
-  (onHiding)="cancelarEdicion()"
-  >
-  <div *dxTemplate="let data of 'content'" class="popup-content">
-    <form>
-      <div class="form-group">
-        <label>Nombre:</label>
-        <dx-text-box [(value)]="currentEmpleado.Nombre"></dx-text-box>
-      </div>
-      <div class="form-group">
-        <label>Correo:</label>
-        <dx-text-box [(value)]="currentEmpleado.Email"></dx-text-box>
-      </div>
-      <div class="form-group">
-        <label>Puesto:</label>
-        <dx-text-box [(value)]="currentEmpleado.Puesto"></dx-text-box>
-      </div>
-      <div class="form-group">
-        <label>Teléfono:</label>
-        <dx-text-box [(value)]="currentEmpleado.Telefono"></dx-text-box>
-      </div>
-      <div>
-        <label>Fecha de Ingreso:</label>
-        <dx-date-box
-          [value]="currentEmpleado.FechaIngreso"
-          displayFormat="dd/MM/yyyy"
-        ></dx-date-box>
-      </div> 
-    
-      <div class="form-actions">
-        <dx-button
-          text="Guardar"
-          icon="save"
-          type="success"
-          stylingMode="contained"
-          (onClick)="guardarOEditarEmpleado()">
-        </dx-button>
-        <dx-button
-          text="Cancelar"
-          icon="close"
-          type="danger"
-          stylingMode="outlined"
-          (onClick)="cancelarEdicion()">
-        </dx-button>
-      </div>
-    </form>
-  </div>
+    <div *dxTemplate="let data of 'content'" class="popup-content">
+      <form>
+        <div class="form-group">
+          <label>Nombre:</label>
+          <dx-text-box [(value)]="currentEmpleado.Nombre"></dx-text-box>
+        </div>
+        <div class="form-group">
+          <label>Correo:</label>
+          <dx-text-box [(value)]="currentEmpleado.Email"></dx-text-box>
+        </div>
+        <div class="form-group">
+          <label>Puesto:</label>
+          <dx-text-box [(value)]="currentEmpleado.Puesto"></dx-text-box>
+        </div>
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <dx-text-box [(value)]="currentEmpleado.Telefono"></dx-text-box>
+        </div>
+        <div>
+          <label>Fecha de Ingreso:</label>
+          <dx-date-box
+            [value]="currentEmpleado.FechaIngreso"
+            displayFormat="dd/MM/yyyy"
+          ></dx-date-box>
+        </div> 
+      
+        <div class="form-actions">
+          <dx-button
+            text="Guardar"
+            icon="save"
+            type="success"
+            stylingMode="contained"
+            (onClick)="guardarOEditarEmpleado()">
+          </dx-button>
+          <dx-button
+            text="Cancelar"
+            icon="close"
+            type="danger"
+            stylingMode="outlined"
+            (onClick)="cancelarEdicion()">
+          </dx-button>
+        </div>
+      </form>
+    </div>
   </dx-popup>
+</div>
 
