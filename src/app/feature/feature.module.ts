@@ -4,7 +4,8 @@ import { FeatureComponent } from './feature.component';
 import { SharedModule } from '../shared/shared.module';
 import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFormModule, 
         DxMenuModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSliderModule, DxTagBoxModule,
-         DxTemplateModule,DxTextBoxModule } from 'devextreme-angular';
+         DxTemplateModule,DxTextBoxModule, 
+         DxTreeListModule} from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpresasComponent } from './empresas/empresas.component';
@@ -21,6 +22,7 @@ import { dxItem } from 'devextreme/ui/widget/ui.widget';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModule, DxoPagerModule, DxoPagingModule, DxoScrollingModule } from 'devextreme-angular/ui/nested';
+import { GeografiaComponent } from './Geografia/geografia.component';
 
 
 
@@ -31,7 +33,8 @@ import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModul
     EmpresasComponent,
     ConocenosComponent,
     ContactanosComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    GeografiaComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +65,9 @@ import { DxiColumnModule, DxiItemModule, DxoGroupingModule, DxoHeaderFilterModul
     DxoPagerModule,
     DxoHeaderFilterModule,
     DxoGroupingModule,
-    DxiColumnModule
+    DxiColumnModule,
+    DxTreeListModule
+
 
 
 ],

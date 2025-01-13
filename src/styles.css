@@ -3,68 +3,7 @@ html, body{
     width: 100%;
     height: 100%;
 }
-/* .dx-switch-off {
-    padding-left: 2px;
-    color: #2b2929;
-    display: none
+dx-tree-list {
+  background-color: #87CEEB !important; 
+  overflow: hidden;
 }
-
-.dx-switch-on {
-    padding-left: 2px;
-    color: #0e0e0d;
-
-}
-
-.dx-switch-container {
-    display: inline-block;
-    width: 100%;
-    vertical-align: middle;
-    overflow: hidden;
-    margin: 0 -6px 0 0;
-    padding: 0 2px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    background: #f6f2f2;
-    border-radius: 2px;
-}
-
-.dx-switch .dx-switch-wrapper {
-    display: inline-block;
-    text-align: left;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-
-}
-.dx-switch {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 60px;
-    height: 30px;
-    background-color: #cac0c0;
-    border-radius: 15px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  
-  .switch-icon {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .switch-icon.light {
-    transform: translateX(5px);
-  }
-  
-  .switch-icon.dark {
-    transform: translateX(30px);
-  }
-   */

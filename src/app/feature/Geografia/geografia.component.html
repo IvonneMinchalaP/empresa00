@@ -1,0 +1,14 @@
+
+<dx-tree-list
+  [dataSource]="geograficas"
+  keyExpr="id"
+  parentIdExpr="parentId"
+  [columns]="[
+    { dataField: 'text', caption: 'Paises' }
+  ]"
+  [showRowLines]="true"
+  [showBorders]="true"
+  [expandMode]="'rowClick'"
+  [autoExpandAll]="true">
+</dx-tree-list>
+

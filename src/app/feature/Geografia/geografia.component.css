@@ -1,0 +1,21 @@
+::ng-deep .dx-tree-list {
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+  border: 1px solid #043246; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #87CEEB !important; 
+
+  overflow: hidden;
+}
+
+dx-tree-list:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.bold-country {
+  font-weight: bold; 
+  color: #120692; 
+}

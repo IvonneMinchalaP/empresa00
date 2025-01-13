@@ -6,6 +6,7 @@ import { FeatureComponent } from './feature.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ContactanosComponent } from './contacto/contactanos.component';
 import { UsuarioComponent } from './usuario/usuario.component';
+import { GeografiaComponent } from './Geografia/geografia.component';
 
 const routes: Routes = [
   {path: 'feature', 
@@ -14,9 +15,10 @@ const routes: Routes = [
      
       { path: 'empresas', component: EmpresasComponent },
       { path: 'empleados', component: EmpleadosComponent},
+      { path: 'geografia', component: GeografiaComponent } ,
       { path: 'usuario', component: UsuarioComponent},
       { path: 'conocenos', component: ConocenosComponent },  
-      { path: 'contactanos', component: ContactanosComponent } 
+      { path: 'contactanos', component: ContactanosComponent }, 
     ]},
 
 ];
